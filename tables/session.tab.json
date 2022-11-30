@@ -18,9 +18,10 @@
       ]
     },
 
+    "before:search": "scripts.pet.BeforeSearch",
+    "after:search": "scripts.pet.AfterSearch",
     "find": { "guard": "-" },
     "get": { "guard": "bearer-jwt,scripts.pet.Guard" },
-
     "save": {},
     "delete": {}
   },

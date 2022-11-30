@@ -8,6 +8,13 @@
 function BeforeSearch(query, page, pagesize) {
   query = query || {};
   pagesize = 1;
+
+  let user_id = Process("session.Get", "user_id");
+  console.log(
+    `[BeforeSearch] query.wheres[0].value = ${query.wheres[0].value}`
+  );
+  console.log(`[BeforeSearch] session.Get user_id = ${user_id}`);
+
   return [query, page, pagesize];
 }
 
@@ -19,6 +26,10 @@ function BeforeSearch(query, page, pagesize) {
  * @returns
  */
 function Search(query, page, pagesize) {
+  query = query || {};
+  let user_id = Process("session.Get", "user_id");
+  console.log(`[Search] query.wheres[0].value = ${query.wheres[0].value}`);
+  console.log(`[Search] session.Get user_id = ${user_id}`);
   return Process("models.pet.Paginate", query, page, pagesize);
 }
 
@@ -29,6 +40,8 @@ function Search(query, page, pagesize) {
  */
 function AfterSearch(resp) {
   resp["after:hook"] = "AfterSearch";
+  let user_id = Process("session.Get", "user_id");
+  console.log(`[AfterSearch] session.Get user_id = ${user_id}`);
   return resp;
 }
 
