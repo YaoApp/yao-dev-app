@@ -1,6 +1,9 @@
 {
   "name": "::Pet Admin Session",
   "action": {
-    "bind": { "model": "pet", "option": {} }
+    "bind": { "model": "pet", "option": {} },
+    "find": { "process": "scripts.pet.Find" },
+    "before:find": "scripts.pet.BeforeFind",
+    "after:find": "scripts.pet.AfterFind"
   }
 }
