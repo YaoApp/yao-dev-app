@@ -1,0 +1,38 @@
+{
+  "name": "::Category Admin",
+  "action": { "bind": { "model": "category" } },
+  "layout": {
+    "list": {
+      "props": {},
+      "columns": [
+        { "name": "名称", "width": 8 },
+        { "name": "库存预警", "width": 8 },
+        { "name": "类型", "width": 8 }
+      ]
+    }
+  },
+  "fields": {
+    "list": {
+      "名称": {
+        "bind": "name",
+        "edit": { "type": "Input", "props": {} }
+      },
+      "库存预警": {
+        "bind": "stock",
+        "edit": { "type": "InputNumber", "props": {} }
+      },
+      "状态": {
+        "bind": "status",
+        "edit": {
+          "type": "Select",
+          "props": {
+            "options": [
+              { "label": "启用", "value": "启用" },
+              { "label": "停用", "value": "停用" }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

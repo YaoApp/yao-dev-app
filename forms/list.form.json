@@ -1,0 +1,45 @@
+{
+  "name": "::Pet Admin",
+  "action": {
+    "bind": { "model": "pet", "option": { "withs": { "doctor": {} } } }
+  },
+  "layout": {
+    "primary": "id",
+    "operation": {
+      "preset": { "save": { "back": true }, "back": {} },
+      "actions": []
+    },
+    "form": {
+      "props": {},
+      "sections": [
+        {
+          "columns": [
+            { "name": "住院天数", "width": 8 },
+            { "name": "消费金额", "width": 8 },
+            { "name": "列表", "width": 24 }
+          ]
+        }
+      ]
+    },
+    "config": { "showAnchor": true }
+  },
+  "fields": {
+    "form": {
+      "住院天数": {
+        "bind": "stay",
+        "edit": { "type": "Input", "props": {} }
+      },
+      "消费金额": {
+        "bind": "cost",
+        "edit": { "type": "InputNumber", "props": {} }
+      },
+      "列表": {
+        "bind": "test_array",
+        "edit": {
+          "type": "List",
+          "props": { "name": "test", "showLabel": false }
+        }
+      }
+    }
+  }
+}

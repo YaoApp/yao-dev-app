@@ -1,0 +1,4 @@
+{
+  "name": "::Pet Admin",
+  "action": { "bind": { "table": "category" } }
+}
