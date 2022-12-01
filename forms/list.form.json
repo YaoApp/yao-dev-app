@@ -37,7 +37,7 @@
         "bind": "test_array",
         "edit": {
           "type": "List",
-          "props": { "name": "test", "showLabel": false }
+          "props": { "name": "category", "showLabel": false }
         }
       }
     }
