@@ -229,7 +229,12 @@
         "bind": "stay",
         "edit": {
           "type": "Input",
-          "props": {}
+          "props": {
+            "$change": {
+              "process": "scripts.event.OnChange",
+              "query": { "extra": "开发者定义数据" }
+            }
+          }
         }
       },
       "消费金额": {
@@ -257,7 +262,7 @@
           "type": "List",
           "props": {
             "name": "test",
-            "showLabel":false
+            "showLabel": false
           }
         }
       }
