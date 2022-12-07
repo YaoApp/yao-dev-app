@@ -230,7 +230,7 @@
         "edit": {
           "type": "Input",
           "props": {
-            "$change": {
+            "$onChange": {
               "process": "scripts.event.OnChange",
               "query": { "extra": "开发者定义数据" }
             }
