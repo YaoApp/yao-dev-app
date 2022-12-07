@@ -97,3 +97,52 @@ function Guard(path, params, query, payload, headers) {
     throw new Exception("Unit-test throw", 418);
   }
 }
+
+/**
+ * Custom List view compute array
+ */
+function CategoryList(value, ...args) {
+  value = value || [];
+  let categories = [];
+
+  value.forEach((item) => {
+    item = item || {};
+    row = item.category || {};
+    categories.push(row);
+  });
+  return categories;
+}
+
+/**
+ * Custom List view compute array tree
+ * @param {*} value
+ * @param  {...any} args
+ * @returns
+ */
+function CategoryListTree(value, ...args) {
+  let categories = CategoryList(value);
+  let treelist = Process("utils.arr.Tree", categories, {
+    primary: "id", // primary field
+    parent: "parent", // parent field
+    children: "children", // children field
+  });
+  return treelist;
+}
+
+/**
+ * Custom List edit compute
+ * @param {*} value
+ * @param  {...any} args
+ * @returns
+ */
+function CategorySave(id, data) {
+  // flatten tree -> array
+  let categories = Process("utils.tree.Flatten", data, {
+    parent: "parent", // primary field
+    primary: "id", // parent field
+    children: "children", // children field
+  });
+
+  // Save to db
+  console.log(id, categories);
+}

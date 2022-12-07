@@ -4,6 +4,14 @@
   "columns": [
     { "label": "ID", "name": "id", "type": "ID" },
     {
+      "label": "上级",
+      "name": "parent",
+      "type": "integer",
+      "comment": "上级",
+      "nullable": true,
+      "index": true
+    },
+    {
       "label": "名称",
       "name": "name",
       "type": "string",

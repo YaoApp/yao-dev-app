@@ -1,14 +1,20 @@
 {
   "name": "::Pet Admin",
   "action": {
-    "bind": { "model": "pet", "option": { "withs": { "doctor": {} } } }
+    "bind": {
+      "model": "pet",
+      "option": {
+        "withs": {
+          "categories": {
+            "query": { "withs": { "category": {} } }
+          }
+        }
+      }
+    }
   },
   "layout": {
     "primary": "id",
-    "operation": {
-      "preset": { "save": { "back": true }, "back": {} },
-      "actions": []
-    },
+    "operation": { "preset": { "save": {} }, "actions": [] },
     "form": {
       "props": {},
       "sections": [
@@ -16,7 +22,8 @@
           "columns": [
             { "name": "住院天数", "width": 8 },
             { "name": "消费金额", "width": 8 },
-            { "name": "列表", "width": 24 }
+            { "name": "列表", "width": 24 },
+            { "name": "树形列表", "width": 24 }
           ]
         }
       ]
@@ -33,10 +40,34 @@
         "bind": "cost",
         "edit": { "type": "InputNumber", "props": {} }
       },
+
       "列表": {
-        "bind": "test_array",
+        "bind": "categories",
+        "view": { "compute": "scripts.pet.CategoryList" },
         "edit": {
           "type": "List",
+          "compute": {
+            "process": "scripts.pet.CategorySave",
+            "args": ["$C(row.id)", "$C(value)"]
+          },
+          "props": { "name": "category", "showLabel": false }
+        }
+      },
+
+      "树形列表": {
+        "bind": "treelist",
+        "view": {
+          "compute": {
+            "process": "scripts.pet.CategoryListTree",
+            "args": ["$C(row.categories)"]
+          }
+        },
+        "edit": {
+          "type": "List",
+          "compute": {
+            "process": "scripts.pet.CategorySave",
+            "args": ["$C(row.id)", "$C(value)"]
+          },
           "props": { "name": "category", "showLabel": false }
         }
       }

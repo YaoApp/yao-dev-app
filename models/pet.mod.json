@@ -97,6 +97,13 @@
       "query": {
         "select": ["id", "nickname"]
       }
+    },
+    "categories": {
+      "type": "hasMany",
+      "model": "pet.category",
+      "key": "pid",
+      "foreign": "id",
+      "query": { "select": ["id", "cid", "pid"] }
     }
   },
   "values": [],

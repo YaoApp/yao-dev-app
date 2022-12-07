@@ -1,0 +1,21 @@
+{
+  "name": "Category",
+  "table": { "name": "pet_category", "comment": "Pet Category" },
+  "columns": [
+    { "label": "ID", "name": "id", "type": "ID" },
+    { "label": "Pet ID", "name": "pid", "type": "integer", "index": true },
+    { "label": "Category ID", "name": "cid", "type": "integer", "index": true }
+  ],
+  "relations": {
+    "category": {
+      "type": "hasOne",
+      "model": "category",
+      "key": "id",
+      "foreign": "cid",
+      "query": { "select": ["id", "name", "stock", "rank", "parent", "status"] }
+    }
+  },
+  "values": [],
+  "indexes": [],
+  "option": { "timestamps": true, "soft_deletes": true }
+}
