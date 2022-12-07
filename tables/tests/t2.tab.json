@@ -21,12 +21,16 @@
           "title": "添加宠物",
           "icon": "icon-plus",
           "width": 3,
-          "action": {
-            "Common.openModal": {
-              "width": 640,
-              "Form": { "type": "edit", "model": "pet" }
+          "action": [
+            {
+              "name": "openModal",
+              "type": "Common.openModal",
+              "payload": {
+                "width": 640,
+                "Form": { "type": "edit", "model": "pet" }
+              }
             }
-          }
+          ]
         }
       ]
     },

@@ -14,7 +14,7 @@
   },
   "layout": {
     "primary": "id",
-    "operation": { "preset": { "save": {} }, "actions": [] },
+    "actions": [],
     "form": {
       "props": {},
       "sections": [

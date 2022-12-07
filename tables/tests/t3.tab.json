@@ -23,12 +23,16 @@
           {
             "title": "查看",
             "icon": "icon-eye",
-            "action": {
-              "Common.openModal": {
-                "width": 640,
-                "Form": { "type": "view", "model": "pet" }
+            "action": [
+              {
+                "name": "openModal",
+                "type": "Common.openModal",
+                "payload": {
+                  "width": 640,
+                  "Form": { "type": "view", "model": "pet" }
+                }
               }
-            }
+            ]
           }
         ]
       }
