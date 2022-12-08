@@ -9,8 +9,14 @@ function OnChange(query) {
   oldVal = query.old; // 原始值
   extra = query.extra; // 开发者定义数据
 
-  let data = { cost: 1000 }; // 更新消费金额数据, 消费金额
-  let setting = Process("yao.form.Setting", "pet", data); // 根据新数值生成配置信息
+  let data = { cost: 1000, query: query }; // 更新消费金额数据, 消费金额
+  let setting = Process("yao.form.Setting", "pet", data); // 根据新数值生成配置信息;
+
+  // 错误检测
+  if (setting && setting.code && setting.message) {
+    throw new Exception(setting.message, 500);
+  }
+
   return {
     data: data, // 更新消费金额数据, 消费金额
     setting: setting,
