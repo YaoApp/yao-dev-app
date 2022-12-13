@@ -32,10 +32,8 @@
     },
     "filter": {
       "columns": [
-        {
-          "name": "时间区间",
-          "width": 6
-        }
+        { "name": "时间区间", "width": 6 },
+        { "name": "状态", "width": 6 }
       ]
     },
     "chart": {
