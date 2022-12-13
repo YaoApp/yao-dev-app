@@ -1,0 +1,7 @@
+{
+  "name": "::Guard",
+  "action": {
+    "guard": "bearer-jwt,scripts.pet.Guard",
+    "bind": { "model": "pet" }
+  }
+}
