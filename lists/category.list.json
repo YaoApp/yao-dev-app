@@ -16,7 +16,15 @@
     "list": {
       "名称": {
         "bind": "name",
-        "edit": { "type": "Input", "props": {} }
+        "edit": {
+          "type": "Input",
+          "props": {
+            "$on:change": {
+              "process": "scripts.event.OnChangeList",
+              "query": { "extra": "开发者自定义" }
+            }
+          }
+        }
       },
       "库存预警": {
         "bind": "stock",
