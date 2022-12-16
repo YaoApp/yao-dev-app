@@ -10,5 +10,19 @@
     "cover": "/assets/images/login/cover.svg",
     "slogan": "::Make Your Dream With Yao App Engine",
     "site": "https://yaoapps.com"
-  }
+  },
+  "thirdPartyLogin": [
+    {
+      "title": "微信登录",
+      "href": "https://baidu.com",
+      "icon": "/assets/logo_wechat.svg",
+      "blank": true
+    },
+    {
+      "title": "飞书登录",
+      "href": "https://google.com",
+      "icon": "/assets/logo_feishu.svg",
+      "blank": false
+    }
+  ]
 }
