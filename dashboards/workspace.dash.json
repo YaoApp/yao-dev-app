@@ -1,0 +1,79 @@
+{
+  "name": "工作台",
+  "layout": {
+    "dashboard": {
+      "columns": [
+        {
+          "width": 12,
+          "rows": [{ "name": "宠物列表" }, { "name": "图表展示1" }]
+        },
+        { "name": "宠物表单", "width": 12 },
+        { "name": "图表展示2", "width": 24 }
+      ]
+    },
+    "fields": {
+      "dashboard": {
+        "宠物列表": {
+          "edit": {
+            "type": "Table",
+            "props": {
+              "model": "pet",
+              "query": { "status": "cured" }
+            }
+          }
+        },
+        "宠物表单": {
+          "edit": {
+            "type": "Form",
+            "props": {
+              "model": "pet",
+              "query": { "id": "1", "formType": "edit" }
+            }
+          }
+        },
+        "图表展示1": {
+          "data": { "process": "flows.chart_test_1", "args": [] },
+          "edit": {
+            "type": "NumberChart",
+            "props": {
+              "chartHeight": 272,
+              "prefix": "¥",
+              "decimals": 2,
+              "nameKey": "date",
+              "valueKey": "value"
+            }
+          }
+        },
+        "图表展示2": {
+          "data": { "process": "flows.chart_test_1", "args": [] },
+          "edit": {
+            "type": "LineBar",
+            "props": {
+              "height": 240,
+              "nameKey": "name",
+              "axisLabel": { "interval": 0, "fontSize": 12 },
+              "series": [
+                {
+                  "valueKey": "stay",
+                  "type": "line",
+                  "smooth": true,
+                  "symbolSize": 8,
+                  "itemStyle": { "borderRadius": 6 },
+                  "splitLine": { "show": false },
+                  "axisLabel": { "show": false }
+                },
+                {
+                  "valueKey": "cost",
+                  "type": "bar",
+                  "itemStyle": { "borderRadius": 6 },
+                  "splitLine": { "show": false },
+                  "axisLabel": { "show": false }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
