@@ -134,7 +134,7 @@
               {
                 "name": "Save",
                 "type": "Table.save",
-                "payload": { "id": ":id", "status": "cured" }
+                "payload": { "id": "{{ id }}", "status": "cured" }
               }
             ],
             "style": "success",
@@ -147,7 +147,7 @@
               {
                 "name": "historyPush",
                 "type": "Common.historyPush",
-                "payload": { "pathname": "/x/Form/pet/:id/edit" }
+                "payload": { "pathname": "/x/Form/pet/{{ id }}/edit" }
               }
             ]
           },
