@@ -80,7 +80,11 @@
                 },
                 {
                   "title": "More",
-                  "columns": [{ "name": "状态", "width": 12 }]
+                  "columns": [
+                    { "name": "状态", "width": 12 },
+                    { "name": "ID", "width": 12 },
+                    { "name": "名称", "width": 12 }
+                  ]
                 }
               ]
             }
@@ -90,8 +94,6 @@
           "title": "基础信息",
           "desc": "宠物的一些基本信息",
           "columns": [
-            { "name": "ID", "width": 12 },
-            { "name": "名称", "width": 12 },
             { "name": "状态", "width": 12 },
             { "name": "相关图片", "width": 24 }
           ]
