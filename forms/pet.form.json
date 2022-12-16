@@ -12,6 +12,8 @@
       {
         "title": "删除",
         "icon": "icon-trash-2",
+        "divideLine": true,
+        "showWhenAddAndView": true,
         "action": [
           {
             "name": "Delete",
