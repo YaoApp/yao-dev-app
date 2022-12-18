@@ -70,7 +70,11 @@
           "type": "Table",
           "props": {
             "model": "pet",
-            "query": { "status": "cured" }
+            "query": { "status": "cured" },
+            "$on:change": {
+              "process": "scripts.event.OnChange",
+              "query": { "extra": "开发者定义数据" }
+            }
           }
         }
       },
