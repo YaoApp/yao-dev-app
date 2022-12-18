@@ -1,6 +1,33 @@
 {
   "name": "工作台",
+  "action": {
+    "before:data": "scripts.stat.BeforeData",
+    "data": { "process": "scripts.stat.Data", "default": ["2022-09-20"] },
+    "after:data": "scripts.stat.AfterData"
+  },
   "layout": {
+    "actions": [
+      {
+        "title": "跳转至大屏",
+        "icon": "icon-airplay",
+        "action": [
+          {
+            "name": "historyPush",
+            "type": "Common.historyPush",
+            "payload": {
+              "pathname": "/x/Cool/demo",
+              "search": { "a": 123, "b": true }
+            }
+          }
+        ]
+      }
+    ],
+    "filter": {
+      "columns": [
+        { "name": "时间区间", "width": 6 },
+        { "name": "状态", "width": 6 }
+      ]
+    },
     "dashboard": {
       "columns": [
         {
@@ -10,67 +37,90 @@
         { "name": "宠物表单", "width": 12 },
         { "name": "图表展示2", "width": 24 }
       ]
+    }
+  },
+  "fields": {
+    "filter": {
+      "时间区间": {
+        "bind": "range",
+        "edit": {
+          "type": "TimePicker",
+          "props": { "range": true }
+        }
+      },
+      "状态": {
+        "bind": "status",
+        "edit": {
+          "type": "Select",
+          "props": {
+            "xProps": {
+              "$remote": {
+                "process": "models.pet.Get",
+                "query": { "select": "name,status", "limit": 2 }
+              }
+            }
+          }
+        }
+      }
     },
-    "fields": {
-      "dashboard": {
-        "宠物列表": {
-          "edit": {
-            "type": "Table",
-            "props": {
-              "model": "pet",
-              "query": { "status": "cured" }
-            }
+    "dashboard": {
+      "宠物列表": {
+        "view": {
+          "type": "Table",
+          "props": {
+            "model": "pet",
+            "query": { "status": "cured" }
           }
-        },
-        "宠物表单": {
-          "edit": {
-            "type": "Form",
-            "props": {
-              "model": "pet",
-              "query": { "id": "1", "formType": "edit" }
-            }
+        }
+      },
+      "宠物表单": {
+        "view": {
+          "type": "Form",
+          "props": {
+            "model": "pet",
+            "query": { "id": "1", "formType": "edit" }
           }
-        },
-        "图表展示1": {
-          "data": { "process": "flows.chart_test_1", "args": [] },
-          "edit": {
-            "type": "NumberChart",
-            "props": {
-              "chartHeight": 272,
-              "prefix": "¥",
-              "decimals": 2,
-              "nameKey": "date",
-              "valueKey": "value"
-            }
+        }
+      },
+      "图表展示1": {
+        "data": { "process": "flows.chart_test_1", "query": { "foo": "bar" } },
+        "view": {
+          "type": "NumberChart",
+          "props": {
+            "chartHeight": 272,
+            "prefix": "¥",
+            "decimals": 2,
+            "nameKey": "date",
+            "valueKey": "value"
           }
-        },
-        "图表展示2": {
-          "data": { "process": "flows.chart_test_1", "args": [] },
-          "edit": {
-            "type": "LineBar",
-            "props": {
-              "height": 240,
-              "nameKey": "name",
-              "axisLabel": { "interval": 0, "fontSize": 12 },
-              "series": [
-                {
-                  "valueKey": "stay",
-                  "type": "line",
-                  "smooth": true,
-                  "symbolSize": 8,
-                  "itemStyle": { "borderRadius": 6 },
-                  "splitLine": { "show": false },
-                  "axisLabel": { "show": false }
-                },
-                {
-                  "valueKey": "cost",
-                  "type": "bar",
-                  "itemStyle": { "borderRadius": 6 },
-                  "splitLine": { "show": false },
-                  "axisLabel": { "show": false }
-                }
-              ]
-            }
+        }
+      },
+      "图表展示2": {
+        "data": { "process": "flows.chart_test_1", "query": { "foo": "bar" } },
+        "view": {
+          "type": "LineBar",
+          "props": {
+            "height": 240,
+            "nameKey": "name",
+            "axisLabel": { "interval": 0, "fontSize": 12 },
+            "series": [
+              {
+                "valueKey": "stay",
+                "type": "line",
+                "smooth": true,
+                "symbolSize": 8,
+                "itemStyle": { "borderRadius": 6 },
+                "splitLine": { "show": false },
+                "axisLabel": { "show": false }
+              },
+              {
+                "valueKey": "cost",
+                "type": "bar",
+                "itemStyle": { "borderRadius": 6 },
+                "splitLine": { "show": false },
+                "axisLabel": { "show": false }
+              }
+            ]
           }
         }
       }

@@ -128,10 +128,7 @@
             "xProps": {
               "$remote": {
                 "process": "models.pet.Get",
-                "query": {
-                  "select": "name,status",
-                  "limit": 2
-                }
+                "query": { "select": "name,status", "limit": 2 }
               }
             }
           }
