@@ -35,7 +35,8 @@
           "rows": [{ "name": "宠物列表" }, { "name": "图表展示1" }]
         },
         { "name": "宠物表单", "width": 12 },
-        { "name": "图表展示2", "width": 24 }
+        { "name": "图表展示2", "width": 24 },
+        { "name": "收入", "width": 12 }
       ]
     }
   },
@@ -83,7 +84,10 @@
         }
       },
       "图表展示1": {
-        "data": { "process": "flows.chart_test_1", "query": { "foo": "bar" } },
+        "$data": {
+          "process": "flows.dashboards.test1",
+          "query": { "foo": "bar" }
+        },
         "view": {
           "type": "NumberChart",
           "props": {
@@ -96,7 +100,10 @@
         }
       },
       "图表展示2": {
-        "data": { "process": "flows.chart_test_1", "query": { "foo": "bar" } },
+        "$data": {
+          "process": "flows.dashboards.test2",
+          "query": { "foo": "bar" }
+        },
         "view": {
           "type": "LineBar",
           "props": {
@@ -121,6 +128,21 @@
                 "axisLabel": { "show": false }
               }
             ]
+          }
+        }
+      },
+      "收入": {
+        "bind": "income",
+        "link": "/x/Table/pet",
+        "out": "scripts.stat.Income",
+        "view": {
+          "type": "NumberChart",
+          "props": {
+            "chartHeight": 150,
+            "prefix": "¥",
+            "decimals": 2,
+            "nameKey": "date",
+            "valueKey": "value"
           }
         }
       }
