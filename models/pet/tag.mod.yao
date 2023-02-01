@@ -1,0 +1,23 @@
+{
+  "name": "Pet Tags",
+  "table": { "name": "pet_tag", "comment": "Pet tags" },
+  "columns": [
+    { "label": "ID", "name": "id", "type": "ID" },
+    {
+      "label": "Pet ID",
+      "name": "pet_id",
+      "type": "bigInteger",
+      "index": true
+    },
+    {
+      "label": "Tag ID",
+      "name": "tag_id",
+      "type": "bigInteger",
+      "index": true
+    }
+  ],
+  "relations": {},
+  "values": [],
+  "indexes": [],
+  "option": { "timestamps": true, "soft_deletes": true }
+}

@@ -1,14 +1,13 @@
 {
-  "name": "产品",
+  "name": "User API",
   "version": "1.0.0",
-  "description": "产品接口",
+  "description": "User API",
   "guard": "-",
-  "group": "test",
   "paths": [
     {
-      "path": "/setting",
+      "path": "Get",
       "method": "GET",
-      "process": "flows.test.setting",
+      "process": "models.user.Get",
       "in": [],
       "out": { "status": 200, "type": "application/json" }
     }

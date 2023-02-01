@@ -1,0 +1,15 @@
+{
+  "name": "User Pet API",
+  "version": "1.0.0",
+  "description": "User Pet API",
+  "guard": "-",
+  "paths": [
+    {
+      "path": "Get",
+      "method": "GET",
+      "process": "models.pet.Get",
+      "in": [],
+      "out": { "status": 200, "type": "application/json" }
+    }
+  ]
+}

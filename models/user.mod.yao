@@ -147,6 +147,27 @@
       "nullable": true
     },
     {
+      "label": "Type",
+      "comment": "Type",
+      "name": "type",
+      "type": "enum",
+      "default": "admin",
+      "option": ["admin", "staff"],
+      "index": true,
+      "validations": [
+        {
+          "method": "typeof",
+          "args": ["string"],
+          "message": "{{input}} Error, {{label}} should be string"
+        },
+        {
+          "method": "enum",
+          "args": ["admin", "staff"],
+          "message": "{{input}} Error, {{label}} should be admin/staff"
+        }
+      ]
+    },
+    {
       "label": "Status",
       "comment": "Status",
       "name": "status",

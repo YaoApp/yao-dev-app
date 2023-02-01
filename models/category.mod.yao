@@ -1,0 +1,27 @@
+{
+  "name": "Category",
+  "table": { "name": "category", "comment": "Category" },
+  "columns": [
+    { "label": "ID", "name": "id", "type": "ID" },
+    {
+      "label": "Name",
+      "name": "name",
+      "type": "string",
+      "length": 256,
+      "comment": "Name",
+      "index": true,
+      "nullable": true
+    },
+    {
+      "label": "Parent ID",
+      "name": "parent_id",
+      "type": "bigInteger",
+      "index": true,
+      "nullable": true
+    }
+  ],
+  "relations": {},
+  "values": [],
+  "indexes": [],
+  "option": { "timestamps": true, "soft_deletes": true }
+}
