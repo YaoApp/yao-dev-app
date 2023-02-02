@@ -1,0 +1,37 @@
+{
+  "name": "Session",
+  "version": "1.0.0",
+  "description": "Session TestFlow",
+  "nodes": [
+    {
+      "name": "ID",
+      "process": "session.Get",
+      "args": ["id"]
+    },
+    {
+      "name": "User",
+      "engine": "query-test",
+      "query": {
+        // "debug": true,
+        "select": ["id", "name", "type"],
+        "from": "$user",
+        "wheres": [{ ":id": "用户ID", "=": "?:$res.ID" }],
+        "first": true
+      }
+    },
+    {
+      "name": "SetUserType",
+      "process": "session.Set",
+      "args": ["type", "{{$res.User.type}}"]
+    },
+    { "name": "SessionData", "process": "session.Dump" }
+  ],
+  "output": {
+    "ID": "{{$res.ID}}",
+    "SessionData": "{{$res.SessionData}}",
+    "Global": "{{$global}}",
+    "User": "{{$res.User}}",
+    "Args": "{{$in}}",
+    "Res": "{{$res}}"
+  }
+}
