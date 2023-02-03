@@ -1,0 +1,17 @@
+// Send Mail test
+{
+  "name": "发送邮件",
+  "worker_nums": "$ENV.SEND_MAIL_WORKER_NUMS",
+  "attempts": 3,
+  "attempt_after": 200,
+  "timeout": 2,
+  "size": 1000,
+  "process": "scripts.tests.task.mail.Send",
+  "event": {
+    "next": "scripts.tests.task.mail.NextID",
+    "add": "scripts.tests.task.mail.OnAdd",
+    "success": "scripts.tests.task.mail.OnSuccess",
+    "error": "scripts.tests.task.mail.OnError",
+    "progress": "scripts.tests.task.mail.OnProgress"
+  }
+}
