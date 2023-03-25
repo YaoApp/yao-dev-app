@@ -13,6 +13,24 @@
       "nullable": true
     },
     {
+      "label": "Stock",
+      "name": "stock",
+      "type": "integer",
+      "nullable": true
+    },
+    {
+      "label": "Status",
+      "name": "status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "label": "Rank",
+      "name": "rank",
+      "type": "integer",
+      "nullable": true
+    },
+    {
       "label": "Parent ID",
       "name": "parent_id",
       "type": "bigInteger",
