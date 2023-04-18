@@ -1,0 +1,11 @@
+{
+  "name": "app-dev",
+  "environments": {
+    "YAO_ENV": "production",
+    "YAO_LANG": "zh-CN",
+    "YAO_LOG": "./logs/application.log",
+    "YAO_DB_DRIVER": "sqlite3",
+    "YAO_DB_PRIMARY": "./db/yao.db",
+    "YAO_JWT_SECRET": "bLp@bi!oqo-2U+hoTRUG"
+  }
+}
