@@ -5,3 +5,4 @@ yao-0.10.3-darwin-amd64
 public/yao
 db
 !data/assets
+dist
