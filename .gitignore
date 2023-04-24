@@ -6,3 +6,4 @@ public/yao
 db
 !data/assets
 dist
+.tmp
