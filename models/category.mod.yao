@@ -36,6 +36,13 @@
       "type": "bigInteger",
       "index": true,
       "nullable": true
+    },
+    {
+      "label": "Parent",
+      "name": "parent",
+      "type": "bigInteger",
+      "index": true,
+      "nullable": true
     }
   ],
   "relations": {},

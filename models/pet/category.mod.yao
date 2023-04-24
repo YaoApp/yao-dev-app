@@ -1,0 +1,23 @@
+{
+  "name": "Pet Cateory",
+  "table": { "name": "pet_category", "comment": "Pet cateories" },
+  "columns": [
+    { "label": "ID", "name": "id", "type": "ID" },
+    {
+      "label": "Pet ID",
+      "name": "pid",
+      "type": "bigInteger",
+      "index": true
+    },
+    {
+      "label": "Catgory ID",
+      "name": "cid",
+      "type": "bigInteger",
+      "index": true
+    }
+  ],
+  "relations": {},
+  "values": [],
+  "indexes": [],
+  "option": { "timestamps": true, "soft_deletes": true }
+}

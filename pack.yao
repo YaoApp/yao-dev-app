@@ -1,11 +1,18 @@
 {
-  "name": "app-dev",
   "environments": {
     "YAO_ENV": "production",
     "YAO_LANG": "zh-CN",
     "YAO_LOG": "./logs/application.log",
     "YAO_DB_DRIVER": "sqlite3",
     "YAO_DB_PRIMARY": "./db/yao.db",
-    "YAO_JWT_SECRET": "bLp@bi!oqo-2U+hoTRUG"
+    "YAO_JWT_SECRET": "bLp@bi!oqo-2U+hoTRUG",
+    "MONGO_TEST_HOST": "127.0.0.1",
+    "MONGO_TEST_PORT": "27017",
+    "MONGO_TEST_USER": "root",
+    "MONGO_TEST_PASS": "123456",
+    "REDIS_TEST_HOST": "127.0.0.1",
+    "REDIS_TEST_PORT": "6379",
+    "REDIS_TEST_PASS": "123456",
+    "REDIS_TEST_DB": "2"
   }
 }
