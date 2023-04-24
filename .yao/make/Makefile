@@ -6,6 +6,7 @@ DIST = $(abspath ../../dist)
 TEMP = ./.tmp
 APP_ROOT = $(abspath ../../)
 PACK_ROOT = $(abspath ../pack)
+VERSION := $(shell grep 'version' ../../app.* | awk '{print $$2}' | sed 's/\"//g' | sed 's/,//g')
 COMMIT := $(shell git log | head -n 1 | awk '{print substr($$2, 0, 12)}')
 NOW := $(shell date +"%FT%T%z")
 
