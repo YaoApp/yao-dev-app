@@ -1,7 +1,9 @@
-GO ?= go
-GIT ?= git
+YAO_VERSION = 0.10.3
 APP_NAME = dev-app
 PACK_FLAG = -l 123456
+
+GO ?= go
+GIT ?= git
 DIST = $(abspath ../../dist)
 TEMP = ./.tmp
 APP_ROOT = $(abspath ../../)
@@ -30,13 +32,14 @@ checkout:
 
 .PHONY: patch
 patch:
-# Patching Yao
+# 	Patching Yao
 	cp $(PACK_ROOT)/pack.go $(TEMP)/yao/pack/pack.go
 
 #	Replace PRVERSION
 	sed -ie "s/const BUILDIN = false/const BUILDIN = true/g" $(TEMP)/yao/share/const.go
 	sed -ie "s/const PRVERSION = \"DEV\"/const PRVERSION = \"${COMMIT}-${NOW}\"/g" $(TEMP)/yao/share/const.go
 	sed -ie "s/const BUILDNAME = \"yao\"/const BUILDNAME = \"${APP_NAME}\"/g" $(TEMP)/yao/share/const.go
+	sed -ie "s/const VERSION = \"$(YAO_VERSION)\"/const VERSION = \"${VERSION}\"/g" $(TEMP)/yao/share/const.go
 
 .PHONY: pack
 pack: 
