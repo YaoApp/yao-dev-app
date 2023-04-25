@@ -23,6 +23,7 @@ jobs:
           run: |
             echo "Running Script"
             ls -l
+            export
 
       - name: Archive
         uses: actions/upload-artifact@v3
