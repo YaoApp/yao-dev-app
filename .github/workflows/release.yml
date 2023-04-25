@@ -14,10 +14,10 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: yaoapp/yao-build:0.10.3-amd64
-          options: -v ${{ github.workspace }}:/app -e APP_NAME=dev-app -e PACK_FLAG="-l 123456" -e PACK_ENV="/app/pack.docker.yao"
+          options: -v ${{ github.workspace }}:/app -e APP_NAME=dev-app
           run: |
             echo "Running Script"
-            make
+            /bin/bash
 
       - name: Archive
         uses: actions/upload-artifact@v3
