@@ -6,6 +6,11 @@ on:
       tags:
         description: "Version tags"
 
+env:
+  APP_NAME: "dev-app"
+  PACK_FLAG: "-l 123456"
+  PACK_ENV: "/app/pack.docker.yao"
+
 jobs:
   release:
     runs-on: "ubuntu-20.04"
@@ -14,10 +19,10 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: yaoapp/yao-build:0.10.3-amd64
-          options: -v ${{ github.workspace }}:/app -e APP_NAME=dev-app
+          options: -v ${{ github.workspace }}:/app -e APP_NAME=${{ env.APP_NAME }} -e PACK_FLAG=${{ env.PACK_FLAG }} -e PACK_ENV=${{ env.PACK_ENV }}
           run: |
             echo "Running Script"
-            /bin/bash
+            ls -l
 
       - name: Archive
         uses: actions/upload-artifact@v3
