@@ -19,12 +19,9 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: yaoapp/yao-build:0.10.3-amd64
-          options: -v ${{ github.workspace }}:/app
+          options: -v ${{ github.workspace }}:/app -e APP_NAME=${{ env.APP_NAME }} -e PACK_ENV=${{ env.PACK_ENV }} -e PACK_FLAG='"-l 123456"'
           run: |
             echo "Running Script"
-            export APP_NAME=${{ env.APP_NAME }}
-            export PACK_FLAG=${{ env.PACK_FLAG }}
-            export PACK_ENV=${{ env.PACK_ENV }}
             ls -l
             export
 
