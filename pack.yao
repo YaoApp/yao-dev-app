@@ -10,7 +10,6 @@
     "MONGO_TEST_PASS": "123456",
     "REDIS_TEST_HOST": "127.0.0.1",
     "REDIS_TEST_PORT": "6379",
-    "REDIS_TEST_PASS": "123456",
     "REDIS_TEST_DB": "2"
   }
 }
