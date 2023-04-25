@@ -1,0 +1,41 @@
+# Create a yao module
+# yao run neo.module.Create 帮我做一个订单模块，要有订单号、订单状态、购买商品等信息。
+name: Create a yao module
+model: gpt-3.5-turbo
+prepare: studio.module.CreatePrepare
+process: studio.module.Create
+args:
+  - name: module_name
+    type: String
+    description: The name of the module to create
+    required: true
+    default: ""
+
+  - name: structure
+    type: Object
+    description: The structure of the module to create
+    required: true
+    default: "module"
+
+prompts:
+  - role: system
+    content: "{{ $template }}"
+
+  - role: system
+    content: |
+      - The above content is the JSON template.
+      - According to my description, according to the template given to you, generate a similar JSON data.
+      - The ModuleName is the name of the module i want to create.
+      - The Structure is the structure of the module i want to create.
+      - Reply to me with a message in JSON format only: {"module_name": "<ModuleName>", "structure": "<Structure>"}
+      - Do not explain your answer, and do not use punctuation.
+
+introduce: |
+  {
+    "name": "Create a yao module",
+    "args": ["<ModuleName:String>", "<Structure:Object>"],
+    "desc": "Create a new function module"
+  }
+
+optional:
+  autopilot: true
