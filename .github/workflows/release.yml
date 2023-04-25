@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: "Version tags"
+
+jobs:
+  release:
+    runs-on: "ubuntu-20.04"
+    steps:
+      - name: Build
+        uses: addnab/docker-run-action@v3
+        image: yaoapp/yao-build:0.10.3-amd64
+        options: -v ${{ github.workspace }}:/app -e APP_NAME=dev-app -e PACK_FLAG="-l 123456" -e PACK_ENV="/app/pack.docker.yao"
+        run: |
+          echo "Running Script"
+          make
+
+      - name: Archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: dev-app-linux
+          path: |
+            dist/*
