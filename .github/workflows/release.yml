@@ -8,7 +8,7 @@ on:
 
 env:
   APP_NAME: "dev-app"
-  PACK_FLAG: "-l 123456"
+  PACK_FLAG: '\\"-l 123456\\"'
   PACK_ENV: "/app/pack.docker.yao"
 
 jobs:
