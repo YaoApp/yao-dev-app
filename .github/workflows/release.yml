@@ -8,7 +8,7 @@ on:
 
 env:
   APP_NAME: "dev-app"
-  PACK_FLAG: "'-l 123456'"
+  PACK_FLAG: "-l 123456"
   PACK_ENV: "/app/pack.docker.yao"
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: yaoapp/yao-build:0.10.3-amd64
-          options: -v ${{ github.workspace }}:/app -e APP_NAME=${{ env.APP_NAME }}  -e PACK_ENV=${{ env.PACK_ENV }}
+          options: -v ${{ github.workspace }}:/app -e APP_NAME=${{ env.APP_NAME }}  -e PACK_ENV=${{ env.PACK_ENV }} -e PACK_FLAG=${{ env.PACK_FLAG }}
           run: |
             echo "Running Script"
             ls -l
