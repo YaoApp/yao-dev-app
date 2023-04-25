@@ -7,3 +7,4 @@ db
 !data/assets
 dist
 .tmp
+.pnpm-store
