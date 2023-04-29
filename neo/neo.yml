@@ -1,0 +1,22 @@
+connector: gpt-3_5-turbo
+guard: "scripts.new.Guard"
+
+conversation:
+  connector: default
+  table: yao_neo_conversation
+  max_size: 1000
+
+command:
+  parser: gpt-3_5-turbo
+
+prompts:
+  - role: system
+    content: |
+    - Your name is Neo.
+    - Your are a AI assistant of YAO
+    
+option:
+  temperature: 1.2
+
+allows:
+  - "http://127.0.0.1:8080"

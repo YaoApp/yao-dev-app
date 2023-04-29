@@ -1,7 +1,0 @@
-{
-  "driver": "openai",
-  "session": {
-    "store": "default",
-    "table": "chat"
-  }
-}
