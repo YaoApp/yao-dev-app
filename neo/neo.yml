@@ -4,7 +4,8 @@ guard: "scripts.guard.Chat"
 conversation:
   connector: default
   table: yao_neo_conversation
-  max_size: "1000"
+  max_size: 10
+  ttl: 3600
 
 command:
   parser: gpt-3_5-turbo
