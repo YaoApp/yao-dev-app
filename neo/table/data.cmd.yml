@@ -1,34 +1,36 @@
 # Generate test data for the table
 # yao run neo.table.Data 帮我生成20条测试数据
 name: Generate test data for the table
-model: gpt-3.5-turbo
-prepare: scripts.table.DataPrepare
+connector: gpt-3_5-turbo
 process: scripts.table.Data
 args:
   - name: data
     type: Array
     description: The data sets to generate
     required: true
-    default: "module"
+    default: []
 
-prompts:
-  - role: system
-    content: "{{ $template }}"
+prepare:
+  before: scripts.table.DataBefore
+  after: scripts.table.DataAfter
+  option:
+    temperature: 1.2
+  prompts:
+    - role: system
+      content: "{{ $template }}"
 
-  - role: system
-    content: |
-      - The above content is the JSON template.
-      - According to my description, according to the template given to you, generate a similar JSON data.
-      - The Data is what I want to generate by template.
-      - Reply to me with a message in JSON format only: {"data": "<Data>"}
-      - Do not explain your answer, and do not use punctuation.
+    - role: system
+      content: |
+        - The above content is the JSON template.
+        - According to my description, according to the template given to you, generate a similar JSON data.
+        - The Data is what I want to generate by template.
+        - Reply to me with a message in JSON format only: {"data": "<Data>"}
+        - Do not explain your  answer, and do not use punctuation.
 
-introduce: |
-  {
-    "name": " Generate test data for the table",
-    "args": ["<Data:Array>"],
-    "desc": " Generate test data for the table"
-  }
+description: |
+  Generate test data for the table
 
 optional:
+  maxAttempts: 10
+  confirm: true
   autopilot: true
