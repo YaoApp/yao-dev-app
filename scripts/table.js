@@ -36,11 +36,9 @@ const Templates = {
  * @param {*} messages
  */
 function DataBefore(context, messages) {
+  // console.log("DataBefore:", context, messages);
   context = context || { stack: "-", path: "-" };
   messages = messages || [];
-
-  //   console.log("DataBefore:", context, messages);
-
   const { path } = context;
   if (path === undefined) {
     done("Error: path not found.\n");
@@ -63,25 +61,33 @@ function DataBefore(context, messages) {
  * @param {*} content
  */
 function DataAfter(content) {
-  console.log("DataAfter:", content);
-  try {
-    // check response data
-    const response = JSON.parse(content);
-    const data = response.data || [];
-    if (data.length > 0) {
-      // Print data preview
-      ssWrite(`| name | type | status | mode | stay | cost | doctor_id |\n`);
-      ssWrite(`| ---- | ---- | ------ | ---- | ---- | ---- | --------- |\n`);
-      data.each((item) => {
-        message = `| ${item.name} |  ${item.type} |  ${item.status} | ${item.mode} | ${item.stay} | ${item.cost} | ${item.doctor_id}|\n`;
-        ssWrite(message);
-      });
+  // console.log("DataAfter:", content);
+  const response = JSON.parse(content);
+  const data = response.data || [];
+  if (data.length > 0) {
+    // Print data preview
+    ssWrite(`\n`);
+    ssWrite(`| name | type | status | mode | stay | cost | doctor_id |\n`);
+    ssWrite(`| ---- | ---- | ------ | ---- | ---- | ---- | --------- |\n`);
+    data.forEach((item) => {
+      message = `| ${item.name} |  ${item.type} |  ${item.status} | ${item.mode} | ${item.stay} | ${item.cost} | ${item.doctor_id}|\n`;
+      ssWrite(message);
+    });
+    ssWrite(`  \n\n`);
 
-      return response;
-    }
-
-    return false;
-  } catch {
-    return false;
+    return response;
   }
+
+  throw new Exception("Error: data is empty.", 500);
+}
+
+/**
+ * Run the command
+ * @param {*} payload
+ */
+function Data(payload) {
+  console.log(payload);
+  payload.forEach((item) => {
+    Process("models.pet.Save", item);
+  });
 }

@@ -10,6 +10,11 @@ args:
     required: true
     default: []
 
+actions:
+  - name: TableSearch
+    type: "Table.search"
+    payload: {}
+
 prepare:
   before: scripts.table.DataBefore
   after: scripts.table.DataAfter
@@ -34,6 +39,5 @@ description: |
   Generate test data for the table
 
 optional:
-  maxAttempts: 10
-  confirm: true
+  confirm: neo.Exec
   autopilot: true
