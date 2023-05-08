@@ -8,3 +8,4 @@ db
 dist
 .tmp
 .pnpm-store
+public/iframe/details

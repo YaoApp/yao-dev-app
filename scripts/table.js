@@ -90,4 +90,5 @@ function Data(payload) {
   payload.forEach((item) => {
     Process("models.pet.Save", item);
   });
+  return true;
 }
