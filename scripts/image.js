@@ -46,7 +46,7 @@ function Draw(prompt, width, height) {
     prompt: prompt || "maltese puppy",
     width: width || 512,
     height: height || 512,
-    steps: 5,
+    steps: 20,
   };
   console.log(payload);
 
