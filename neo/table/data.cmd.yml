@@ -1,6 +1,7 @@
 # Generate test data for the table
 # yao run neo.table.Data 帮我生成20条测试数据
 name: Generate test data for the table
+use: data
 connector: gpt-3_5-turbo
 process: scripts.table.Data
 args:

@@ -1,6 +1,7 @@
 # Creating a product landing page
 # yao run neo.html.Page 帮我生成一个宠物详情页
 name: Generate pet detail page
+use: html
 connector: gpt-3_5-turbo
 process: studio.html.Page
 args:

@@ -1,6 +1,7 @@
 # Creating a product landing page
 # yao run neo.image.Product 帮我生成一个宠物海报
 name: Generate pet photo
+use: image
 connector: gpt-3_5-turbo
 process: scripts.image.Draw
 args:
