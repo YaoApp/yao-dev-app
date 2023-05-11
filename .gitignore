@@ -9,3 +9,6 @@ dist
 .tmp
 .pnpm-store
 public/iframe/details
+forms/order.form.yao
+tables/order.tab.yao
+models/order.mod.yao
