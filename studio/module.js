@@ -350,12 +350,12 @@ function TableComponent(item, component) {
       default_component["edit"]["props"] = {
         options: [
           {
-            label: 1,
-            value: "open",
+            value: 1,
+            label: "open",
           },
           {
-            label: 0,
-            value: "close",
+            value: 0,
+            label: "close",
           },
         ],
       };
