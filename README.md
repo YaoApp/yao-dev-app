@@ -144,3 +144,47 @@ yao get yaoapp/demo-app
 cd project_root
 yao start
 ```
+
+### AIGC 模块使用说明:
+
+- 首先在您的 `.env`配置中加入以下配置
+
+```json
+
+# Redis配置
+REDIS_TEST_HOST=127.0.0.1
+REDIS_TEST_PORT=6379
+REDIS_DB=3
+REDIS_TEST_USER=""
+REDIS_TEST_PASS=""
+
+# openAI的key
+OPENAI_TEST_KEY=""
+
+
+```
+
+- 然后在 `/neo/neo.yml`中加入跨域配置
+
+```json
+
+allows:
+  - "http://127.0.0.1:8000"
+  - "http://127.0.0.1:5099"
+  - "http://localhost:5099"
+  - "http://localhost:8000"
+
+```
+
+- 下载最新版本的Yao [地址](https://github.com/YaoApp/yao/actions/runs/4955485643)
+
+- 执行`yao migrate && yao start`
+  
+- 在界面中的输入框输入 `/module +命令` 比如: `/module 帮我生成一个产品管理模块`  
+  
+  ![图片](https://release-bj-1252011659.cos.ap-beijing.myqcloud.com/docs/%E4%BD%8E%E4%BB%A3%E7%A0%81%E6%A0%87%E5%87%86/1683877912854.png)
+
+  ![图片2](https://release-bj-1252011659.cos.ap-beijing.myqcloud.com/docs/%E4%BD%8E%E4%BB%A3%E7%A0%81%E6%A0%87%E5%87%86/1683878008968.png)
+
+  点击执行按钮:
+  ![图片3](https://release-bj-1252011659.cos.ap-beijing.myqcloud.com/docs/%E4%BD%8E%E4%BB%A3%E7%A0%81%E6%A0%87%E5%87%86/1683878273320.png)

@@ -297,11 +297,12 @@ function saveTable(data) {
 
     // table columns
     table.layout.table.columns.push({ name: item.label });
-    table.fields.table[item.label] = {
-      bind: item.name,
-      view: { type: component.view, props: {} },
-      edit: { type: component.edit, props: { placeholder: item.label } },
-    };
+    table.fields.table[item.label] = TableComponent(item, component);
+    // {
+    //   bind: item.name,
+    //   view: { type: component.view, props: {} },
+    //   edit: { type: component.edit, props: { placeholder: item.label } },
+    // };
 
     // table filter
     if (!item.Searchable) {
@@ -317,6 +318,51 @@ function saveTable(data) {
 
   let dsl = new FS("dsl");
   dsl.WriteFile(`/tables/${id}.tab.yao`, JSON.stringify(table));
+}
+
+function TableComponent(item, component) {
+  var default_component = {
+    bind: item.name,
+    view: { type: component.view, props: {} },
+    edit: { type: component.edit, props: { placeholder: item.label } },
+  };
+  switch (item.type) {
+    case "string":
+      return default_component;
+    case "datetime":
+      default_component["edit"]["type"] = "DatePicker";
+      return default_component;
+    case "date":
+      default_component["edit"]["type"] = "DatePicker";
+      return default_component;
+    case "integer":
+      default_component["edit"]["props"]["type"] = "number";
+      return default_component;
+    case "boolean":
+      default_component["view"]["type"] = "Switch";
+      default_component["view"]["props"] = {
+        checkedValue: 1,
+        unCheckedValue: 0,
+        checkedChildren: "open",
+        unCheckedChildren: "close",
+      };
+      default_component["edit"]["type"] = "RadioGroup";
+      default_component["edit"]["props"] = {
+        options: [
+          {
+            label: 1,
+            value: "open",
+          },
+          {
+            label: 0,
+            value: "close",
+          },
+        ],
+      };
+      return default_component;
+    default:
+      return default_component;
+  }
 }
 
 function saveForm(data) {
@@ -380,10 +426,11 @@ function saveForm(data) {
 
     // form columns
     form.layout.form.sections[0].columns.push({ name: item.label, width: 12 });
-    form.fields.form[item.label] = {
-      bind: item.name,
-      edit: { type: component.edit, props: { placeholder: item.label } },
-    };
+    form.fields.form[item.label] = TableComponent(item, component);
+    //  {
+    //   bind: item.name,
+    //   edit: { type: component.edit, props: { placeholder: item.label } },
+    // };
   });
 
   let dsl = new FS("dsl");
