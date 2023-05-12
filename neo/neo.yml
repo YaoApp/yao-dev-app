@@ -10,6 +10,7 @@ conversation:
 command:
   parser: gpt-3_5-turbo
 
+prepare: "scripts.vector.Match"
 prompts:
   - role: system
     content: |
