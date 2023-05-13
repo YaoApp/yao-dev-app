@@ -66,8 +66,7 @@ function CreateAfter(content) {
 
   if (columns.length > 0) {
     // Print data preview
-    ssWrite(`\n`);
-    ssWrite(`| label | name | type | Searchable | Table | Form |\n`);
+    ssWrite(`\r\n| label | name | type | Searchable | Table | Form |\n`);
     ssWrite(`| ----- | ---- | ---- | ---------- | ----- | ---- |\n`);
     columns.forEach((item) => {
       console.log(item);

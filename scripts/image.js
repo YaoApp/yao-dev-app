@@ -29,10 +29,15 @@ function DrawBefore(context, messages) {
  * @param {*} messages
  */
 function DrawAfter(content) {
-  const response = JSON.parse(content);
-  if (response.prompt) {
-    return response;
+  try {
+    const response = JSON.parse(content);
+    if (response.prompt) {
+      return response;
+    }
+  } catch (e) {
+    throw new Exception("Describing something further?", 500);
   }
+
   throw new Exception("Error: data is empty.", 500);
 }
 
@@ -55,10 +60,16 @@ function Draw(prompt, width, height) {
       console.log(`Error: ${err}`);
       return false;
     }
-    ssWrite(`\r\rProgress: ${progress}\n`);
+    if (progress == 0) {
+      ssWrite(`\rLoading...`);
+      return true;
+    }
+
+    ssWrite(`\r\rProgress: ${parseFloat(progress * 100).toFixed(2)}%\n`);
+    return true;
   });
 
-  ssWrite(`\n\n![Preview](/api/image${file})`);
+  ssWrite(`\r\n\n![Preview](/api/image${file})`);
   return { file: file };
 }
 
