@@ -12,3 +12,6 @@ public/iframe/details
 forms/order.form.yao
 tables/order.tab.yao
 models/order.mod.yao
+forms/product.form.yao
+tables/product.tab.yao
+models/product.mod.yao

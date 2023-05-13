@@ -163,14 +163,15 @@ function Create(payload) {
   let id = payload.table.name;
   let ex = load(id);
   if (ex) {
-    console.log(ex);
+    console.log(ex, ex.message);
     throw new Exception(ex.message, 500);
   }
 
   // model migrage
   ex = migrateModel(id);
   if (ex) {
-    throw new Exception(ex.message, 500);
+    console.log(ex, ex.message);
+    // throw new Exception(ex.message, 500);
   }
 
   return { path: `/x/Table/${payload.table.name}`, name: payload.table.name };

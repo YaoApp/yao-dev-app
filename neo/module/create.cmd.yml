@@ -42,5 +42,5 @@ description: |
   Create a module
 
 optional:
-  confirm: neo.Exec
+  # confirm: neo.Exec
   autopilot: true
