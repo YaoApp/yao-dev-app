@@ -18,9 +18,7 @@
      * - Studio PATH: {"api":"/neo", "studio":true }
      * - Studio URL:  {"api":"http://localhost:5077/neo", "studio":true }
      */
-    "neo": {
-      "api": "http://localhost:5077/neo"
-    }
+    "neo": { "api": "/neo", "studio": true }
   },
   "menu": { "process": "flows.app.menu", "args": ["demo"] }
 }
