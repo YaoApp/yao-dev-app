@@ -36,7 +36,7 @@ const Templates = {
  * @param {*} messages
  */
 function DataBefore(context, messages) {
-  // console.log("DataBefore:", context, messages);
+  console.log("DataBefore:", context, messages);
   context = context || { stack: "-", path: "-" };
   messages = messages || [];
   const { path } = context;
@@ -60,8 +60,8 @@ function DataBefore(context, messages) {
  * Prepare Hook: After
  * @param {*} content
  */
-function DataAfter(content) {
-  // console.log("DataAfter:", content);
+function DataAfter(content, context) {
+  console.log("DataAfter:", content, context);
   const response = JSON.parse(content);
   const data = response.data || [];
   if (data.length > 0) {
@@ -85,8 +85,8 @@ function DataAfter(content) {
  * Run the command
  * @param {*} payload
  */
-function Data(payload) {
-  console.log(payload);
+function Data(payload, context) {
+  console.log(payload, context);
   payload.forEach((item) => {
     Process("models.pet.Save", item);
   });
