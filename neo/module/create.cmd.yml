@@ -12,17 +12,11 @@ args:
     default: []
 
 actions:
-  # - name: Redirect to the generated page
-  #   type: "Common.historyPush"
-  #   payload:
-  #     pathname: "/x/Table/[[$ExecCommand.result.name]]"
-  #     neo: true
-
-  - name: Redirect to the generated module
-    type: "Common.refetch"
+  - name: Redirect to the generated page
+    type: "Common.historyPush"
     payload:
       pathname: "/x/Table/[[$ExecCommand.result.name]]"
-      neo: true
+      refetch: true
 
 prepare:
   before: studio.module.CreateBefore
@@ -48,5 +42,5 @@ description: |
   Create a module
 
 optional:
-  confirm: neo.Exec
+  confirm: true
   autopilot: true
