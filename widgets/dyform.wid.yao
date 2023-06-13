@@ -1,0 +1,70 @@
+{
+  "name": "Dynamic Form",
+  "version": "0.2.0",
+  "description": "A form widget. Users can design forms online",
+  "path": "dyforms",
+  "extensions": [".form.yao"],
+
+  // Remote storage options (optional) - set "reload" to true to reload when DSL is updated (calls the Reload loader)
+  // If remote storage is set, DSL is loaded from remote storage; otherwise, it is loaded locally.
+  "remote": { "store": "dyform", "reload": true },
+
+  // DyForm DSL loader
+  "loader": {
+    "load": "scripts.dyform.Load",
+    "reload": "scripts.dyform.Reload",
+    "unload": "scripts.dyform.Unload"
+  },
+
+  // Custom Widget handlers
+  "process": {
+    "setting": "scripts.dyform.Setting", // widget.dyform.Setting
+    "find": "scripts.dyform.Find", // widget.dyform.Find
+    "save": "scripts.dyform.Save", // widget.dyform.Save
+    "delete": "scripts.dyform.Delete", // widget.dyform.Delete
+    "cancel": "scripts.dyform.Cancel" // widget.dyform.Cancel
+  },
+
+  // Custom Widget API
+  // In production, if the API is changed, the service needs to be restarted.
+  "api": {
+    "guard": "bearer-jwt",
+    "paths": [
+      {
+        "path": "/setting", // GET /api/__yao/widget/dyform/setting
+        "method": "GET",
+        "process": "scripts.dyform.Setting",
+        "in": [],
+        "out": { "status": 200, "type": "application/json" }
+      },
+      {
+        "path": "/find/:primary", // GET /api/__yao/widget/dyform/find/1?select=id,name
+        "method": "GET",
+        "process": "scripts.dyform.Find",
+        "in": ["$param.primary", ":query-param"],
+        "out": { "status": 200, "type": "application/json" }
+      },
+      {
+        "path": "/save/:primary", // POST /api/__yao/widget/dyform/save/1
+        "method": "POST",
+        "process": "scripts.dyform.Save",
+        "in": ["$param.primary", ":payload"],
+        "out": { "status": 200, "type": "application/json" }
+      },
+      {
+        "path": "/save/:primary", // POST /api/__yao/widget/dyform/save/1
+        "method": "POST",
+        "process": "scripts.dyform.Save",
+        "in": ["$param.primary", ":payload"],
+        "out": { "status": 200, "type": "application/json" }
+      },
+      {
+        "path": "/delete/:primary", // POST /api/__yao/widget/dyform/delete/1
+        "method": "POST",
+        "process": "scripts.dyform.Delete",
+        "in": ["$param.primary"],
+        "out": { "status": 200, "type": "application/json" }
+      }
+    ]
+  }
+}

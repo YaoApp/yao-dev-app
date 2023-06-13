@@ -1,0 +1,36 @@
+{
+  "columns": [
+    [
+      { "type": "Title", "label": "Feedback Information" },
+      { "type": "Input", "label": "Name" },
+      { "type": "Input", "label": "Email" }
+    ],
+    [
+      { "type": "Title", "label": "Feedback Details" },
+      { "type": "Textarea", "label": "Message" },
+      { "type": "Checkbox", "label": "Anonymous" }
+    ]
+  ],
+  "actions": {
+    "left": [
+      {
+        "type": "api",
+        "text": "Submit Feedback",
+        "api": "/api/__yao/widget/dyform/save",
+        "isPrimary": true
+      }
+    ],
+    "right": [
+      {
+        "type": "info",
+        "text": "Help",
+        "info": "Need assistance? Click here."
+      },
+      {
+        "type": "api",
+        "text": "Cancel",
+        "process": "widget.dyform.Cancel"
+      }
+    ]
+  }
+}
