@@ -1,17 +1,17 @@
 {
-  "name": "Dynamic Form",
+  "name": "Dynamic Form Remote Source",
   "version": "0.2.0",
   "description": "A form widget. Users can design forms online",
 
-  // DSL Source  from application path: dyforms/feedback.form.yao
-  "path": "dyforms",
-  "extensions": ["*.form.yao"],
+  // DSL Source  from application path: iforms/feedback.form.yao
+  // "path": "iforms",
+  // "extensions": ["*.form.yao"],
 
   // Remote storage options (optional) - set "reload" to true to reload when DSL is updated (calls the Reload loader)
   // If remote storage is set, DSL is loaded from remote storage; otherwise, it is loaded locally.
   // If connector is default or not set, using the default database connection
   // If table not set, the default name is __yao_dsl_<Widget ID>
-  // "remote": { "connector": "default", "table": "dsl_dyform", "reload": true },
+  "remote": { "connector": "default", "table": "dsl_iform", "reload": true },
 
   // Widget DSL loader
   "loader": {
