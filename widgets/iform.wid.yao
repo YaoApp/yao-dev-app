@@ -22,11 +22,11 @@
 
   // Custom Widget handlers
   "process": {
-    "setting": "scripts.dyform.Setting", // widgets.dyform.Setting
-    "find": "scripts.dyform.Find", // widgets.dyform.Find
-    "save": "scripts.dyform.Save", // widgets.dyform.Save
-    "delete": "scripts.dyform.Delete", // widgets.dyform.Delete
-    "cancel": "scripts.dyform.Cancel" // widgets.dyform.Cancel
+    "setting": "scripts.dyform.Setting", // widgets.iform.Setting
+    "find": "scripts.dyform.Find", // widgets.iform.Find
+    "save": "scripts.dyform.Save", // widgets.iform.Save
+    "delete": "scripts.dyform.Delete", // widgets.iform.Delete
+    "cancel": "scripts.dyform.Cancel" // widgets.iform.Cancel
   },
 
   // Custom Widget API
@@ -35,37 +35,37 @@
     "guard": "bearer-jwt",
     "paths": [
       {
-        "path": "/:id/setting", // GET /api/__yao/widget/dyform/feedback/setting
+        "path": "/:id/setting", // GET /api/__yao/widget/iform/feedback/setting
         "method": "GET",
-        "process": "widgets.dyform.Setting",
+        "process": "widgets.iform.Setting",
         "in": ["$param.id"],
         "out": { "status": 200, "type": "application/json" }
       },
       {
-        "path": "/:id/find/:primary", // GET /api/__yao/widget/dyform/feedback/find/1?select=id,name
+        "path": "/:id/find/:primary", // GET /api/__yao/widget/iform/feedback/find/1?select=id,name
         "method": "GET",
-        "process": "widgets.dyform.Find",
+        "process": "widgets.iform.Find",
         "in": ["$param.id", "$param.primary", ":query-param"],
         "out": { "status": 200, "type": "application/json" }
       },
       {
-        "path": "/:id/save/:primary", // POST /api/__yao/widget/dyform/feedback/save/1
+        "path": "/:id/save/:primary", // POST /api/__yao/widget/iform/feedback/save/1
         "method": "POST",
-        "process": "widgets.dyform.Save",
+        "process": "widgets.iform.Save",
         "in": ["$param.id", "$param.primary", ":payload"],
         "out": { "status": 200, "type": "application/json" }
       },
       {
-        "path": "/:id/cancel/:primary", // POST /api/__yao/widget/dyform/feedback/cancel/1
+        "path": "/:id/cancel/:primary", // POST /api/__yao/widget/iform/feedback/cancel/1
         "method": "POST",
-        "process": "widgets.dyform.Cancel",
+        "process": "widgets.iform.Cancel",
         "in": ["$param.id", "$param.primary", ":payload"],
         "out": { "status": 200, "type": "application/json" }
       },
       {
-        "path": "/:id/delete/:primary", // POST /api/__yao/widget/dyform/feedback/delete/1
+        "path": "/:id/delete/:primary", // POST /api/__yao/widget/iform/feedback/delete/1
         "method": "POST",
-        "process": "widgets.dyform.Delete",
+        "process": "widgets.iform.Delete",
         "in": ["$param.id", "$param.primary"],
         "out": { "status": 200, "type": "application/json" }
       }
