@@ -6,6 +6,8 @@
  * @returns []
  */
 function BeforeSearch(query, page, pagesize) {
+  console.log(`[BeforeSearch] query = ${JSON.stringify(query)}`);
+
   query = query || {};
   query.wheres = query.wheres || [];
   pagesize = 1;
