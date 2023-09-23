@@ -1,0 +1,9 @@
+{
+  "name": "Yao Builder charts demo",
+  "driver": "local",
+  "public": {
+    "root": "/dashboard",
+    "remote": "/dashboard",
+    "index": "/control_enter"
+  }
+}

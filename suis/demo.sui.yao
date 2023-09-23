@@ -1,0 +1,5 @@
+{
+  "name": "Yao Builder Demo",
+  "driver": "local",
+  "public": { "root": "/", "remote": "/", "index": "/index" }
+}
