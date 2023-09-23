@@ -1,6 +1,6 @@
 {
   "name": "Yao Builder charts demo",
-  "driver": "local",
+  "storage": { "driver": "local" },
   "public": {
     "root": "/dashboard",
     "remote": "/dashboard",

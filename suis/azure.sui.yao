@@ -1,11 +1,13 @@
 {
   "name": "Yao Builder azure cloud demo",
-  "driver": "azure",
-  "option": {
-    "name": "$ENV.TEST_AZURE_STORAGE_ACCOUNT_NAME",
-    "key": "$ENV.TEST_AZURE_STORAGE_PRIMARY_ACCOUNT_KEY",
-    "container": "yao-builder-remote-demo",
-    "prefix": "yao-builder"
+  "storage": {
+    "driver": "azure",
+    "option": {
+      "name": "$ENV.TEST_AZURE_STORAGE_ACCOUNT_NAME",
+      "key": "$ENV.TEST_AZURE_STORAGE_PRIMARY_ACCOUNT_KEY",
+      "container": "yao-builder-remote-demo",
+      "prefix": "yao-builder"
+    }
   },
   "public": {
     "root": "/azure", // local storage root
