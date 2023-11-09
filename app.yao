@@ -6,6 +6,7 @@
   "version": "1.0.1",
   "setup": "scripts.demo.Data",
   "adminRoot": "admin",
+  "menu": { "process": "flows.app.menu", "args": ["demo"] },
   "optional": {
     "hideNotification": true,
     "hideSetting": false,
@@ -20,5 +21,15 @@
      */
     "neo": { "api": "/neo", "studio": true }
   },
-  "menu": { "process": "flows.app.menu", "args": ["demo"] }
+
+  /**
+   * If you use the AI computing power channel provided by Moapi,
+   * you will receive a corresponding commission when a user purchases goods or services in the app store.
+   * for more information, please visit: https://welcome.moapi.ai
+   */
+  "moapi": {
+    "channel": "yao-init-application",
+    "mirrors": ["kr-mirrors.moapi.ai"],
+    "secret": "sk-LrS8yVX4mYQ6sTbBtP1uV9KjZ6RiXnD3aF5sH9JkL8QwE4Yz"
+  }
 }
