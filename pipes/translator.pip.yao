@@ -1,0 +1,101 @@
+{
+  "name": "AI Translator",
+  "hooks": { "progress": "scripts.pipe.onProgress" },
+  "whitelist": ["utils.json.Validate", "utils.fmt.Print", "utils.app.Ping"],
+  "nodes": [
+    {
+      "name": "user",
+      "interface": "command-line",
+      "output": { "cmd": "{{$out[0]}}", "args": "{{$out[1:]}}" }
+    },
+    {
+      "case": {
+        "user.cmd == 'translate'": {
+          "input": "{{ user.args[0] }}",
+          "nodes": [
+            {
+              "name": "translate",
+              "prompt": [
+                {
+                  "role": "system",
+                  "message": "you will act as a translator, helping me translate the words I give you into Chinese and Arabic."
+                },
+                {
+                  "role": "system",
+                  "message": "Use the following JSON format to answer my question. {\"Chinese\":\"...\", \"Arabic\", \"...\"}"
+                },
+                { "role": "user", "message": "{{ $in }}" }
+              ]
+            },
+            {
+              "name": "validate",
+              "process": {
+                "name": "utils.json.Validate",
+                "args": [[{ "haskey": "Chinese" }, { "haskey": "Arabic" }]]
+              },
+              "goto": "{{ validate == false ? 'print' : 'EOF' }}"
+            },
+            {
+              "name": "print",
+              "process": { "name": "utils.fmt.Print", "args": "{{ $in }}" },
+              "output": null
+            },
+            {
+              "name": "user",
+              "interface": "command-line",
+              "output": { "args": "{{$out[0]}}" },
+              "goto": "translate"
+            }
+          ],
+
+          "output": [
+            "Chinese: {{ $out.Chinese }}",
+            "Arabic: {{ $out.Arabic }}"
+          ],
+          "goto": "print"
+        },
+
+        "user.cmd == 'run'": {
+          "input": "{{ user.args }}",
+          "process": {
+            "name": "{{ $in[0] }}",
+            "args": "{{ $in[1:] }}"
+          },
+          "output": ["{{ $in[0]  }}", "{{ $out }}"],
+          "goto": "print"
+        },
+
+        "user.cmd == 'print'": {
+          "input": "{{ user.args }}",
+          "goto": "print"
+        },
+
+        "user.cmd == 'exit'": {
+          "done": true
+        },
+
+        "default": { "goto": "help", "input": "{{ user }}" }
+      }
+    },
+    {
+      "name": "print",
+      "process": { "name": "utils.fmt.Print", "args": "{{ $in }}" },
+      "output": null,
+      "goto": "user"
+    },
+    {
+      "name": "help",
+      "process": {
+        "name": "utils.fmt.Print",
+        "args": ["help", "{{ $in }}"]
+      },
+      "output": null
+    }
+  ],
+  "output": {
+    "output": "{{ $output }}",
+    "input": "{{ $input }}",
+    "sid": "{{ $sid }}",
+    "global": "{{ $global }}"
+  }
+}
