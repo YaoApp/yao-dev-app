@@ -5,17 +5,20 @@
   "nodes": [
     {
       "name": "user",
-      "interface": "command-line",
+      "label": "Enter the command",
+      "ui": "cli",
+      "autofill": { "value": "{{ $in[0].placeholder }}", "action": "exit" },
       "output": { "cmd": "{{$out[0]}}", "args": "{{$out[1:]}}" }
     },
     {
+      "name": "switch",
       "case": {
         "user.cmd == 'translate'": {
           "input": "{{ user.args[0] }}",
           "nodes": [
             {
               "name": "translate",
-              "prompt": [
+              "prompts": [
                 {
                   "role": "system",
                   "message": "you will act as a translator, helping me translate the words I give you into Chinese and Arabic."
@@ -37,13 +40,18 @@
             },
             {
               "name": "print",
-              "process": { "name": "utils.fmt.Print", "args": "{{ $in }}" },
+              "process": {
+                "name": "utils.fmt.Print",
+                "args": "{{ translate }}"
+              },
               "output": null
             },
             {
               "name": "user",
-              "interface": "command-line",
-              "output": { "args": "{{$out[0]}}" },
+              "label": "Enter the words to translate",
+              "ui": "cli",
+              "output": { "args": "{{ $out[0] }}" },
+              "autofill": { "value": "{{ translate }}" },
               "goto": "translate"
             }
           ],
@@ -57,10 +65,12 @@
 
         "user.cmd == 'run'": {
           "input": "{{ user.args }}",
-          "process": {
-            "name": "{{ $in[0] }}",
-            "args": "{{ $in[1:] }}"
-          },
+          "nodes": [
+            {
+              "name": "ping",
+              "process": { "name": "utils.app.Ping", "args": "{{ $in[1:] }}" }
+            }
+          ],
           "output": ["{{ $in[0]  }}", "{{ $out }}"],
           "goto": "print"
         },
@@ -70,9 +80,7 @@
           "goto": "print"
         },
 
-        "user.cmd == 'exit'": {
-          "done": true
-        },
+        "user.cmd == 'exit'": { "goto": "EOF" },
 
         "default": { "goto": "help", "input": "{{ user }}" }
       }
