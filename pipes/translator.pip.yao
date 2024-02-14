@@ -21,22 +21,25 @@
               "prompts": [
                 {
                   "role": "system",
-                  "message": "you will act as a translator, helping me translate the words I give you into Chinese and Arabic."
+                  "content": "you will act as a translator, helping me translate the words I give you into Chinese and Arabic."
                 },
                 {
                   "role": "system",
-                  "message": "Use the following JSON format to answer my question. {\"Chinese\":\"...\", \"Arabic\", \"...\"}"
+                  "content": "Use the following JSON format to answer my question. {\"Chinese\":\"...\", \"Arabic\", \"...\"}"
                 },
-                { "role": "user", "message": "{{ $in }}" }
+                { "role": "user", "content": "{{ $in[0] }}" }
               ]
             },
             {
               "name": "validate",
               "process": {
                 "name": "utils.json.Validate",
-                "args": [[{ "haskey": "Chinese" }, { "haskey": "Arabic" }]]
+                "args": [
+                  "{{ translate }}",
+                  [{ "haskey": "Chinese" }, { "haskey": "Arabic" }]
+                ]
               },
-              "goto": "{{ validate == false ? 'print' : 'EOF' }}"
+              "goto": "{{ $out == false ? 'print' : 'EOF' }}"
             },
             {
               "name": "print",
@@ -56,10 +59,7 @@
             }
           ],
 
-          "output": [
-            "Chinese: {{ $out.Chinese }}",
-            "Arabic: {{ $out.Arabic }}"
-          ],
+          "output": ["{{ translate.Chinese }}", "{{ translate.Arabic }}"],
           "goto": "print"
         },
 
@@ -89,7 +89,7 @@
       "name": "print",
       "process": { "name": "utils.fmt.Print", "args": "{{ $in }}" },
       "output": null,
-      "goto": "user"
+      "goto": "EOF"
     },
     {
       "name": "help",
@@ -101,6 +101,7 @@
     }
   ],
   "output": {
+    "switch": "{{ switch }}",
     "output": "{{ $output }}",
     "input": "{{ $input }}",
     "sid": "{{ $sid }}",
