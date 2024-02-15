@@ -71,12 +71,13 @@
               "process": { "name": "utils.app.Ping", "args": "{{ $in[1:] }}" }
             }
           ],
-          "output": ["{{ $in[0]  }}", "{{ $out }}"],
+          "output": ["run", "{{ ping.engine  }}", "{{ ping.version }}"],
           "goto": "print"
         },
 
         "user.cmd == 'print'": {
           "input": "{{ user.args }}",
+          "output": ["print", "{{ user.args }}"],
           "goto": "print"
         },
 
