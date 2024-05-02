@@ -5,6 +5,7 @@
   "description": "::Another yao application",
   "version": "1.0.1",
   "setup": "scripts.demo.Data",
+  "afterLoad": "scripts.load.After", // After loading the application, you can do some initialization operations (optional)
   "adminRoot": "admin",
   "menu": { "process": "flows.app.menu", "args": ["demo"] },
   "optional": {
