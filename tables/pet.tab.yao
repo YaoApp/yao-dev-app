@@ -206,17 +206,13 @@
         "edit": {
           "type": "Select",
           "props": {
-            "xProps": {
-              "$remote": {
-                "process": "yao.component.SelectOptions",
-                "query": {
-                  "model": "pet",
-                  "label": "name",
-                  "value": "id",
-                  "wheres": [{ "column": "id", "op": "ge", "value": 0 }],
-                  "limit": "2"
-                }
-              }
+            "query": {
+              "from": "pet",
+              "select": ["status", "name"],
+              "labelField": "name",
+              "valueField": "status",
+              "wheres": [{ "column": "id", "op": "ge", "value": 0 }],
+              "limit": 2
             }
           }
         }

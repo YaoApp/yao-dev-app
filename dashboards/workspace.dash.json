@@ -54,11 +54,13 @@
         "edit": {
           "type": "Select",
           "props": {
-            "xProps": {
-              "$remote": {
-                "process": "models.pet.Get",
-                "query": { "select": "name,status", "limit": 2 }
-              }
+            "query": {
+              "from": "pet",
+              "select": ["status", "name"],
+              "labelField": "name",
+              "valueField": "status",
+              "wheres": [{ "column": "id", "op": "ge", "value": 0 }],
+              "limit": 2
             }
           }
         }
