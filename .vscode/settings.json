@@ -1,0 +1,128 @@
+{
+  "files.associations": {
+    "*.sui": "html",
+    "*.yao": "jsonc"
+  },
+
+  "json.schemas": [
+    {
+      "fileMatch": ["/**/*.mod.json", "/**/*.mod.jsonc", "/**/*.mod.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/model.json"
+    },
+    {
+      "fileMatch": ["/**/*.app.json", "/**/*.app.jsonc", "/**/*.app.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/app.json"
+    },
+    {
+      "fileMatch": ["/**/*.login.json", "/**/*.login.jsonc", "/**/*.login.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/login.json"
+    },
+    {
+      "fileMatch": [
+        "/**/*.schedule.json",
+        "/**/*.schedule.jsonc",
+        "/**/*.schedule.yao"
+      ],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/schedule.json"
+    },
+    {
+      "fileMatch": [
+        "/**/*.service.json",
+        "/**/*.service.jsonc",
+        "/**/*.service.yao"
+      ],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/service.json"
+    },
+    {
+      "fileMatch": [
+        "/**/*.socket.json",
+        "/**/*.socket.jsonc",
+        "/**/*.socket.yao"
+      ],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/socket.json"
+    },
+    {
+      "fileMatch": ["/**/*.stor.json", "/**/*.stor.jsonc", "/**/*.stor.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/store.json"
+    },
+    {
+      "fileMatch": ["/**/*.task.json", "/**/*.task.jsonc", "/**/*.task.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/task.json"
+    },
+    {
+      "fileMatch": [
+        "/**/*.widget.json",
+        "/**/*.widget.jsonc",
+        "/**/*.widget.yao"
+      ],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/widget.json"
+    },
+    {
+      "fileMatch": [
+        "/**/apis/**/*.ws.json",
+        "/**/apis/**/*.ws.jsonc",
+        "/**/apis/**/*.ws.yao"
+      ],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/ws_server.json"
+    },
+    {
+      "fileMatch": [
+        "/**/websockets/**/*.ws.json",
+        "/**/websockets/**/*.ws.jsonc",
+        "/**/websockets/**/*.ws.yao"
+      ],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/ws_client.json"
+    },
+    {
+      "fileMatch": ["/**/*.imp.json", "/**/*.imp.jsonc", "/**/*.imp.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/importer.json"
+    },
+    {
+      "fileMatch": ["/**/*.http.json", "/**/*.http.jsonc", "/**/*.http.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/api_http.json"
+    },
+    {
+      "fileMatch": ["/**/*.rest.json", "/**/*.rest.jsonc", "/**/*.rest.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/api_rest.json"
+    },
+    {
+      "fileMatch": ["/**/*.chart.json", "/**/*.chart.jsonc", "/**/*.chart.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/chart.json"
+    },
+    {
+      "fileMatch": ["/**/*.tab.json", "/**/*.tab.jsonc", "/**/*.tab.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/table.json"
+    },
+    {
+      "fileMatch": ["/**/*.list.json", "/**/*.list.jsonc", "/**/*.list.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/list.json"
+    },
+    {
+      "fileMatch": ["/**/*.conn.json", "/**/*.conn.jsonc", "/**/*.conn.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/connector.json"
+    },
+    {
+      "fileMatch": ["/**/*.model.json", "/**/*.model.jsonc", "/**/*.model.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/model.json"
+    },
+    {
+      "fileMatch": [
+        "/**/*.form.json",
+        "/**/*.form.jsonc",
+        "/**/*.form.yao",
+        "!/**/dyforms/**/*.form.json",
+        "!/**/dyforms/**/*.form.jsonc",
+        "!/**/dyforms/**/*.form.yao"
+      ],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/form.json"
+    },
+    {
+      "fileMatch": ["/**/*.flow.json", "/**/*.flow.jsonc", "/**/*.flow.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/flow.json"
+    },
+    {
+      "fileMatch": ["/**/*.dash.json", "/**/*.dash.jsonc", "/**/*.dash.yao"],
+      "url": "https://raw.githubusercontent.com/yaoapp/json-schema/main/dsl-schemas/dashboard.json"
+    }
+  ]
+}

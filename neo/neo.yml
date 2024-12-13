@@ -1,4 +1,3 @@
-connector: gpt-3_5-turbo
 guard: "scripts.guard.Chat"
 
 conversation:
@@ -7,18 +6,16 @@ conversation:
   max_size: 10
   ttl: 3600
 
-command:
-  parser: gpt-3_5-turbo
-
-prepare: "scripts.vector.Match"
-prompts:
-  - role: system
-    content: |
-      - Your name is Neo.
-      - Your are a AI assistant of YAO
-
+# Default AI connector
+connector: gpt-3_5-turbo
 option:
   temperature: 1.2
+
+# Hooks AI assistants
+assistants: scripts.neo.Assistants
+create: scripts.neo.Create
+prepare: scripts.neo.Prepare
+write: scripts.neo.Write
 
 allows:
   - "http://127.0.0.1:8000"
