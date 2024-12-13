@@ -11,7 +11,7 @@ function Assistants(): neo.Assistant[] {
  * AI Chat Lifecycle Hooks
  *
  * ┌───────────┐
- * │  Create   │ -> [Hook] Create(ctx, messages)
+ * │  Create   │ -> [Hook] Create(ctx, messages, writer)
  * └─────┬─────┘    Initial message processing, select an assistant, set model options, etc.
  *       │
  * ┌─────▼─────┐
