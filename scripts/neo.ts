@@ -44,7 +44,11 @@ function Assistants(): neo.Assistant[] {
 /**
  * Neo Create hook, when a new chat message is created
  */
-function Create(ctx: neo.Context, messages: neo.Message[]) {}
+function Create(
+  ctx: neo.Context,
+  messages: neo.Message[],
+  writer: io.ResponseWriter
+) {}
 
 /**
  * Neo Prepare hook, when a request is made to the AI, before the AI is called
