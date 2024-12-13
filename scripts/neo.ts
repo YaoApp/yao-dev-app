@@ -12,11 +12,11 @@ function Assistants(): neo.Assistant[] {
  *
  * ┌───────────┐
  * │  Create   │ -> [Hook] Create(ctx, messages)
- * └─────┬─────┘    Initial message processing
+ * └─────┬─────┘    Initial message processing, select an assistant, set model options, etc.
  *       │
  * ┌─────▼─────┐
  * │  Prepare  │ -> [Hook] Prepare(ctx, messages)
- * └─────┬─────┘    Message preprocessing before AI call
+ * └─────┬─────┘    Message preprocessing before AI call, add system messages, etc.
  *       │
  * ┌─────▼─────┐
  * │   Call    │ -> [System] Start streaming from AI service
