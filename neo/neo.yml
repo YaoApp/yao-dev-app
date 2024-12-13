@@ -1,23 +1,73 @@
-guard: "scripts.guard.Chat"
+---
+#----------------------------------------
+# Authentication Configuration
+#----------------------------------------
+guard: "scripts.guard.Chat" # Custom authentication guard (default: built-in JWT guard)
 
+#----------------------------------------
+# AI Model Configuration
+#----------------------------------------
+connector: gpt-3_5-turbo # AI model connector (default: moapi:gpt-4o)
+option: # AI model parameters
+  temperature: 1.2 # Controls randomness in responses (0.0-2.0)
+
+#----------------------------------------
+# Conversation Management
+#----------------------------------------
 conversation:
-  connector: default
-  table: yao_neo_conversation
-  max_size: 10
-  ttl: 3600
+  connector: default # Storage backend (options: default/database, mongo, redis)
+  table: yao_neo_conversation # Database table name for conversations
+  max_size: 10 # Maximum number of messages to keep in history
+  ttl: 3600 # Time-to-live in seconds for conversation cache
 
-# Default AI connector
-connector: gpt-3_5-turbo
-option:
-  temperature: 1.2
+#----------------------------------------
+# Assistant Configuration
+#----------------------------------------
+use: "yao_neo_assistant" # Default assistant identifier
+assistants: scripts.neo.Assistants # Script path for assistants configuration
 
-# Hooks AI assistants
-assistants: scripts.neo.Assistants
-create: scripts.neo.Create
-prepare: scripts.neo.Prepare
-write: scripts.neo.Write
+#----------------------------------------
+# Lifecycle Hooks
+#----------------------------------------
+# AI Chat Lifecycle Flow:
+#
+# ┌───────────┐
+# │  Create   │ -> [Hook] Create(ctx, messages, writer)
+# └─────┬─────┘    Initial message processing, select an assistant, set model options, etc.
+#       │
+# ┌─────▼─────┐
+# │  Prepare  │ -> [Hook] Prepare(ctx, messages)
+# └─────┬─────┘    Message preprocessing before AI call, add system messages, etc.
+#       │
+# ┌─────▼─────┐
+# │   Call    │ -> [System] Start streaming from AI service
+# │  Stream   │
+# └─────┬─────┘
+#       │
+#       ├─ ─ ─ ┐ Stream chunk 1
+# ┌─────▼─────┐
+# │   Write   │ -> [Hook] Write(ctx, messages, response, content, writer)
+# └─────┬─────┘    Process and stream to client
+#       │
+#       ├─ ─ ─ ┐ Stream chunk 2
+# ┌─────▼─────┐
+# │   Write   │ -> [Hook] Write continues with new chunks
+# └─────┬─────┘
+#       ┊
+#       ┊ (More chunks...)
+#       │
+# ┌─────▼─────┐
+# │    End    │ -> [System] Complete chat session
+# └───────────┘
 
-allows:
+create: scripts.neo.Create # Hook triggered when creating new conversation
+prepare: scripts.neo.Prepare # Hook triggered before processing message
+write: scripts.neo.Write # Hook triggered when writing response
+
+#----------------------------------------
+# CORS Configuration
+#----------------------------------------
+allows: # Allowed origins for CORS
   - "http://127.0.0.1:8000"
   - "http://127.0.0.1:5099"
   - "http://localhost:5099"
