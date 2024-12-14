@@ -4,7 +4,7 @@ import { io, neo } from "@yao/runtime";
  * Return all available Assistants
  */
 function Assistants(): neo.Assistant[] {
-  return [];
+  return [{ assistant_id: "yao_neo_assistant", connector: "moapi:gpt-4o" }];
 }
 
 /**
