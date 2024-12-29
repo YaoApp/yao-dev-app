@@ -29,8 +29,8 @@
    * for more information, please visit: https://welcome.moapi.ai
    */
   "moapi": {
-    "channel": "yao-init-application",
-    "mirrors": ["kr-mirrors.moapi.ai"],
-    "secret": "sk-LrS8yVX4mYQ6sTbBtP1uV9KjZ6RiXnD3aF5sH9JkL8QwE4Yz"
+    "channel": "global",
+    "mirrors": ["https://api.moapi.ai"],
+    "secret": "$ENV.TEST_MOAPI_SECRET" // SUPPORT ENVIRONMENT VARIABLE
   }
 }
