@@ -12,9 +12,9 @@ option: # AI model parameters
   temperature: 1.2 # Controls randomness in responses (0.0-2.0)
 
 #----------------------------------------
-# Conversation Management
+# store Management
 #----------------------------------------
-conversation:
+store:
   connector: default # Storage backend (options: default/database, mongo, redis)
   table: yao_neo_conversation # Database table name for conversations
   max_size: 10 # Maximum number of messages to keep in history
