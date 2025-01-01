@@ -1,0 +1,11 @@
+{
+  "name": "Modi",
+  "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Modi",
+  "connector": "deepseek",
+  "description": "A model generator yao assistant",
+  "options": { "temperature": 0 },
+  "tags": ["general", "coding"],
+  "readonly": true,
+  "automated": true,
+  "mentionable": true
+}
