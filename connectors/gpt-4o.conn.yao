@@ -1,0 +1,8 @@
+{
+  "label": "Model gpt-4o",
+  "type": "openai",
+  "options": {
+    "model": "gpt-4o",
+    "key": "$ENV.OPENAI_TEST_KEY"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "label": "Model gpt-3.5-turbo-instruct",
+  "type": "openai",
+  "options": {
+    "model": "gpt-3.5-turbo-instruct",
+    "key": "$ENV.OPENAI_TEST_KEY"
+  }
+}
