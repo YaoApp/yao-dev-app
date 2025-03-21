@@ -1,6 +1,7 @@
 logs/
 .DS_Store
 data/*
+!data/excel
 yao-0.10.3-darwin-amd64
 public/yao
 db
