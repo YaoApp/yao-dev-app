@@ -1,0 +1,13 @@
+{
+  "id": "http_test",
+  "name": "HTTP Test MCP Client",
+  "label": "HTTP Test MCP Client",
+  "description": "A test MCP client using HTTP transport",
+  "tags": ["test", "mcp", "http"],
+  "transport": "http",
+  "url": "http://localhost:8080/mcp",
+  "authorization_token": "Bearer test-token",
+  "enable_sampling": true,
+  "enable_roots": true,
+  "timeout": "30s"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "test",
+  "name": "Test MCP Client",
+  "label": "Test MCP Client",
+  "description": "A test MCP client for unit testing",
+  "tags": ["test", "mcp"],
+  "transport": "stdio",
+  "command": "echo",
+  "arguments": ["hello", "world"],
+  "env": {
+    "MCP_TEST": "true"
+  },
+  "enable_sampling": true,
+  "enable_roots": false,
+  "timeout": "30s"
+}
