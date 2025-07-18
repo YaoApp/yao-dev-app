@@ -19,8 +19,8 @@ The OpenAPI service configuration is defined in `openapi.yao` and includes:
 ├── baseurl          # Base URL for OpenAPI endpoints (currently: "/v1")
 ├── providers        # Data provider configuration
 │   ├── user         # User provider model (default: "__yao.user")
-│   ├── client       # Client store model (default: "__yao.oauth_client")
-│   └── cache        # Cache store (default: "__yao.oauth_cache")
+│   ├── client       # Client KV store (default: "__yao.oauth_client" - Badger)
+│   └── cache        # Cache KV store (default: "__yao.oauth_cache" - LRU)
 └── oauth
     └── config
         ├── issuer_url    # OAuth server issuer URL (required)
@@ -68,27 +68,75 @@ Data provider configuration for OAuth service components.
 
 - **Type**: `string`
 - **Required**: Yes
-- **Default**: `__yao.oauth_client`
-- **Description**: Client store for OAuth client registration and management
-- **Custom**: Can be any Yao model for OAuth client data
+- **Default**: `__yao.oauth_client` (uses Badger KV store)
+- **Description**: Client store for OAuth client registration and management using Yao Store KV engine
+- **Custom**: Can be any Yao Store (Redis, Badger, MongoDB, etc.) for OAuth client KV data
 
 #### `cache`
 
 - **Type**: `string`
 - **Required**: Yes
-- **Default**: `__yao.oauth_cache`
-- **Description**: Cache store for tokens, sessions, and temporary data
-- **Custom**: Can be any Yao store (in-memory/Redis backend)
+- **Default**: `__yao.oauth_cache` (uses LRU cache strategy)
+- **Description**: Cache store for tokens, sessions, and temporary data using Yao Store KV engine
+- **Custom**: Can be any Yao Store (Redis, Memory, etc.) for KV data
 
 **Example:**
 
 ```json
 "providers": {
-  "user": "custom.users",
-  "client": "oauth.clients",
-  "cache": "redis.oauth_cache"
+  "user": "custom.users",           // Custom user model
+  "client": "redis.oauth_clients",  // Redis KV store for client data (⚠️ potential data loss)
+  "cache": "redis.oauth_cache"      // Redis KV store for cache data (acceptable)
 }
 ```
+
+**MongoDB Example:**
+
+```json
+"providers": {
+  "user": "custom.users",
+  "client": "mongodb.oauth_clients",  // MongoDB store for client data
+  "cache": "redis.oauth_cache"        // Redis store for cache data (recommended)
+}
+```
+
+**Storage Engine Details:**
+
+- **Default client store**: Badger KV (persistent, embedded)
+- **Default cache store**: LRU cache (in-memory, size-limited)
+- **Custom options**: Redis, Badger, MongoDB, Memory, etc.
+
+**Recommended Usage:**
+
+- **Client store**: Badger (default), MongoDB for critical data; Redis for non-critical data
+- **Cache store**: LRU Cache (default), Redis, Memory
+
+**Critical vs Non-Critical Data:**
+
+- **Critical**: OAuth client registrations, user credentials (use Badger/MongoDB)
+- **Non-Critical**: Access tokens, sessions, temporary data (Redis acceptable)
+
+**Performance Characteristics:**
+
+| Store     | Type        | Persistence     | Performance | Use Case                  |
+| --------- | ----------- | --------------- | ----------- | ------------------------- |
+| Badger    | Embedded KV | Persistent      | High        | Client registration data  |
+| LRU Cache | In-memory   | Non-persistent  | Very High   | Tokens, sessions (cache)  |
+| Memory    | In-memory   | Non-persistent  | Very High   | Simple cache scenarios    |
+| Redis     | External KV | Semi-persistent | High        | Distributed cache/storage |
+| MongoDB   | Document DB | Persistent      | Medium      | Client data, analytics    |
+
+**Persistence Details:**
+
+- **Persistent**: Real-time write to disk, no data loss risk
+- **Semi-persistent**: Periodic snapshots + write-ahead logs, potential data loss (1-60s)
+- **Non-persistent**: Memory only, data lost on restart
+
+**Redis Persistence Mechanisms:**
+
+- **RDB (Snapshot)**: Periodic disk snapshots, data loss risk between snapshots
+- **AOF (Append-Only File)**: Logs write operations, configurable fsync (1s-30s data loss)
+- **Hybrid**: RDB + AOF for better recovery, still not real-time
 
 ---
 
