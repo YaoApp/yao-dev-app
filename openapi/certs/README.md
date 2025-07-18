@@ -6,18 +6,18 @@ This directory contains certificate files used for OAuth 2.1 authentication and 
 
 ## Certificate Files
 
-### 1. JWT Token Signing Certificates
+### 1. Token Signing Certificates
 
 #### `signing-key.pem` 🔐
 
-- **Purpose**: Private key for signing OAuth JWT access tokens
+- **Purpose**: Private key for signing OAuth access tokens
 - **Usage**: OAuth server uses this to sign tokens
 - **Security**: ⚠️ **HIGHLY SENSITIVE** - Keep secure and never expose
 - **Permissions**: 600 (read-write owner only)
 
 #### `signing-cert.pem` 📜
 
-- **Purpose**: Public certificate for verifying JWT tokens
+- **Purpose**: Public certificate for verifying tokens
 - **Usage**: Clients and resource servers use this to verify token authenticity
 - **Security**: Can be shared publicly
 - **Permissions**: 644 (readable by all)
@@ -49,9 +49,9 @@ This directory contains certificate files used for OAuth 2.1 authentication and 
 │     Client ──[Client Certificate]──> OAuth Server              │
 │     OAuth Server validates using mtls-client-ca.pem            │
 │                                                                 │
-│  2. JWT Token Issuance                                          │
-│     OAuth Server signs JWT using signing-key.pem               │
-│     Client verifies JWT using signing-cert.pem                 │
+│  2. Token Issuance                                              │
+│     OAuth Server signs tokens using signing-key.pem            │
+│     Client verifies tokens using signing-cert.pem              │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -139,7 +139,7 @@ openssl x509 -in signing-cert.pem -noout -dates
 
 ### Recommended Rotation Schedule
 
-- **JWT Signing Certificates**: Every 6 months
+- **Token Signing Certificates**: Every 6 months
 - **mTLS Client Certificates**: Every 12 months
 - **CA Certificates**: Every 2-3 years
 

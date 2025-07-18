@@ -6,7 +6,7 @@ This document provides detailed information about all configuration parameters a
 
 The OpenAPI service configuration is defined in `openapi.yao` and includes:
 
-- 🔧 **Base Configuration** - OpenAPI endpoint at `/openapi` with configurable providers
+- 🔧 **Base Configuration** - OpenAPI endpoint at `/v1` with configurable providers
 - 🔐 **OAuth 2.0 & 2.1 Support** - Configurable OAuth features with OAuth 2.1 enabled by default
 - 🎫 **Multiple Token Formats** - JWT access tokens and opaque refresh tokens
 - 🛡️ **Security Features** - mTLS, PKCE, rate limiting, and brute force protection
@@ -16,7 +16,7 @@ The OpenAPI service configuration is defined in `openapi.yao` and includes:
 ## Configuration Structure
 
 ```yaml
-├── baseurl          # Base URL for OpenAPI endpoints (currently: "/openapi")
+├── baseurl          # Base URL for OpenAPI endpoints (currently: "/v1")
 ├── providers        # Data provider configuration
 │   ├── user         # User provider model (default: "__yao.user")
 │   ├── client       # Client store model (default: "__yao.oauth_client")
@@ -39,13 +39,13 @@ The OpenAPI service configuration is defined in `openapi.yao` and includes:
 
 - **Type**: `string`
 - **Required**: Yes
-- **Default**: `/openapi`
+- **Default**: `/v1`
 - **Description**: Base URL path for OpenAPI endpoints
 
 **Example:**
 
 ```json
-"baseurl": "/oauth"
+"baseurl": "/v1"
 ```
 
 ---
@@ -101,7 +101,7 @@ Data provider configuration for OAuth service components.
 - **Type**: `string`
 - **Required**: Yes
 - **Description**: OAuth token issuer URL for OAuth server
-- **Usage**: Used as the `iss` claim in JWT tokens
+- **Usage**: Used as the `iss` claim in JWT tokens and issuer identifier
 
 **Example:**
 
@@ -120,14 +120,14 @@ Data provider configuration for OAuth service components.
 - **Type**: `string`
 - **Required**: Yes
 - **Description**: Path to token signing certificate (public key)
-- **Usage**: Used for JWT token verification
+- **Usage**: Used for token verification
 
 #### `signing_key_path`
 
 - **Type**: `string`
 - **Required**: Yes
 - **Description**: Path to token signing private key
-- **Usage**: Used for JWT token signing
+- **Usage**: Used for token signing
 
 ### Optional Fields
 
@@ -699,7 +699,7 @@ Data provider configuration for OAuth service components.
 
 ```json
 {
-  "baseurl": "/oauth",
+  "baseurl": "/v1",
   "providers": {
     "user": "__yao.user",
     "client": "__yao.oauth_client",
@@ -721,7 +721,7 @@ Data provider configuration for OAuth service components.
 
 ```json
 {
-  "baseurl": "/oauth",
+  "baseurl": "/v1",
   "providers": {
     "user": "__yao.user",
     "client": "__yao.oauth_client",
@@ -760,7 +760,7 @@ Data provider configuration for OAuth service components.
 
 ```json
 {
-  "baseurl": "/oauth",
+  "baseurl": "/v1",
   "providers": {
     "user": "__yao.user",
     "client": "__yao.oauth_client",

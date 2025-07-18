@@ -1,5 +1,5 @@
 {
-  "baseurl": "/openapi", // Base URL path for OAuth endpoints
+  "baseurl": "/v1", // Base URL path for OpenAPI endpoints
   "providers": {
     "user": "__yao.user", // User provider: Any Yao model with required fields (default: __yao.user)
     "client": "__yao.oauth_client", // Client store: Any Yao model for OAuth client data (default: __yao.oauth_client)
