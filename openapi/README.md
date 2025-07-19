@@ -21,14 +21,13 @@ The OpenAPI service configuration is defined in `openapi.yao` and includes:
 │   ├── user         # User provider model (default: "__yao.user")
 │   ├── client       # Client KV store (default: "__yao.oauth_client" - Badger)
 │   └── cache        # Cache KV store (default: "__yao.oauth_cache" - LRU)
-└── oauth
-    └── config
-        ├── issuer_url    # OAuth server issuer URL (required)
-        ├── signing       # Token signing configuration
-        ├── token         # Token lifecycle configuration
-        ├── security      # Security features configuration
-        ├── client        # Client default configuration
-        └── features      # OAuth 2.0/2.1 feature flags
+└── oauth            # OAuth configuration
+    ├── issuer_url    # OAuth server issuer URL (required)
+    ├── signing       # Token signing configuration
+    ├── token         # Token lifecycle configuration
+    ├── security      # Security features configuration
+    ├── client        # Client default configuration
+    └── features      # OAuth 2.0/2.1 feature flags
 ```
 
 ---
@@ -754,12 +753,10 @@ Data provider configuration for OAuth service components.
     "cache": "__yao.oauth_cache"
   },
   "oauth": {
-    "config": {
-      "issuer_url": "https://localhost:5099",
-      "signing": {
-        "signing_cert_path": "certs/signing-cert.pem",
-        "signing_key_path": "certs/signing-key.pem"
-      }
+    "issuer_url": "https://localhost:5099",
+    "signing": {
+      "signing_cert_path": "certs/signing-cert.pem",
+      "signing_key_path": "certs/signing-key.pem"
     }
   }
 }
@@ -776,29 +773,27 @@ Data provider configuration for OAuth service components.
     "cache": "__yao.oauth_cache"
   },
   "oauth": {
-    "config": {
-      "issuer_url": "https://localhost:5099",
-      "signing": {
-        "signing_cert_path": "certs/signing-cert.pem",
-        "signing_key_path": "certs/signing-key.pem",
-        "mtls_enabled": true,
-        "mtls_client_ca_cert_path": "certs/mtls-client-ca.pem"
-      },
-      "token": {
-        "access_token_lifetime": "30m",
-        "refresh_token_rotation": true
-      },
-      "security": {
-        "pkce_required": true,
-        "rate_limit_enabled": true,
-        "brute_force_protection_enabled": true,
-        "require_https": true
-      },
-      "features": {
-        "oauth21_enabled": true,
-        "token_revocation_enabled": true,
-        "jwt_introspection_enabled": true
-      }
+    "issuer_url": "https://localhost:5099",
+    "signing": {
+      "signing_cert_path": "certs/signing-cert.pem",
+      "signing_key_path": "certs/signing-key.pem",
+      "mtls_enabled": true,
+      "mtls_client_ca_cert_path": "certs/mtls-client-ca.pem"
+    },
+    "token": {
+      "access_token_lifetime": "30m",
+      "refresh_token_rotation": true
+    },
+    "security": {
+      "pkce_required": true,
+      "rate_limit_enabled": true,
+      "brute_force_protection_enabled": true,
+      "require_https": true
+    },
+    "features": {
+      "oauth21_enabled": true,
+      "token_revocation_enabled": true,
+      "jwt_introspection_enabled": true
     }
   }
 }
@@ -815,40 +810,38 @@ Data provider configuration for OAuth service components.
     "cache": "__yao.oauth_cache"
   },
   "oauth": {
-    "config": {
-      "issuer_url": "https://localhost:5099",
-      "signing": {
-        "signing_cert_path": "certs/signing-cert.pem",
-        "signing_key_path": "certs/signing-key.pem",
-        "mtls_enabled": true,
-        "mtls_client_ca_cert_path": "certs/mtls-client-ca.pem"
-      },
-      "token": {
-        "access_token_lifetime": "15m",
-        "refresh_token_rotation": true,
-        "token_binding_enabled": true,
-        "supported_binding_types": ["mtls", "dpop"]
-      },
-      "security": {
-        "pkce_required": true,
-        "state_parameter_required": true,
-        "rate_limit_enabled": true,
-        "brute_force_protection_enabled": true,
-        "require_https": true,
-        "disable_unsecure_endpoints": true
-      },
-      "client": {
-        "client_certificate_required": true,
-        "client_certificate_validation": "required"
-      },
-      "features": {
-        "oauth21_enabled": true,
-        "pkce_enforced": true,
-        "mtls_enabled": true,
-        "dpop_enabled": true,
-        "token_binding_enabled": true,
-        "pushed_authorization_enabled": true
-      }
+    "issuer_url": "https://localhost:5099",
+    "signing": {
+      "signing_cert_path": "certs/signing-cert.pem",
+      "signing_key_path": "certs/signing-key.pem",
+      "mtls_enabled": true,
+      "mtls_client_ca_cert_path": "certs/mtls-client-ca.pem"
+    },
+    "token": {
+      "access_token_lifetime": "15m",
+      "refresh_token_rotation": true,
+      "token_binding_enabled": true,
+      "supported_binding_types": ["mtls", "dpop"]
+    },
+    "security": {
+      "pkce_required": true,
+      "state_parameter_required": true,
+      "rate_limit_enabled": true,
+      "brute_force_protection_enabled": true,
+      "require_https": true,
+      "disable_unsecure_endpoints": true
+    },
+    "client": {
+      "client_certificate_required": true,
+      "client_certificate_validation": "required"
+    },
+    "features": {
+      "oauth21_enabled": true,
+      "pkce_enforced": true,
+      "mtls_enabled": true,
+      "dpop_enabled": true,
+      "token_binding_enabled": true,
+      "pushed_authorization_enabled": true
     }
   }
 }
