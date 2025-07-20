@@ -1,9 +1,10 @@
 {
   "baseurl": "/v1", // Base URL path for OpenAPI endpoints
+  "store": "__yao.oauth.store", // Default store for OAuth data
+  "cache": "__yao.oauth.cache", // Default cache for OAuth data
   "providers": {
     "user": "__yao.user", // User provider: Any Yao model with required fields (default: __yao.user)
-    "client": "__yao.oauth_client", // Client store: Any Yao Store for OAuth client KV data (default: __yao.oauth_client uses Badger)
-    "cache": "__yao.oauth_cache" // Cache store: Any Yao Store for tokens/sessions KV data (default: __yao.oauth_cache uses LRU)
+    "client": "__yao.oauth.client" // Client store: Any Yao Store for OAuth client KV data (default: __yao.oauth_client uses Badger)
   },
   "oauth": {
     "issuer_url": "https://localhost:5099", // Required: OAuth token issuer URL for OAuth server

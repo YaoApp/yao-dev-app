@@ -16,11 +16,12 @@ The OpenAPI service configuration is defined in `openapi.yao` and includes:
 ## Configuration Structure
 
 ```yaml
-├── baseurl          # Base URL for OpenAPI endpoints (currently: "/v1")
+├── baseurl          # Base URL for OpenAPI endpoints (default: "/v1")
+├── store            # OAuth data store for persistent data (default: "__yao.oauth.store" - Badger)
+├── cache            # OAuth cache store for temporary data (default: "__yao.oauth.cache" - LRU)
 ├── providers        # Data provider configuration
 │   ├── user         # User provider model (default: "__yao.user")
-│   ├── client       # Client KV store (default: "__yao.oauth_client" - Badger)
-│   └── cache        # Cache KV store (default: "__yao.oauth_cache" - LRU)
+│   └── client       # Client KV store (default: "__yao.oauth.client" - Badger)
 └── oauth            # OAuth configuration
     ├── issuer_url    # OAuth server issuer URL (required)
     ├── signing       # Token signing configuration
@@ -49,6 +50,26 @@ The OpenAPI service configuration is defined in `openapi.yao` and includes:
 
 ---
 
+## Store Configuration
+
+### `store`
+
+- **Type**: `string`
+- **Required**: Yes
+- **Default**: `__yao.oauth.store` (uses Badger KV store)
+- **Description**: OAuth data store for persistent OAuth data (authorization codes, refresh tokens, session data) using Yao Store KV engine
+- **Custom**: Can be any Yao Store (Redis, Badger, MongoDB, etc.) for persistent OAuth data
+- **Storage Path**: `{{ YAO_DATA_ROOT }}/stores/oauth/store`
+
+### `cache`
+
+- **Type**: `string`
+- **Required**: Yes
+- **Default**: `__yao.oauth.cache` (uses LRU cache strategy)
+- **Description**: Cache store for temporary OAuth data (access tokens, temporary sessions) using Yao Store KV engine
+- **Custom**: Can be any Yao Store (Redis, Memory, etc.) for temporary KV data
+- **Cache Size**: 8192 entries
+
 ## Providers Configuration
 
 ### `providers`
@@ -67,48 +88,49 @@ Data provider configuration for OAuth service components.
 
 - **Type**: `string`
 - **Required**: Yes
-- **Default**: `__yao.oauth_client` (uses Badger KV store)
-- **Description**: Client store for OAuth client registration and management using Yao Store KV engine
+- **Default**: `__yao.oauth.client` (uses Badger KV store)
+- **Description**: Client store for OAuth client registration and credentials using Yao Store KV engine
 - **Custom**: Can be any Yao Store (Redis, Badger, MongoDB, etc.) for OAuth client KV data
-
-#### `cache`
-
-- **Type**: `string`
-- **Required**: Yes
-- **Default**: `__yao.oauth_cache` (uses LRU cache strategy)
-- **Description**: Cache store for tokens, sessions, and temporary data using Yao Store KV engine
-- **Custom**: Can be any Yao Store (Redis, Memory, etc.) for KV data
+- **Storage Path**: `{{ YAO_DATA_ROOT }}/stores/oauth/client`
 
 **Example:**
 
 ```json
-"providers": {
-  "user": "custom.users",           // Custom user model
-  "client": "redis.oauth_clients",  // Redis KV store for client data (⚠️ potential data loss)
-  "cache": "redis.oauth_cache"      // Redis KV store for cache data (acceptable)
+{
+  "store": "redis.oauth_data", // Redis KV store for OAuth data (⚠️ potential data loss)
+  "cache": "redis.oauth_cache", // Redis KV store for cache data (acceptable)
+  "providers": {
+    "user": "custom.users", // Custom user model
+    "client": "mongodb.oauth_clients" // MongoDB store for client data
+  }
 }
 ```
 
-**MongoDB Example:**
+**High-Performance Configuration:**
 
 ```json
-"providers": {
-  "user": "custom.users",
-  "client": "mongodb.oauth_clients",  // MongoDB store for client data
-  "cache": "redis.oauth_cache"        // Redis store for cache data (recommended)
+{
+  "store": "__yao.oauth.store", // Default Badger store for persistence
+  "cache": "redis.oauth_cache", // Redis cache for distributed caching
+  "providers": {
+    "user": "__yao.user",
+    "client": "mongodb.oauth_clients" // MongoDB for complex client queries
+  }
 }
 ```
 
 **Storage Engine Details:**
 
+- **Default OAuth store**: Badger KV (persistent, embedded)
+- **Default cache store**: LRU cache (in-memory, 8192 entries)
 - **Default client store**: Badger KV (persistent, embedded)
-- **Default cache store**: LRU cache (in-memory, size-limited)
 - **Custom options**: Redis, Badger, MongoDB, Memory, etc.
 
 **Recommended Usage:**
 
-- **Client store**: Badger (default), MongoDB for critical data; Redis for non-critical data
-- **Cache store**: LRU Cache (default), Redis, Memory
+- **OAuth store**: Badger (default), MongoDB for critical data; Redis for non-critical data
+- **Cache store**: LRU Cache (default), Redis for distributed scenarios
+- **Client store**: Badger (default), MongoDB for complex queries; Redis for non-critical data
 
 **Critical vs Non-Critical Data:**
 
@@ -117,13 +139,13 @@ Data provider configuration for OAuth service components.
 
 **Performance Characteristics:**
 
-| Store     | Type        | Persistence     | Performance | Use Case                  |
-| --------- | ----------- | --------------- | ----------- | ------------------------- |
-| Badger    | Embedded KV | Persistent      | High        | Client registration data  |
-| LRU Cache | In-memory   | Non-persistent  | Very High   | Tokens, sessions (cache)  |
-| Memory    | In-memory   | Non-persistent  | Very High   | Simple cache scenarios    |
-| Redis     | External KV | Semi-persistent | High        | Distributed cache/storage |
-| MongoDB   | Document DB | Persistent      | Medium      | Client data, analytics    |
+| Store     | Type        | Persistence     | Performance | Use Case                        |
+| --------- | ----------- | --------------- | ----------- | ------------------------------- |
+| Badger    | Embedded KV | Persistent      | High        | OAuth data, client registration |
+| LRU Cache | In-memory   | Non-persistent  | Very High   | Access tokens, sessions         |
+| Memory    | In-memory   | Non-persistent  | Very High   | Simple cache scenarios          |
+| Redis     | External KV | Semi-persistent | High        | Distributed cache/storage       |
+| MongoDB   | Document DB | Persistent      | Medium      | Complex queries, analytics      |
 
 **Persistence Details:**
 
@@ -136,6 +158,71 @@ Data provider configuration for OAuth service components.
 - **RDB (Snapshot)**: Periodic disk snapshots, data loss risk between snapshots
 - **AOF (Append-Only File)**: Logs write operations, configurable fsync (1s-30s data loss)
 - **Hybrid**: RDB + AOF for better recovery, still not real-time
+
+---
+
+## OAuth Storage Architecture
+
+### Three-Layer Storage Design
+
+The OAuth service uses a sophisticated three-layer storage architecture for optimal performance and data safety:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                OAuth Storage Architecture                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  🗄️  OAuth Data Store (__yao.oauth.store)                 │
+│     ├── Authorization codes                                 │
+│     ├── Refresh tokens                                      │
+│     ├── Session data                                        │
+│     └── OAuth flow persistence                              │
+│     Storage: {{ YAO_DATA_ROOT }}/stores/oauth/store         │
+│                                                             │
+│  ⚡ OAuth Cache Store (__yao.oauth.cache)                  │
+│     ├── Access tokens (temporary)                           │
+│     ├── Rate limiting counters                              │
+│     ├── Temporary sessions                                  │
+│     └── Performance optimization                            │
+│     Capacity: 8192 entries (LRU eviction)                  │
+│                                                             │
+│  🏢 OAuth Client Store (__yao.oauth.client)                │
+│     ├── Client registration data                            │
+│     ├── Client credentials                                  │
+│     ├── Redirect URIs                                       │
+│     └── Client configuration                                │
+│     Storage: {{ YAO_DATA_ROOT }}/stores/oauth/client        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Storage Responsibilities
+
+| Layer            | Purpose                   | Data Lifetime | Performance | Backup Required |
+| ---------------- | ------------------------- | ------------- | ----------- | --------------- |
+| **Data Store**   | OAuth flow persistence    | Medium-term   | High        | ✅ Yes          |
+| **Cache Store**  | High-speed temporary data | Short-term    | Very High   | ❌ No           |
+| **Client Store** | Client credentials        | Long-term     | High        | ✅ Yes          |
+
+### Directory Structure
+
+```
+{{ YAO_DATA_ROOT }}/
+└── stores/
+    └── oauth/
+        ├── store/          # OAuth Data Store files
+        └── client/         # OAuth Client Store files
+
+Memory:
+└── LRU Cache (8192 entries) # OAuth Cache Store
+```
+
+### Data Flow
+
+1. **Client Registration** → Client Store (persistent)
+2. **Authorization Flow** → Data Store (persistent) + Cache Store (temporary)
+3. **Token Requests** → Cache Store (fast access) + Data Store (persistence)
+4. **Token Validation** → Cache Store (first), Data Store (fallback)
 
 ---
 
@@ -747,10 +834,11 @@ Data provider configuration for OAuth service components.
 ```json
 {
   "baseurl": "/v1",
+  "store": "__yao.oauth.store",
+  "cache": "__yao.oauth.cache",
   "providers": {
     "user": "__yao.user",
-    "client": "__yao.oauth_client",
-    "cache": "__yao.oauth_cache"
+    "client": "__yao.oauth.client"
   },
   "oauth": {
     "issuer_url": "https://localhost:5099",
@@ -767,10 +855,11 @@ Data provider configuration for OAuth service components.
 ```json
 {
   "baseurl": "/v1",
+  "store": "__yao.oauth.store",
+  "cache": "__yao.oauth.cache",
   "providers": {
     "user": "__yao.user",
-    "client": "__yao.oauth_client",
-    "cache": "__yao.oauth_cache"
+    "client": "__yao.oauth.client"
   },
   "oauth": {
     "issuer_url": "https://localhost:5099",
@@ -804,10 +893,11 @@ Data provider configuration for OAuth service components.
 ```json
 {
   "baseurl": "/v1",
+  "store": "__yao.oauth.store",
+  "cache": "__yao.oauth.cache",
   "providers": {
     "user": "__yao.user",
-    "client": "__yao.oauth_client",
-    "cache": "__yao.oauth_cache"
+    "client": "__yao.oauth.client"
   },
   "oauth": {
     "issuer_url": "https://localhost:5099",
