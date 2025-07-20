@@ -4,6 +4,67 @@
 
 This directory contains certificate files used for OAuth 2.1 authentication and authorization. Each file serves a specific purpose in the OAuth security infrastructure.
 
+## Configuration Usage
+
+### Path Configuration in `openapi.yao`
+
+The certificate files in this directory are referenced in the OAuth configuration using **relative paths**. The OpenAPI service automatically resolves these paths relative to the `{YAO_ROOT}/openapi/certs/` directory.
+
+**Configuration Example:**
+
+```json
+{
+  "oauth": {
+    "signing": {
+      "signing_cert_path": "signing-cert.pem", // → {YAO_ROOT}/openapi/certs/signing-cert.pem
+      "signing_key_path": "signing-key.pem", // → {YAO_ROOT}/openapi/certs/signing-key.pem
+      "mtls_client_ca_cert_path": "mtls-client-ca.pem" // → {YAO_ROOT}/openapi/certs/mtls-client-ca.pem
+    }
+  }
+}
+```
+
+### Directory Structure and Path Resolution
+
+```
+{YAO_ROOT}/                                    # Application root directory
+├── openapi/
+    ├── openapi.yao                           # Configuration file
+    └── certs/                                # Certificate directory (this directory)
+        ├── signing-cert.pem                  # Referenced as: "signing-cert.pem"
+        ├── signing-key.pem                   # Referenced as: "signing-key.pem"
+        ├── mtls-client-ca.pem                # Referenced as: "mtls-client-ca.pem"
+        ├── mtls-client-ca-key-...            # CA private key (testing only)
+        └── ssl/                              # Optional: Subdirectories supported
+            └── production-cert.pem           # Referenced as: "ssl/production-cert.pem"
+```
+
+### Path Resolution Benefits
+
+- 📁 **Clean Configuration**: Simple filenames in configuration files
+- 🔧 **Environment Independence**: Same config works across deployments
+- 🛡️ **Security**: Certificates contained in dedicated directory
+- 📦 **Portability**: Easy to package and deploy with application
+
+### Advanced Path Options
+
+1. **Simple Filenames** (Recommended):
+
+   ```json
+   "signing_cert_path": "signing-cert.pem"
+   ```
+
+2. **Subdirectory Organization**:
+
+   ```json
+   "signing_cert_path": "production/signing-cert.pem"
+   ```
+
+3. **Absolute Paths** (Not recommended for portability):
+   ```json
+   "signing_cert_path": "/etc/ssl/certs/oauth-signing.pem"
+   ```
+
 ## Certificate Files
 
 ### 1. Token Signing Certificates
@@ -156,10 +217,59 @@ openssl x509 -in signing-cert.pem -noout -dates
 
 ### Common Issues
 
-- **Certificate expired**: Check expiration dates
-- **Certificate chain invalid**: Verify CA chain
-- **Permission denied**: Check file permissions
+#### Certificate File Issues
+
+- **Certificate expired**: Check expiration dates using `openssl x509 -in cert.pem -noout -dates`
+- **Certificate chain invalid**: Verify CA chain with `openssl verify -CAfile ca.pem cert.pem`
+- **Permission denied**: Check file permissions (private keys should be 600)
 - **Certificate mismatch**: Ensure correct certificate-key pairs
+
+#### Configuration Path Issues
+
+- **File not found**:
+
+  - ✅ Verify certificate files exist in `{YAO_ROOT}/openapi/certs/` directory
+  - ✅ Check relative path spelling in `openapi.yao` configuration
+  - ✅ Use forward slashes `/` for subdirectories (not backslashes `\`)
+
+- **Invalid certificate path**:
+
+  ```bash
+  # Check if file exists
+  ls -la {YAO_ROOT}/openapi/certs/signing-cert.pem
+
+  # Verify configuration path
+  cat openapi.yao | grep signing_cert_path
+  ```
+
+- **Permission issues**:
+  ```bash
+  # Fix certificate file permissions
+  chmod 644 signing-cert.pem          # Public certificates
+  chmod 600 signing-key.pem           # Private keys
+  chmod 600 mtls-client-ca-key-*.pem  # CA private keys
+  ```
+
+#### Path Resolution Debugging
+
+1. **Verify your application root**:
+
+   ```bash
+   echo $YAO_ROOT  # Should show your application root path
+   ```
+
+2. **Check resolved paths**:
+
+   ```bash
+   # Expected resolution for "signing-cert.pem"
+   ls -la $YAO_ROOT/openapi/certs/signing-cert.pem
+   ```
+
+3. **Test configuration**:
+   ```bash
+   # Validate openapi.yao syntax
+   yao inspect openapi
+   ```
 
 ## Compliance and Standards
 
@@ -172,10 +282,21 @@ This implementation follows:
 
 ## Support
 
-For questions about certificate management or OAuth implementation, please refer to the OAuth 2.1 specification or contact your security team.
+### Documentation Resources
+
+- **Configuration Guide**: See `../README.md` for complete OAuth configuration documentation
+- **Path Configuration**: Detailed path resolution rules and examples in main README
+- **Duration Format**: Human-readable time format guidelines for certificate rotation
+
+### Getting Help
+
+- **Certificate Management**: Consult your security team or system administrator
+- **OAuth Implementation**: Refer to OAuth 2.1 specification (RFC 6749, RFC 8705)
+- **Configuration Issues**: Check troubleshooting section above for common problems
+- **Path Resolution**: Review path configuration examples in main OpenAPI documentation
 
 ---
 
 **Last Updated**: 2025-01-18  
-**Version**: 1.0  
+**Version**: 1.1 - Added configuration path documentation  
 **Environment**: Development/Testing Only

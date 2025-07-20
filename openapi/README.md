@@ -33,6 +33,64 @@ The OpenAPI service configuration is defined in `openapi.yao` and includes:
 
 ---
 
+## Configuration Format Guidelines
+
+### Duration Format
+
+All time duration fields in the configuration use **human-readable string format** that supports standard Go duration syntax:
+
+**Supported Units:**
+
+- `ns` (nanoseconds) - `500ns`
+- `us` (microseconds) - `100us`
+- `ms` (milliseconds) - `250ms`
+- `s` (seconds) - `30s`
+- `m` (minutes) - `15m`
+- `h` (hours) - `24h`
+
+**Format Examples:**
+
+```json
+{
+  "access_token_lifetime": "1h", // 1 hour
+  "refresh_token_lifetime": "24h", // 24 hours
+  "authorization_code_lifetime": "10m", // 10 minutes
+  "device_code_interval": "5s", // 5 seconds
+  "cert_rotation_interval": "168h" // 7 days (7 × 24h)
+}
+```
+
+**Combined Durations:**
+
+```json
+{
+  "session_timeout": "1h30m", // 1 hour 30 minutes
+  "cleanup_interval": "2h45m30s" // 2 hours 45 minutes 30 seconds
+}
+```
+
+**Special Values:**
+
+- `"0"` or `"0s"` - Zero duration (no timeout/immediate expiration)
+- Empty string `""` - Use system default
+
+### Path Format
+
+Certificate and file paths follow these resolution rules:
+
+1. **Relative Paths** (Recommended): Resolved from `{YAO_ROOT}/openapi/certs/`
+
+   - `"signing-cert.pem"` → `{YAO_ROOT}/openapi/certs/signing-cert.pem`
+
+2. **Subdirectory Paths**: Organize certificates in subdirectories
+
+   - `"ssl/prod-cert.pem"` → `{YAO_ROOT}/openapi/certs/ssl/prod-cert.pem`
+
+3. **Absolute Paths**: Used as-is without modification
+   - `"/etc/ssl/certs/oauth.pem"` → `/etc/ssl/certs/oauth.pem`
+
+---
+
 ## Base Configuration
 
 ### `baseurl`
@@ -247,21 +305,89 @@ Memory:
 
 ## Signing Configuration
 
+### Certificate Path Usage
+
+All certificate paths in the signing configuration are **relative paths** that are resolved against the application's certificate directory structure:
+
+```
+{YAO_ROOT}/
+├── openapi/
+    └── certs/
+        ├── signing-cert.pem          # Token signing certificate (public)
+        ├── signing-key.pem           # Token signing private key
+        ├── mtls-client-ca.pem        # mTLS client CA certificate
+        └── ssl/                      # Optional subdirectories
+            └── prod-cert.pem
+```
+
+**Path Resolution Rules:**
+
+1. **Relative Paths**: Configured as relative to `{YAO_ROOT}/openapi/certs/`
+
+   - Configuration: `"signing_cert_path": "signing-cert.pem"`
+   - Resolved to: `{YAO_ROOT}/openapi/certs/signing-cert.pem`
+
+2. **Subdirectory Support**: You can organize certificates in subdirectories
+
+   - Configuration: `"signing_cert_path": "ssl/prod-cert.pem"`
+   - Resolved to: `{YAO_ROOT}/openapi/certs/ssl/prod-cert.pem`
+
+3. **Absolute Paths**: If you provide an absolute path, it will be used as-is
+   - Configuration: `"signing_cert_path": "/etc/ssl/certs/oauth-cert.pem"`
+   - Resolved to: `/etc/ssl/certs/oauth-cert.pem` (unchanged)
+
+**Configuration Examples:**
+
+```json
+{
+  "oauth": {
+    "signing": {
+      "signing_cert_path": "signing-cert.pem", // Simple filename
+      "signing_key_path": "keys/signing-key.pem", // Subdirectory
+      "mtls_client_ca_cert_path": "ca/client-ca.pem" // CA in subdirectory
+    }
+  }
+}
+```
+
+**Directory Structure Example:**
+
+```
+/app/                                    # YAO_ROOT
+├── openapi/
+    ├── certs/
+    │   ├── signing-cert.pem             # Referenced as "signing-cert.pem"
+    │   ├── keys/
+    │   │   └── signing-key.pem          # Referenced as "keys/signing-key.pem"
+    │   └── ca/
+    │       └── client-ca.pem            # Referenced as "ca/client-ca.pem"
+    └── openapi.yao                      # Configuration file
+```
+
+**Benefits of This Approach:**
+
+- 📁 **Clean Configuration**: Simple relative paths in configuration files
+- 🔒 **Security**: Certificates organized in dedicated directory structure
+- 🚀 **Portability**: Configurations work across different deployment environments
+- 🛠️ **Maintainability**: Easy to locate and manage certificate files
+
 ### Required Fields
 
 #### `signing_cert_path`
 
 - **Type**: `string`
 - **Required**: Yes
-- **Description**: Path to token signing certificate (public key)
+- **Description**: Relative path to token signing certificate (public key), resolved from `{YAO_ROOT}/openapi/certs/`
 - **Usage**: Used for token verification
+- **Example**: `"signing-cert.pem"` → `{YAO_ROOT}/openapi/certs/signing-cert.pem`
 
 #### `signing_key_path`
 
 - **Type**: `string`
 - **Required**: Yes
-- **Description**: Path to token signing private key
+- **Description**: Relative path to token signing private key, resolved from `{YAO_ROOT}/openapi/certs/`
 - **Usage**: Used for token signing
+- **Example**: `"signing-key.pem"` → `{YAO_ROOT}/openapi/certs/signing-key.pem`
 
 ### Optional Fields
 
@@ -291,7 +417,8 @@ Memory:
 
 - **Type**: `string`
 - **Required**: No
-- **Description**: CA certificate path for mTLS client validation
+- **Description**: Relative path to CA certificate for mTLS client validation, resolved from `{YAO_ROOT}/openapi/certs/`
+- **Example**: `"mtls-client-ca.pem"` → `{YAO_ROOT}/openapi/certs/mtls-client-ca.pem`
 
 #### `mtls_enabled`
 
