@@ -970,8 +970,8 @@ All certificate paths in the signing configuration are **relative paths** that a
   "oauth": {
     "issuer_url": "https://localhost:5099",
     "signing": {
-      "signing_cert_path": "certs/signing-cert.pem",
-      "signing_key_path": "certs/signing-key.pem"
+      "signing_cert_path": "signing-cert.pem",
+      "signing_key_path": "signing-key.pem"
     }
   }
 }
@@ -991,10 +991,10 @@ All certificate paths in the signing configuration are **relative paths** that a
   "oauth": {
     "issuer_url": "https://localhost:5099",
     "signing": {
-      "signing_cert_path": "certs/signing-cert.pem",
-      "signing_key_path": "certs/signing-key.pem",
+      "signing_cert_path": "signing-cert.pem",
+      "signing_key_path": "signing-key.pem",
       "mtls_enabled": true,
-      "mtls_client_ca_cert_path": "certs/mtls-client-ca.pem"
+      "mtls_client_ca_cert_path": "mtls-client-ca.pem"
     },
     "token": {
       "access_token_lifetime": "30m",
@@ -1029,10 +1029,10 @@ All certificate paths in the signing configuration are **relative paths** that a
   "oauth": {
     "issuer_url": "https://localhost:5099",
     "signing": {
-      "signing_cert_path": "certs/signing-cert.pem",
-      "signing_key_path": "certs/signing-key.pem",
+      "signing_cert_path": "signing-cert.pem",
+      "signing_key_path": "signing-key.pem",
       "mtls_enabled": true,
-      "mtls_client_ca_cert_path": "certs/mtls-client-ca.pem"
+      "mtls_client_ca_cert_path": "mtls-client-ca.pem"
     },
     "token": {
       "access_token_lifetime": "15m",
