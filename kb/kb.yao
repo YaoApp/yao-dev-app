@@ -3,12 +3,11 @@
   "vector": {
     "driver": "qdrant", // Required, currently only support qdrant
     "config": {
-      "host": "127.0.0.1", // Required
-      "port": 6333 // Required
-
-      // "api_key": "your-api-key", // Optional
-      // "username": "your-username", // Optional
-      // "password": "your-password", // Optional
+      "host": "$ENV.QDRANT_TEST_HOST", // Required
+      "port": "$ENV.QDRANT_TEST_PORT" // Required
+      // "api_key": "$ENV.QDRANT_TEST_API_KEY", // Optional
+      // "username": "$ENV.QDRANT_TEST_USERNAME", // Optional
+      // "password": "$ENV.QDRANT_TEST_PASSWORD", // Optional
     }
   },
 
@@ -16,9 +15,9 @@
   "graph": {
     "driver": "neo4j", // Required, currently only support neo4j
     "config": {
-      "url": "neo4j://127.0.0.1:7686" // Required
-      // "username": "neo4j", // Optional
-      // "password": "neo4j" // Optional
+      "url": "$ENV.NEO4J_TEST_URL", // Required
+      "username": "$ENV.NEO4J_TEST_USER", // Optional
+      "password": "$ENV.NEO4J_TEST_PASS" // Optional
     },
     "separate_database": false // Optional, default is false, if true, will create a separate database for the KB and for neo4j enterprise edition only
   },
