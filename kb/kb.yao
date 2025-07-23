@@ -42,7 +42,23 @@
     // "max_threads": -1 // Optional, if not set or set to -1, will use the max cpu threads
   },
 
-  // chunkings, supported chunking types: structured, semantic and your custom chunkings, required, at least one chunking is required
+  // Concurrency limits for task processing (Optional)
+  // Default: max_concurrent=10, queue_size=unlimited
+  "limits": {
+    "job": { "max_concurrent": 10, "queue_size": 100 }, // Job queue limits - jobs are top-level operations like AddFile, AddURL
+    "chunking": { "max_concurrent": 10 },
+    "embedding": { "max_concurrent": 10 },
+    "converter": { "max_concurrent": 10 },
+    "extractor": { "max_concurrent": 10 },
+    "fetcher": { "max_concurrent": 10 },
+    "searcher": { "max_concurrent": 10 },
+    "reranker": { "max_concurrent": 10 },
+    "vote": { "max_concurrent": 10 },
+    "weight": { "max_concurrent": 10 },
+    "score": { "max_concurrent": 10 }
+  },
+
+  // chunkings, text splitting. Supported types: __yao.structured, __yao.semantic, and your custom chunkings. Required - at least one chunking must be configured
   "chunkings": [
     {
       "id": "__yao.structured", // Required, unique id for the chunking
@@ -122,7 +138,7 @@
     // Your custom chunkings here
   ],
 
-  // embeddings, supported embeddings types: openai, qdrant, your custom embeddings, required, at least one embedding is required
+  // embeddings, text vectorization embeddings. Supported types: __yao.openai, __yao.fastembed, and your custom embeddings. Required - at least one embedding must be configured
   "embeddings": [
     {
       "id": "__yao.openai", // Required, unique id for the embedding
@@ -388,13 +404,86 @@
     // Your custom converters here
   ],
 
-  // extractors, supported extractors types: openai, qdrant, your custom extractors
+  // extractors, entity and relationship extractors. Currently supports OpenAI-compatible AI models with chat completion API
   "extractors": [
     {
       "id": "__yao.openai", // Required, unique id for the extractor
       "label": "OpenAI Extractor", // Required, label for the extractor, for display
-      "description": "Extract key information and insights using OpenAI" // Required, description for the extractor, for display
+      "description": "Extract entities and relationships from documents for knowledge graph construction", // Required, description for the extractor, for display
+
+      // Available preset extractor options
+      "options": [
+        {
+          "label": "GPT-4o Mini (Recommended)",
+          "value": "gpt-4o-mini",
+          "default": true,
+          "description": "Fast and cost-effective entity and relationship extraction for knowledge graphs",
+          "properties": { "connector": "openai.gpt-4o-mini", "toolcall": true }
+        },
+        {
+          "label": "GPT-4o (Premium)",
+          "value": "gpt-4o",
+          "description": "Advanced entity and relationship extraction with complex reasoning capabilities",
+          "properties": { "connector": "openai.gpt-4o", "toolcall": true }
+        },
+        {
+          "label": "Deepseek V3 (Alternative)",
+          "value": "deepseek-v3",
+          "description": "Budget-friendly option for basic entity and relationship identification",
+          "properties": { "connector": "deepseek.v3", "toolcall": false }
+        }
+      ]
     }
     // Your custom extractors here
-  ]
+  ],
+
+  // fetchers, file fetchers. Currently supports HTTP, MCP, and your custom fetchers.
+  "fetchers": [
+    {
+      "id": "__yao.http", // Required, unique id for the fetcher
+      "label": "Web File Download", // Required, label for the fetcher, for display
+      "description": "Download files from web URLs and online resources", // Required, description for the fetcher, for display
+
+      // Available preset fetcher options
+      "options": [
+        {
+          "label": "Standard Web Download (Recommended)",
+          "value": "http",
+          "description": "Download files from web URLs with configurable timeout and headers",
+          "default": true,
+          "properties": {
+            "headers": {}, // Custom request headers
+            "timeout": 30 // Request timeout in seconds
+          }
+        }
+      ]
+    },
+    {
+      "id": "__yao.mcp", // Required, unique id for the fetcher
+      "label": "Smart File Retrieval", // Required, label for the fetcher, for display
+      "description": "Retrieve files using intelligent MCP-powered tools and services", // Required, description for the fetcher, for display
+
+      // Available preset fetcher options
+      "options": [
+        {
+          "label": "MCP Smart Fetcher (Advanced)",
+          "value": "mcp",
+          "description": "Intelligent file retrieval with custom processing and authentication support",
+          "default": true,
+          "properties": {
+            "id": "fetcher", // The id of the MCP tool, required
+            "arguments_mapping": {},
+            "output_mapping": {}
+          }
+        }
+      ]
+    }
+  ],
+
+  // Other components for retrieval pipeline
+  "searchers": [],
+  "rerankers": [],
+  "votes": [],
+  "weights": [],
+  "scores": []
 }
