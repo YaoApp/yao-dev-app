@@ -1,0 +1,80 @@
+// User login page config, you can use it to customize the login page
+{
+  "title": "欢迎使用演示应用",
+  "description": "请登录以继续",
+
+  // Form config, you can use it to customize the form of the login page
+  "form": {
+    "username": {
+      "placeholder": "邮箱或手机号",
+      "fields": ["email", "mobile"]
+    },
+    "password": { "placeholder": "登录密码" },
+
+    // Captcha config, you can use it to customize the captcha type and options
+    "captcha": { "type": "image", "options": {} },
+    "forgot_password_link": true,
+    "remember_me": true,
+    "register_link": "https://yaoapps.com/doc/guide/user/register",
+    "terms_of_service_link": "https://yaoapps.com/doc/guide/user/terms-of-service",
+    "privacy_policy_link": "https://yaoapps.com/doc/guide/user/privacy-policy"
+  },
+
+  // Token config, you can use it to customize the token expiration time and remember me expires time
+  "token": {
+    "expires_in": "2h", // Token expiration time, default is 2 hours
+    "remember_me_expires_in": "30d" // Remember me expires time, default is 30 days
+  },
+
+  // Third party login config, you can use it to customize the third party login providers
+  "third_party": {
+    "register": { "auto": true, "role": "guest" }, // Auto register user if not exists
+    "providers": [
+      {
+        "id": "microsoft",
+        "title": "使用微软账号登录",
+        "logo": "/assets/images/login/microsoft.svg",
+        "color": "#0078D4",
+        "client_id": "$ENV.MICROSOFT_CLIENT_ID",
+        "client_secret": "$ENV.MICROSOFT_CLIENT_SECRET",
+        "scopes": ["openid", "email", "profile"],
+        "endpoints": {
+          "authorization": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+          "token": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+          "user_info": "https://graph.microsoft.com/v1.0/me"
+        }
+      },
+      {
+        "id": "apple",
+        "title": "使用苹果账号登录",
+        "logo": "/assets/images/login/apple.svg",
+        "color": "#000000",
+        "client_id": "$ENV.APPLE_CLIENT_ID",
+        "client_secret": "$ENV.APPLE_CLIENT_SECRET",
+        "scopes": ["openid", "email", "profile"],
+        "endpoints": {
+          "authorization": "https://appleid.apple.com/auth/authorize",
+          "token": "https://appleid.apple.com/auth/token",
+          "user_info": "https://appleid.apple.com/auth/user"
+        }
+      },
+      {
+        "id": "github",
+        "title": "使用Github账号登录",
+        "logo": "/assets/images/login/github.svg",
+        "color": "#181717",
+        "client_id": "$ENV.GITHUB_CLIENT_ID",
+        "client_secret": "$ENV.GITHUB_CLIENT_SECRET",
+        "scopes": ["openid", "email", "profile"],
+        "endpoints": {
+          "authorization": "https://github.com/login/oauth/authorize",
+          "token": "https://github.com/login/oauth/access_token",
+          "user_info": "https://api.github.com/user"
+        },
+
+        // Mapping config, you can use it to customize the mapping of the third party login providers
+        "mapping": { "email": "email", "name": "name", "avatar": "avatar_url" }
+      }
+    ]
+  }
+}

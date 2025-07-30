@@ -1,0 +1,99 @@
+// User login page config, you can use it to customize the login page
+{
+  "title": "Welcome to Demo App",
+  "description": "Please sign in to continue",
+
+  // Form config, you can use it to customize the form of the login page
+  "form": {
+    "username": {
+      "placeholder": "Email or Mobile",
+      "fields": ["email", "mobile"]
+    },
+    "password": { "placeholder": "Password" },
+
+    // Captcha config, you can use it to customize the captcha type and options
+    "captcha": {
+      "type": "turnstile",
+      "options": {
+        "sitekey": "$ENV.CLOUDFLARE_TURNSTILE_SITEKEY",
+        "secret": "$ENV.CLOUDFLARE_TURNSTILE_SECRET"
+      }
+    },
+
+    "forgot_password_link": true,
+    "remember_me": true,
+    "register_link": "https://yaoapps.com/doc/guide/user/register",
+    "terms_of_service_link": "https://yaoapps.com/doc/guide/user/terms-of-service",
+    "privacy_policy_link": "https://yaoapps.com/doc/guide/user/privacy-policy"
+  },
+
+  // Token config, you can use it to customize the token expiration time and remember me expires time
+  "token": {
+    "expires_in": "2h", // Token expiration time, default is 2 hours
+    "remember_me_expires_in": "30d" // Remember me expires time, default is 30 days
+  },
+
+  // Third party login config, you can use it to customize the third party login providers
+  "third_party": {
+    "register": { "auto": true, "role": "guest" }, // Auto register user if not exists
+    "providers": [
+      {
+        "id": "google",
+        "title": "Continue with Google",
+        "logo": "/assets/images/login/google.svg",
+        "color": "#4285F4",
+        "client_id": "$ENV.GOOGLE_CLIENT_ID",
+        "client_secret": "$ENV.GOOGLE_CLIENT_SECRET",
+        "scopes": ["openid", "email", "profile"],
+        "endpoints": {
+          "authorization": "https://accounts.google.com/o/oauth2/v2/auth",
+          "token": "https://oauth2.googleapis.com/token",
+          "user_info": "https://www.googleapis.com/oauth2/v3/userinfo"
+        }
+      },
+      {
+        "id": "microsoft",
+        "title": "Continue with Microsoft",
+        "logo": "/assets/images/login/microsoft.svg",
+        "color": "#0078D4",
+        "client_id": "$ENV.MICROSOFT_CLIENT_ID",
+        "client_secret": "$ENV.MICROSOFT_CLIENT_SECRET",
+        "scopes": ["openid", "email", "profile"],
+        "endpoints": {
+          "authorization": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+          "token": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+          "user_info": "https://graph.microsoft.com/v1.0/me"
+        }
+      },
+      {
+        "id": "apple",
+        "title": "Continue with Apple",
+        "logo": "/assets/images/login/apple.svg",
+        "color": "#000000",
+        "client_id": "$ENV.APPLE_CLIENT_ID",
+        "client_secret": "$ENV.APPLE_CLIENT_SECRET",
+        "scopes": ["openid", "email", "profile"],
+        "endpoints": {
+          "authorization": "https://appleid.apple.com/auth/authorize",
+          "token": "https://appleid.apple.com/auth/token",
+          "user_info": "https://appleid.apple.com/auth/user"
+        }
+      },
+      {
+        "id": "github",
+        "title": "Continue with Github",
+        "logo": "/assets/images/login/github.svg",
+        "color": "#181717",
+        "client_id": "$ENV.GITHUB_CLIENT_ID",
+        "client_secret": "$ENV.GITHUB_CLIENT_SECRET",
+        "scopes": ["openid", "email", "profile"],
+        "endpoints": {
+          "authorization": "https://github.com/login/oauth/authorize",
+          "token": "https://github.com/login/oauth/access_token",
+          "user_info": "https://api.github.com/user"
+        },
+        "mapping": { "email": "email", "name": "name", "avatar": "avatar_url" }
+      }
+    ]
+  }
+}
