@@ -96,8 +96,8 @@
         "title": "Continue with Github",
         "logo": "/assets/images/login/github.svg",
         "color": "#181717",
-        "client_id": "$ENV.GITHUB_CLIENT_ID",
-        "client_secret": "$ENV.GITHUB_CLIENT_SECRET",
+        "client_id": "$ENV.GITHUBUSER_CLIENT_ID",
+        "client_secret": "$ENV.GITHUBUSER_CLIENT_SECRET",
         "scopes": ["openid", "email", "profile"],
         "endpoints": {
           "authorization": "https://github.com/login/oauth/authorize",
