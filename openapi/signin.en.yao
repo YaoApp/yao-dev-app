@@ -70,8 +70,18 @@
         "title": "Continue with Apple",
         "logo": "/assets/images/login/apple.svg",
         "color": "#000000",
-        "client_id": "$ENV.APPLE_CLIENT_ID",
-        "client_secret": "$ENV.APPLE_CLIENT_SECRET",
+        "client_id": "$ENV.APPLE_SERVICE_ID",
+        "client_secret_generator": {
+          "type": "JWT_SIGN",
+          "expires_in": "90d", // Client secret expiration time, default is 90 days. (It's not the token expiration time)
+          "private_key": "$ENV.APPLE_PRIVATE_KEY_PATH", // Private key path, relative to the openapi/certs directory
+          "header": { "kid": "$ENV.APPLE_KEY_ID", "alg": "ES256" },
+          "payload": {
+            "sub": "$ENV.APPLE_SERVICE_ID",
+            "iss": "$ENV.APPLE_TEAM_ID",
+            "aud": "https://appleid.apple.com"
+          }
+        },
         "scopes": ["openid", "email", "profile"],
         "endpoints": {
           "authorization": "https://appleid.apple.com/auth/authorize",
