@@ -84,7 +84,8 @@
             "aud": "https://appleid.apple.com"
           }
         },
-        "scopes": ["openid", "email", "profile"],
+        "scopes": ["name", "email"],
+        "response_mode": "form_post",
         "endpoints": {
           "authorization": "https://appleid.apple.com/auth/authorize",
           "token": "https://appleid.apple.com/auth/token",
