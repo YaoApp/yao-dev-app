@@ -51,7 +51,8 @@
           "authorization": "https://accounts.google.com/o/oauth2/v2/auth",
           "token": "https://oauth2.googleapis.com/token",
           "user_info": "https://www.googleapis.com/oauth2/v3/userinfo"
-        }
+        },
+        "mapping": "google"
       },
       {
         "id": "microsoft",
@@ -60,12 +61,13 @@
         "color": "#0078D4",
         "client_id": "$ENV.MICROSOFT_CLIENT_ID",
         "client_secret": "$ENV.MICROSOFT_CLIENT_SECRET",
-        "scopes": ["openid", "email", "profile"],
+        "scopes": ["User.Read", "openid", "email", "profile"],
         "endpoints": {
           "authorization": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
           "token": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
           "user_info": "https://graph.microsoft.com/v1.0/me"
-        }
+        },
+        "mapping": "microsoft"
       },
       {
         "id": "apple",
@@ -84,12 +86,14 @@
             "aud": "https://appleid.apple.com"
           }
         },
+        "mapping": "apple",
         "scopes": ["name", "email"],
         "response_mode": "form_post",
+        "user_info_source": "id_token",
         "endpoints": {
           "authorization": "https://appleid.apple.com/auth/authorize",
           "token": "https://appleid.apple.com/auth/token",
-          "user_info": "https://appleid.apple.com/auth/user"
+          "jwks": "https://appleid.apple.com/auth/keys"
         }
       },
       {
@@ -105,7 +109,7 @@
           "token": "https://github.com/login/oauth/access_token",
           "user_info": "https://api.github.com/user"
         },
-        "mapping": { "email": "email", "name": "name", "avatar": "avatar_url" }
+        "mapping": "github"
       }
     ]
   }
