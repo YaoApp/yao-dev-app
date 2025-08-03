@@ -34,7 +34,6 @@
 
   // Third party login config, you can use it to customize the third party login providers
   "third_party": {
-    "register": { "auto": true, "role": "guest" }, // Auto register user if not exists
     "providers": [
       {
         "id": "microsoft",

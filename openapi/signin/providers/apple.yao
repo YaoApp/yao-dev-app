@@ -19,5 +19,6 @@
     "token": "https://appleid.apple.com/auth/token",
     "jwks": "https://appleid.apple.com/auth/keys"
   },
-  "mapping": "apple"
+  "mapping": "apple",
+  "register": { "auto": true, "role": "guest" } // Auto register user if not exists
 }

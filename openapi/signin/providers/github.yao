@@ -7,5 +7,6 @@
     "token": "https://github.com/login/oauth/access_token",
     "user_info": "https://api.github.com/user"
   },
-  "mapping": "github"
+  "mapping": "github",
+  "register": { "auto": true, "role": "guest" } // Auto register user if not exists
 }
