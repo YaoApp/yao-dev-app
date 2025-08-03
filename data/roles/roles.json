@@ -1,0 +1,25 @@
+[
+  {
+    "role_id": "admin",
+    "name": "Admin",
+    "description": "Admin role",
+    "permissions": { "scopes": ["system:admin"] }
+  },
+  {
+    "role_id": "guest",
+    "name": "Guest",
+    "description": "Guest role",
+    "permissions": {
+      "scopes": [
+        "dsl:read:own",
+        "dsl:write:own",
+        "file:read:own",
+        "file:write:own",
+        "dsl:execute:own",
+        "user:read:own",
+        "user:write:own",
+        "chat:completions"
+      ]
+    }
+  }
+]
