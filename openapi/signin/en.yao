@@ -1,0 +1,73 @@
+// User login page config, you can use it to customize the login page
+{
+  "title": "Welcome to Demo App",
+  "description": "Please sign in to continue",
+  "default": true,
+  "success_url": "/chat", // Redirect to the chat page after login (optional), if not set, the user will be redirected to the referer page
+  "failure_url": "/chat/auth/signin", // Redirect to the login page if login failed (optional), if not set, the user will be redirected to the referer page, with a error message
+
+  // Client config, Yao OpenAPI Client ID and Secret (It will be used to get the access token for the login user)
+  "client_id": "$ENV.SIGNIN_CLIENT_ID",
+  "client_secret": "$ENV.SIGNIN_CLIENT_SECRET",
+
+  // Form config, you can use it to customize the form of the login page
+  "form": {
+    "username": {
+      "placeholder": "Email or Mobile",
+      "fields": ["email", "mobile"]
+    },
+    "password": { "placeholder": "Password" },
+
+    // Captcha config, you can use it to customize the captcha type and options
+    "captcha": {
+      "type": "turnstile",
+      "options": {
+        "sitekey": "$ENV.CLOUDFLARE_TURNSTILE_SITEKEY",
+        "secret": "$ENV.CLOUDFLARE_TURNSTILE_SECRET"
+      }
+    },
+
+    "forgot_password_link": true,
+    "remember_me": true,
+    "register_link": "https://yaoapps.com/doc/guide/user/register",
+    "terms_of_service_link": "https://yaoapps.com/doc/guide/user/terms-of-service",
+    "privacy_policy_link": "https://yaoapps.com/doc/guide/user/privacy-policy"
+  },
+
+  // Token config, you can use it to customize the token expiration time and remember me expires time
+  "token": {
+    "expires_in": "2h", // Token expiration time, default is 2 hours
+    "remember_me_expires_in": "30d" // Remember me expires time, default is 30 days
+  },
+
+  // Third party login config, you can use it to customize the third party login providers
+  "third_party": {
+    "register": { "auto": true, "role": "guest" }, // Auto register user if not exists
+    "providers": [
+      {
+        "id": "google",
+        "title": "Continue with Google",
+        "logo": "/brands/google.svg",
+        "color": "#4285F4"
+      },
+      {
+        "id": "microsoft",
+        "title": "Continue with Microsoft",
+        "logo": "/brands/microsoft.svg",
+        "color": "#0078D4"
+      },
+      {
+        "id": "apple",
+        "title": "Continue with Apple",
+        "logo": "/brands/apple.svg",
+        "color": "#000000"
+      },
+      {
+        "id": "github",
+        "title": "Continue with Github",
+        "logo": "/brands/github.svg",
+        "color": "#181717"
+      }
+    ]
+  }
+}
