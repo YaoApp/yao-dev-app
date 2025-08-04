@@ -6,10 +6,6 @@
   "success_url": "/chat", // Redirect to the chat page after login (optional), if not set, the user will be redirected to the referer page
   "failure_url": "/chat/auth/signin", // Redirect to the login page if login failed (optional), if not set, the user will be redirected to the referer page, with a error message
 
-  // Client config, Yao OpenAPI Client ID and Secret (It will be used to get the access token for the login user)
-  "client_id": "$ENV.SIGNIN_CLIENT_ID",
-  "client_secret": "$ENV.SIGNIN_CLIENT_SECRET",
-
   // Form config, you can use it to customize the form of the login page
   "form": {
     "username": {
