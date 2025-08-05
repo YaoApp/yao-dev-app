@@ -3,8 +3,8 @@
   "title": "Welcome to Demo App",
   "description": "Please sign in to continue",
   "default": true,
-  "success_url": "/chat", // Redirect to the chat page after login (optional), if not set, the user will be redirected to the referer page
-  "failure_url": "/chat/auth/signin", // Redirect to the login page if login failed (optional), if not set, the user will be redirected to the referer page, with a error message
+  "success_url": "/x/Chart/dashboard", // Redirect to the chat page after login (optional), if not set, the user will be redirected to the referer page
+  "failure_url": "/auth/signin", // Redirect to the login page if login failed (optional), if not set, the user will be redirected to the referer page, with a error message
 
   // Form config, you can use it to customize the form of the login page
   "form": {
