@@ -1,0 +1,31 @@
+[
+  {
+    "id": "__yao.openai", // Required, unique id for the extractor
+    "label": "OpenAI Extractor", // Required, label for the extractor, for display
+    "description": "Extract entities and relationships from documents for knowledge graph construction", // Required, description for the extractor, for display
+
+    // Available preset extractor options
+    "options": [
+      {
+        "label": "GPT-4o Mini (Recommended)",
+        "value": "gpt-4o-mini",
+        "default": true,
+        "description": "Fast and cost-effective entity and relationship extraction for knowledge graphs",
+        "properties": { "connector": "openai.gpt-4o-mini", "toolcall": true }
+      },
+      {
+        "label": "GPT-4o (Premium)",
+        "value": "gpt-4o",
+        "description": "Advanced entity and relationship extraction with complex reasoning capabilities",
+        "properties": { "connector": "openai.gpt-4o", "toolcall": true }
+      },
+      {
+        "label": "Deepseek V3 (Alternative)",
+        "value": "deepseek-v3",
+        "description": "Budget-friendly option for basic entity and relationship identification",
+        "properties": { "connector": "deepseek.v3", "toolcall": false }
+      }
+    ]
+  }
+  // Your custom extractors here
+]

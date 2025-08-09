@@ -1,0 +1,84 @@
+[
+  {
+    "id": "__yao.structured", // 必需，分块的唯一标识符
+    "label": "文档结构", // 必需，分块的标签，用于显示
+    "description": "按文档结构（标题、段落）分割文本", // 必需，分块的描述，用于显示
+
+    // 可用的预设分块选项
+    "options": [
+      {
+        "label": "精细粒度（详细）",
+        "value": "fine-grained",
+        "description": "小块用于精确搜索和详细分析",
+        "properties": { "size": 100, "overlap": 10, "max_depth": 2 }
+      },
+      {
+        "label": "标准（推荐）",
+        "value": "standard",
+        "default": true,
+        "description": "中等大小的块，适合大多数使用场景",
+        "properties": { "size": 300, "overlap": 50, "max_depth": 3 }
+      },
+      {
+        "label": "大块（上下文丰富）",
+        "value": "context-rich",
+        "description": "大块保留更多上下文，适用于复杂文档",
+        "properties": { "size": 600, "overlap": 100, "max_depth": 4 }
+      }
+    ]
+  },
+  {
+    "id": "__yao.semantic", // 必需，分块的唯一标识符
+    "label": "智能分割", // 必需，分块的标签，用于显示
+    "description": "基于语义的AI智能文本分割", // 必需，分块的描述，用于显示
+    "default": true, // 可选，默认为false，如果为true，将作为默认分块方式
+
+    // 可用的预设分块选项
+    "options": [
+      {
+        "label": "GPT-4o Mini（推荐）",
+        "value": "gpt-4o-mini",
+        "default": true,
+        "description": "速度和质量的最佳平衡 - 适合大多数文档",
+        "properties": {
+          "size": 300,
+          "overlap": 50,
+          "max_depth": 3,
+          "semantic": {
+            "connector": "openai.gpt-4o-mini",
+            "toolcall": true
+          }
+        }
+      },
+      {
+        "label": "GPT-4o（高级版）",
+        "value": "gpt-4o",
+        "description": "最高质量的AI分割，适用于复杂文档",
+        "properties": {
+          "size": 300,
+          "overlap": 50,
+          "max_depth": 3,
+          "semantic": {
+            "connector": "openai.gpt-4o",
+            "toolcall": true
+          }
+        }
+      },
+      {
+        "label": "Deepseek V3（替代选择）",
+        "value": "deepseek-v3",
+        "description": "性价比高的替代方案，性能良好",
+        "properties": {
+          "size": 300,
+          "overlap": 50,
+          "max_depth": 3,
+          "semantic": {
+            "connector": "deepseek.v3",
+            "toolcall": false
+          }
+        }
+      }
+    ]
+  }
+  // 在此处添加您的自定义分块配置
+]

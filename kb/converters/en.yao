@@ -1,0 +1,191 @@
+[
+  {
+    "id": "__yao.utf8", // Required, unique id for the converter
+    "label": "Plain Text", // Required, label for the converter, for display
+    "description": "Process plain text files (.txt, .md, etc.)", // Required, description for the converter, for display
+
+    // Available preset converter options
+    "options": [
+      {
+        "label": "Standard Text Processing",
+        "value": "standard-text",
+        "description": "Process common text formats with automatic encoding detection",
+        "default": true,
+        "properties": { "autodetect": ["txt", "md", "log"] }
+      }
+    ]
+  },
+  {
+    "id": "__yao.office", // Required, unique id for the converter
+    "label": "Office Documents", // Required, label for the converter, for display
+    "description": "Convert Word and PowerPoint files (.docx, .pptx)", // Required, description for the converter, for display
+
+    // Available preset converter options
+    "options": [
+      {
+        "label": "Standard Office Processing",
+        "value": "standard-office",
+        "description": "Extract text and media from Office documents with structure preservation",
+        "default": true,
+        "properties": {
+          "autodetect": ["docx", "pptx"],
+          "vision": {
+            "converter": "__yao.vision",
+            "properties": "gpt-4o-mini" // Preset value or set properties here directly, eg: { "connector": "some-connector", "compress_size": 512 }
+          },
+          "video": {
+            "converter": "__yao.video",
+            "properties": "smart-processing" // Preset value or set properties here directly, eg: { "connector": "some-connector", "compress_size": 512 }
+          },
+          "audio": {
+            "converter": "__yao.whisper",
+            "properties": "smart-audio" // Preset value or set properties here directly, eg: { "connector": "some-connector", "compress_size": 512 }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.ocr", // Required, unique id for the converter
+    "label": "Image & PDF Text Recognition", // Required, label for the converter, for display
+    "description": "Extract text from images and scanned PDFs", // Required, description for the converter, for display
+
+    // Available preset converter options
+    "options": [
+      {
+        "label": "AI Vision OCR",
+        "value": "ai-vision",
+        "description": "Extract text using OpenAI's vision model - accurate for complex layouts",
+        "default": false,
+        "properties": {
+          "autodetect": ["jpg", "jpeg", "png", "webp", "pdf"],
+          "mode": "queue",
+          "force_image_mode": true,
+          "compress_size": 512,
+          "vision": {
+            "converter": "__yao.vision",
+            "properties": "gpt-4o-mini" // Preset value or set properties here directly, eg: { "connector": "some-connector", "compress_size": 512 }
+          }
+        }
+      },
+      {
+        "label": "OCR Flux (Recommended)",
+        "value": "ocrflux",
+        "description": "Specialized OCR tool - faster and more accurate for text recognition",
+        "default": true,
+        "properties": {
+          "autodetect": ["jpg", "jpeg", "png", "webp", "pdf"],
+          "mode": "queue",
+          "compress_size": 512,
+          "vision": { "converter": "__yao.mcp", "properties": "ocrflux" }
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.video", // Required, unique id for the converter
+    "label": "Video Analysis", // Required, label for the converter, for display
+    "description": "Extract audio transcript and visual content from videos", // Required, description for the converter, for display
+
+    // Available preset converter options
+    "options": [
+      {
+        "label": "Smart Video Processing (Recommended)",
+        "value": "smart-processing",
+        "description": "Extract keyframes every 10 seconds and transcribe audio with automatic segmentation",
+        "default": true,
+        "properties": {
+          "autodetect": ["mp4", "mov", "avi", "mkv", "flv", "wmv", "webm"],
+          "keyframe_interval": 10.0, // Optional, default is 10.0, if not set, will not extract keyframes
+          // "max_keyframes": 20, // Optional, default is 20, if not set, will not extract keyframes
+          "vision": {
+            "converter": "__yao.vision",
+            "properties": "gpt-4o-mini" // Preset value or set properties here directly, eg: { "connector": "some-connector", "compress_size": 512 }
+          },
+          "audio": {
+            "converter": "__yao.whisper",
+            "properties": "smart-audio" // Preset value or set properties here directly, eg: { "connector": "some-connector", "compress_size": 512 }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.whisper", // Required, unique id for the audio transcription converter
+    "label": "Audio Transcription", // Required, label for the converter, for display
+    "description": "Convert speech to text using OpenAI Whisper", // Required, description for the converter, for display
+
+    // Available preset converter options
+    "options": [
+      {
+        "label": "Smart Audio Transcription (Recommended)",
+        "value": "smart-audio",
+        "description": "30-second chunks with silence detection and precise timing - ideal for lectures and meetings",
+        "default": true,
+        "properties": {
+          "autodetect": ["mp3", "wav", "m4a", "ogg", "flac"],
+          "connector": "openai.whisper",
+          "enable_silence_detection": true, // Optional, default is true, if not set, will not use silence detection
+          "mapping_duration": 5.0, // Optional, default is 5.0, if not set, will not use mapping duration
+          "silence_threshold": -40.0, // Optional, Default -40dB silence threshold
+          "silence_min_length": 1.0, // Optional, default is 1.0, if not set, will not use silence min length
+          "chunk_duration": 30.0 // Optional, default is 30.0, if not set, will not use chunk duration
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.vision", // Required, unique id for the converter
+    "label": "Image Analysis", // Required, label for the converter, for display
+    "description": "Analyze and describe image content using AI vision", // Required, description for the converter, for display
+
+    // Available preset converter options
+    "options": [
+      {
+        "label": "GPT-4o Mini (Recommended)",
+        "value": "gpt-4o-mini",
+        "description": "Fast and cost-effective image analysis - perfect for most use cases",
+        "default": true,
+        "properties": {
+          "autodetect": ["jpg", "jpeg", "png", "webp"],
+          "connector": "openai.gpt-4o-mini",
+          "compress_size": 512 // Optional, default is 512
+        }
+      },
+      {
+        "label": "GPT-4o (Premium)",
+        "value": "gpt-4o",
+        "description": "Advanced image analysis with deeper understanding of complex visuals",
+        "default": false,
+        "properties": {
+          "autodetect": ["jpg", "jpeg", "png", "webp"],
+          "connector": "openai.gpt-4o",
+          "compress_size": 512 // Optional, default is 512
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.mcp", // Required, unique id for the converter
+    "label": "Custom Processor", // Required, label for the converter, for display
+    "description": "Process files using external custom tools", // Required, description for the converter, for display
+
+    // Available preset converter options
+    "options": [
+      {
+        "label": "OCR Flux Processing",
+        "value": "ocrflux",
+        "description": "High-performance OCR engine for accurate text extraction from images and PDFs",
+        "default": true,
+        "properties": {
+          "id": "ocrflux", // The id of the MCP tool, required
+          "arguments_mapping": {},
+          "output_mapping": {},
+          "autodetect": ["jpg", "jpeg", "png", "webp", "pdf"]
+        }
+      }
+    ]
+  }
+
+  // Your custom converters here
+]

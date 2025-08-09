@@ -1,0 +1,70 @@
+[
+  {
+    "id": "__yao.openai", // Required, unique id for the embedding
+    "label": "OpenAI", // Required, label for the embedding, for display
+    "description": "High-quality text vectorization using OpenAI", // Required, description for the embedding, for display
+    "default": true, // Optional, default is false, if true, will be used as the default embedding
+
+    // Available preset embedding options
+    "options": [
+      {
+        "label": "OpenAI Text Embedding 3 Small (Recommended)",
+        "value": "text-embedding-3-small",
+        "default": true,
+        "description": "Best balance of speed and quality - ideal for most documents",
+        "properties": {
+          "connector": "openai.text-embedding-3-small",
+          "dimensions": 1536
+        }
+      },
+      {
+        "label": "OpenAI Text Embedding 3 Large",
+        "value": "text-embedding-3-large",
+        "description": "Best for complex documents requiring more context",
+        "properties": {
+          "connector": "openai.text-embedding-3-large",
+          "dimensions": 1536
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.fastembed", // Required, unique id for the embedding
+    "label": "Fast Embedding", // Required, label for the embedding, for display
+    "description": "Fast local text vectorization (runs offline)", // Required, description for the embedding, for display
+
+    // Available preset embedding options
+    "options": [
+      {
+        "label": "Fastembed Small (Recommended)",
+        "value": "fastembed-small",
+        "default": true,
+        "description": "Lightweight offline embedding - fast and efficient for most documents",
+        "properties": {
+          "connector": "fastembed.bge-small-en-v1_5",
+          "dimensions": 384
+        }
+      },
+      {
+        "label": "Fastembed Chinese (Recommended)",
+        "value": "fastembed-chinese",
+        "default": true,
+        "description": "Optimized for Chinese text - fast offline embedding for most documents",
+        "properties": {
+          "connector": "fastembed.bge-small-zh-v1_5",
+          "dimensions": 512
+        }
+      },
+      {
+        "label": "Fastembed Large",
+        "value": "fastembed-large",
+        "description": "High-quality offline embedding for complex documents requiring better accuracy",
+        "properties": {
+          "connector": "fastembed.mxbai-embed-large-v1",
+          "dimensions": 1024
+        }
+      }
+    ]
+  }
+  // Your custom embeddings here
+]

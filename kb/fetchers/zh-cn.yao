@@ -1,0 +1,41 @@
+[
+  {
+    "id": "__yao.http", // 必需，获取器的唯一标识符
+    "label": "网络文件下载", // 必需，获取器的标签，用于显示
+    "description": "从网页 URL 与在线资源下载文件", // 必需，获取器的描述，用于显示
+
+    // 可用的预设获取器选项
+    "options": [
+      {
+        "label": "标准网页下载（推荐）",
+        "value": "http",
+        "description": "支持可配置超时与请求头的网页 URL 下载",
+        "default": true,
+        "properties": {
+          "headers": {}, // 自定义请求头
+          "timeout": 30 // 请求超时时间（秒）
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.mcp", // 必需，获取器的唯一标识符
+    "label": "智能文件获取", // 必需，获取器的标签，用于显示
+    "description": "使用基于 MCP 的智能工具与服务获取文件", // 必需，获取器的描述，用于显示
+
+    // 可用的预设获取器选项
+    "options": [
+      {
+        "label": "MCP 智能获取器（高级）",
+        "value": "mcp",
+        "description": "支持自定义处理与认证的智能文件获取",
+        "default": true,
+        "properties": {
+          "id": "fetcher", // MCP 工具的 id，必需
+          "arguments_mapping": {}, // 参数映射
+          "output_mapping": {} // 输出映射
+        }
+      }
+    ]
+  }
+]

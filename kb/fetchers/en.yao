@@ -1,0 +1,41 @@
+[
+  {
+    "id": "__yao.http", // Required, unique id for the fetcher
+    "label": "Web File Download", // Required, label for the fetcher, for display
+    "description": "Download files from web URLs and online resources", // Required, description for the fetcher, for display
+
+    // Available preset fetcher options
+    "options": [
+      {
+        "label": "Standard Web Download (Recommended)",
+        "value": "http",
+        "description": "Download files from web URLs with configurable timeout and headers",
+        "default": true,
+        "properties": {
+          "headers": {}, // Custom request headers
+          "timeout": 30 // Request timeout in seconds
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.mcp", // Required, unique id for the fetcher
+    "label": "Smart File Retrieval", // Required, label for the fetcher, for display
+    "description": "Retrieve files using intelligent MCP-powered tools and services", // Required, description for the fetcher, for display
+
+    // Available preset fetcher options
+    "options": [
+      {
+        "label": "MCP Smart Fetcher (Advanced)",
+        "value": "mcp",
+        "description": "Intelligent file retrieval with custom processing and authentication support",
+        "default": true,
+        "properties": {
+          "id": "fetcher", // The id of the MCP tool, required
+          "arguments_mapping": {},
+          "output_mapping": {}
+        }
+      }
+    ]
+  }
+]

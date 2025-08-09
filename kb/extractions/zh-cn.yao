@@ -1,0 +1,31 @@
+[
+  {
+    "id": "__yao.openai", // 必需，抽取器的唯一标识符
+    "label": "OpenAI 抽取器", // 必需，抽取器的标签，用于显示
+    "description": "从文档中抽取实体与关系，用于构建知识图谱", // 必需，抽取器的描述，用于显示
+
+    // 可用的预设抽取器选项
+    "options": [
+      {
+        "label": "GPT-4o Mini（推荐）",
+        "value": "gpt-4o-mini",
+        "default": true,
+        "description": "快速且高性价比的实体与关系抽取，适用于知识图谱",
+        "properties": { "connector": "openai.gpt-4o-mini", "toolcall": true }
+      },
+      {
+        "label": "GPT-4o（高级版）",
+        "value": "gpt-4o",
+        "description": "具备复杂推理能力的高级实体与关系抽取",
+        "properties": { "connector": "openai.gpt-4o", "toolcall": true }
+      },
+      {
+        "label": "Deepseek V3（替代选择）",
+        "value": "deepseek-v3",
+        "description": "更省成本的基础实体与关系识别方案",
+        "properties": { "connector": "deepseek.v3", "toolcall": false }
+      }
+    ]
+  }
+  // 在此处添加您的自定义抽取器
+]

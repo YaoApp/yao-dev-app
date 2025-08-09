@@ -1,0 +1,84 @@
+[
+  {
+    "id": "__yao.structured", // Required, unique id for the chunking
+    "label": "Document Structure", // Required, label for the chunking, for display
+    "description": "Split text by document structure (headings, paragraphs)", // Required, description for the chunking, for display
+
+    // Available preset chunking options
+    "options": [
+      {
+        "label": "Fine-grained (Detailed)",
+        "value": "fine-grained",
+        "description": "Small chunks for precise search and detailed analysis",
+        "properties": { "size": 100, "overlap": 10, "max_depth": 2 }
+      },
+      {
+        "label": "Standard (Recommended)",
+        "value": "standard",
+        "default": true,
+        "description": "Medium-sized chunks perfect for most use cases",
+        "properties": { "size": 300, "overlap": 50, "max_depth": 3 }
+      },
+      {
+        "label": "Large (Context-rich)",
+        "value": "context-rich",
+        "description": "Large chunks preserving more context for complex documents",
+        "properties": { "size": 600, "overlap": 100, "max_depth": 4 }
+      }
+    ]
+  },
+  {
+    "id": "__yao.semantic", // Required, unique id for the chunking
+    "label": "Smart Splitting", // Required, label for the chunking, for display
+    "description": "AI-powered intelligent text splitting based on meaning", // Required, description for the chunking, for display
+    "default": true, // Optional, default is false, if true, will be used as the default chunking
+
+    // Available preset chunking options
+    "options": [
+      {
+        "label": "GPT-4o Mini (Recommended)",
+        "value": "gpt-4o-mini",
+        "default": true,
+        "description": "Best balance of speed and quality - ideal for most documents",
+        "properties": {
+          "size": 300,
+          "overlap": 50,
+          "max_depth": 3,
+          "semantic": {
+            "connector": "openai.gpt-4o-mini",
+            "toolcall": true
+          }
+        }
+      },
+      {
+        "label": "GPT-4o (Premium)",
+        "value": "gpt-4o",
+        "description": "Highest quality AI splitting for complex documents",
+        "properties": {
+          "size": 300,
+          "overlap": 50,
+          "max_depth": 3,
+          "semantic": {
+            "connector": "openai.gpt-4o",
+            "toolcall": true
+          }
+        }
+      },
+      {
+        "label": "Deepseek V3 (Alternative)",
+        "value": "deepseek-v3",
+        "description": "Cost-effective alternative with good performance",
+        "properties": {
+          "size": 300,
+          "overlap": 50,
+          "max_depth": 3,
+          "semantic": {
+            "connector": "deepseek.v3",
+            "toolcall": false
+          }
+        }
+      }
+    ]
+  }
+  // Your custom chunkings here
+]

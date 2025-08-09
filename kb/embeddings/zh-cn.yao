@@ -1,0 +1,70 @@
+[
+  {
+    "id": "__yao.openai", // 必需，嵌入的唯一标识符
+    "label": "OpenAI", // 必需，嵌入的标签，用于显示
+    "description": "使用OpenAI进行高质量文本向量化", // 必需，嵌入的描述，用于显示
+    "default": true, // 可选，默认为false，如果为true，将作为默认嵌入方式
+
+    // 可用的预设嵌入选项
+    "options": [
+      {
+        "label": "OpenAI文本嵌入3小型版（推荐）",
+        "value": "text-embedding-3-small",
+        "default": true,
+        "description": "速度和质量的最佳平衡 - 适合大多数文档",
+        "properties": {
+          "connector": "openai.text-embedding-3-small",
+          "dimensions": 1536
+        }
+      },
+      {
+        "label": "OpenAI文本嵌入3大型版",
+        "value": "text-embedding-3-large",
+        "description": "最适合需要更多上下文的复杂文档",
+        "properties": {
+          "connector": "openai.text-embedding-3-large",
+          "dimensions": 1536
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.fastembed", // 必需，嵌入的唯一标识符
+    "label": "快速嵌入", // 必需，嵌入的标签，用于显示
+    "description": "快速本地文本向量化（离线运行）", // 必需，嵌入的描述，用于显示
+
+    // 可用的预设嵌入选项
+    "options": [
+      {
+        "label": "快速嵌入小型版（推荐）",
+        "value": "fastembed-small",
+        "default": true,
+        "description": "轻量级离线嵌入 - 快速高效，适合大多数文档",
+        "properties": {
+          "connector": "fastembed.bge-small-en-v1_5",
+          "dimensions": 384
+        }
+      },
+      {
+        "label": "快速嵌入中文版（推荐）",
+        "value": "fastembed-chinese",
+        "default": true,
+        "description": "专为中文文本优化 - 快速离线嵌入，适合大多数文档",
+        "properties": {
+          "connector": "fastembed.bge-small-zh-v1_5",
+          "dimensions": 512
+        }
+      },
+      {
+        "label": "快速嵌入大型版",
+        "value": "fastembed-large",
+        "description": "高质量离线嵌入，适用于需要更高精度的复杂文档",
+        "properties": {
+          "connector": "fastembed.mxbai-embed-large-v1",
+          "dimensions": 1024
+        }
+      }
+    ]
+  }
+  // 在此处添加您的自定义嵌入配置
+]

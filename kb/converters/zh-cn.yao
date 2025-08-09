@@ -1,0 +1,191 @@
+[
+  {
+    "id": "__yao.utf8", // 必需，转换器的唯一标识符
+    "label": "纯文本", // 必需，转换器的标签，用于显示
+    "description": "处理纯文本文件（.txt、.md 等）", // 必需，转换器的描述，用于显示
+
+    // 可用的预设转换选项
+    "options": [
+      {
+        "label": "标准文本处理",
+        "value": "standard-text",
+        "description": "自动编码检测的常见文本格式处理",
+        "default": true,
+        "properties": { "autodetect": ["txt", "md", "log"] }
+      }
+    ]
+  },
+  {
+    "id": "__yao.office", // 必需，转换器的唯一标识符
+    "label": "Office 文档", // 必需，转换器的标签，用于显示
+    "description": "转换 Word 与 PowerPoint 文件（.docx、.pptx）", // 必需，转换器的描述，用于显示
+
+    // 可用的预设转换选项
+    "options": [
+      {
+        "label": "标准 Office 处理",
+        "value": "standard-office",
+        "description": "在保留结构的情况下，从 Office 文档中提取文本与媒体",
+        "default": true,
+        "properties": {
+          "autodetect": ["docx", "pptx"],
+          "vision": {
+            "converter": "__yao.vision",
+            "properties": "gpt-4o-mini" // 预设值；也可直接在此设置属性，例如：{ "connector": "some-connector", "compress_size": 512 }
+          },
+          "video": {
+            "converter": "__yao.video",
+            "properties": "smart-processing" // 预设值；也可直接在此设置属性，例如：{ "connector": "some-connector", "compress_size": 512 }
+          },
+          "audio": {
+            "converter": "__yao.whisper",
+            "properties": "smart-audio" // 预设值；也可直接在此设置属性，例如：{ "connector": "some-connector", "compress_size": 512 }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.ocr", // 必需，转换器的唯一标识符
+    "label": "图像与 PDF 文本识别", // 必需，转换器的标签，用于显示
+    "description": "从图像与扫描 PDF 中提取文本", // 必需，转换器的描述，用于显示
+
+    // 可用的预设转换选项
+    "options": [
+      {
+        "label": "AI 视觉 OCR",
+        "value": "ai-vision",
+        "description": "使用 OpenAI 视觉模型提取文本——对复杂版式更准确",
+        "default": false,
+        "properties": {
+          "autodetect": ["jpg", "jpeg", "png", "webp", "pdf"],
+          "mode": "queue",
+          "force_image_mode": true,
+          "compress_size": 512,
+          "vision": {
+            "converter": "__yao.vision",
+            "properties": "gpt-4o-mini" // 预设值；也可直接在此设置属性，例如：{ "connector": "some-connector", "compress_size": 512 }
+          }
+        }
+      },
+      {
+        "label": "OCR Flux（推荐）",
+        "value": "ocrflux",
+        "description": "专用 OCR 工具——文本识别更快、更准确",
+        "default": true,
+        "properties": {
+          "autodetect": ["jpg", "jpeg", "png", "webp", "pdf"],
+          "mode": "queue",
+          "compress_size": 512,
+          "vision": { "converter": "__yao.mcp", "properties": "ocrflux" }
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.video", // 必需，转换器的唯一标识符
+    "label": "视频分析", // 必需，转换器的标签，用于显示
+    "description": "从视频中提取语音转写与视觉内容", // 必需，转换器的描述，用于显示
+
+    // 可用的预设转换选项
+    "options": [
+      {
+        "label": "智能视频处理（推荐）",
+        "value": "smart-processing",
+        "description": "每 10 秒提取关键帧，并自动分段转写音频",
+        "default": true,
+        "properties": {
+          "autodetect": ["mp4", "mov", "avi", "mkv", "flv", "wmv", "webm"],
+          "keyframe_interval": 10.0, // 可选，默认 10.0；如未设置，则不提取关键帧
+          // "max_keyframes": 20, // 可选，默认 20；如未设置，则不限制关键帧数量
+          "vision": {
+            "converter": "__yao.vision",
+            "properties": "gpt-4o-mini" // 预设值；也可直接在此设置属性，例如：{ "connector": "some-connector", "compress_size": 512 }
+          },
+          "audio": {
+            "converter": "__yao.whisper",
+            "properties": "smart-audio" // 预设值；也可直接在此设置属性，例如：{ "connector": "some-connector", "compress_size": 512 }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.whisper", // 必需，音频转写转换器的唯一标识符
+    "label": "音频转写", // 必需，转换器的标签，用于显示
+    "description": "使用 OpenAI Whisper 将语音转换为文本", // 必需，转换器的描述，用于显示
+
+    // 可用的预设转换选项
+    "options": [
+      {
+        "label": "智能音频转写（推荐）",
+        "value": "smart-audio",
+        "description": "30 秒分块，带静音检测与精准时间戳——适合课程与会议",
+        "default": true,
+        "properties": {
+          "autodetect": ["mp3", "wav", "m4a", "ogg", "flac"],
+          "connector": "openai.whisper",
+          "enable_silence_detection": true, // 可选，默认 true；如未设置，将不启用静音检测
+          "mapping_duration": 5.0, // 可选，默认 5.0；如未设置，将不使用映射时间
+          "silence_threshold": -40.0, // 可选，默认 -40dB 静音阈值
+          "silence_min_length": 1.0, // 可选，默认 1.0；如未设置，将不限制最小静音时长
+          "chunk_duration": 30.0 // 可选，默认 30.0；如未设置，将不限定分块时长
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.vision", // 必需，转换器的唯一标识符
+    "label": "图像分析", // 必需，转换器的标签，用于显示
+    "description": "使用 AI 视觉分析并描述图像内容", // 必需，转换器的描述，用于显示
+
+    // 可用的预设转换选项
+    "options": [
+      {
+        "label": "GPT-4o Mini（推荐）",
+        "value": "gpt-4o-mini",
+        "description": "速度快、成本友好的图像分析——适合大多数场景",
+        "default": true,
+        "properties": {
+          "autodetect": ["jpg", "jpeg", "png", "webp"],
+          "connector": "openai.gpt-4o-mini",
+          "compress_size": 512 // 可选，默认 512
+        }
+      },
+      {
+        "label": "GPT-4o（高级版）",
+        "value": "gpt-4o",
+        "description": "更高级的图像分析，对复杂视觉有更深理解",
+        "default": false,
+        "properties": {
+          "autodetect": ["jpg", "jpeg", "png", "webp"],
+          "connector": "openai.gpt-4o",
+          "compress_size": 512 // 可选，默认 512
+        }
+      }
+    ]
+  },
+  {
+    "id": "__yao.mcp", // 必需，转换器的唯一标识符
+    "label": "自定义处理器", // 必需，转换器的标签，用于显示
+    "description": "使用外部自定义工具处理文件", // 必需，转换器的描述，用于显示
+
+    // 可用的预设转换选项
+    "options": [
+      {
+        "label": "OCR Flux 处理",
+        "value": "ocrflux",
+        "description": "高性能 OCR 引擎，从图像与 PDF 中精准提取文本",
+        "default": true,
+        "properties": {
+          "id": "ocrflux", // MCP 工具的 id，必需
+          "arguments_mapping": {},
+          "output_mapping": {},
+          "autodetect": ["jpg", "jpeg", "png", "webp", "pdf"]
+        }
+      }
+    ]
+  }
+
+  // 在此处添加您的自定义转换器
+]
