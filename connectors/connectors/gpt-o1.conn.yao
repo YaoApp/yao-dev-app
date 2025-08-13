@@ -1,0 +1,9 @@
+{
+  "label": "O1",
+  "type": "openai",
+  "options": {
+    "model": "o1",
+    "key": "$ENV.OPENAI_API_KEY",
+    "proxy": "$ENV.OPENAI_API_PROXY"
+  }
+}

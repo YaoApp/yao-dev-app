@@ -1,0 +1,9 @@
+{
+  "label": "DeepSeek Reasoner",
+  "type": "openai",
+  "options": {
+    "model": "$ENV.QWEN_MODELS_32B",
+    "key": "$ENV.DEEPSEEK_API_KEY",
+    "proxy": "$ENV.DEEPSEEK_API_PROXY"
+  }
+}

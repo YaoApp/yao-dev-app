@@ -1,0 +1,9 @@
+{
+  "label": "Claude 3.5",
+  "type": "openai",
+  "options": {
+    "model": "$ENV.EVO4AI_MODELS_3_5_SONNET",
+    "key": "$ENV.EVO4AI_API_KEY",
+    "proxy": "$ENV.EVO4AI_API_PROXY"
+  }
+}

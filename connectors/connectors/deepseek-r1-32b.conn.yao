@@ -1,0 +1,9 @@
+{
+  "label": "DeepSeek R1 32B",
+  "type": "openai",
+  "options": {
+    "model": "$ENV.OLLAMA_DEEPSEEK_R1_32B",
+    "key": "$ENV.OLLAMA_API_KEY",
+    "proxy": "$ENV.OLLAMA_API_PROXY"
+  }
+}

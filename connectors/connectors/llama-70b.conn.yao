@@ -1,0 +1,9 @@
+{
+  "label": "Llama 70B",
+  "type": "openai",
+  "options": {
+    "model": "$ENV.LLAMA_MODELS_70B",
+    "key": "$ENV.GROQ_API_KEY",
+    "proxy": "$ENV.GROQ_API_PROXY"
+  }
+}

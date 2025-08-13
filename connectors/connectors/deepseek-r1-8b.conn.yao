@@ -1,0 +1,9 @@
+{
+  "label": "DeepSeek R1 8B",
+  "type": "openai",
+  "options": {
+    "model": "$ENV.OLLAMA_DEEPSEEK_R1_8B",
+    "key": "$ENV.OLLAMA_API_KEY",
+    "proxy": "http://127.0.0.1:11434"
+  }
+}
