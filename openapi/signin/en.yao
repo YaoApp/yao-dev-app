@@ -41,24 +41,28 @@
     "providers": [
       {
         "id": "google",
+        "label": "Google",
         "title": "Continue with Google",
         "logo": "/brands/google.svg",
         "color": "#4285F4"
       },
       {
         "id": "microsoft",
+        "label": "Microsoft",
         "title": "Continue with Microsoft",
         "logo": "/brands/microsoft.svg",
         "color": "#0078D4"
       },
       {
         "id": "apple",
+        "label": "Apple",
         "title": "Continue with Apple",
         "logo": "/brands/apple.svg",
         "color": "#000000"
       },
       {
         "id": "github",
+        "label": "Github",
         "title": "Continue with Github",
         "logo": "/brands/github.svg",
         "color": "#181717"
