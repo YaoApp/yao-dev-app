@@ -32,14 +32,14 @@ function SetupRoles() {
   for (const role of roles) {
     const id = role.role_id;
     // Check if the role already exists
-    const exists = Process("models.__yao.user_role.Get", {
+    const exists = Process("models.__yao.role.Get", {
       wheres: [{ column: "role_id", value: id }],
     });
     if (exists.length > 0) {
       continue;
     }
 
-    Process("models.__yao.user_role.Create", role);
+    Process("models.__yao.role.Create", role);
     console.log(`Created role: ${id}`);
   }
 }
