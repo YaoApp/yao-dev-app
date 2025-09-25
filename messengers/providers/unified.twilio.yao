@@ -1,0 +1,13 @@
+{
+  "name": "Main Twilio",
+  "description": "Main Twilio provider for SMS/WhatsApp/Email",
+  "connector": "twilio",
+  "options": {
+    "account_sid": "$ENV.TWILIO_ACCOUNT_SID",
+    "auth_token": "$ENV.TWILIO_AUTH_TOKEN",
+    "from_phone": "$ENV.TWILIO_FROM_PHONE",
+    "from_email": "$ENV.TWILIO_FROM_EMAIL",
+    "messaging_service_sid": "$ENV.TWILIO_MESSAGING_SERVICE_SID",
+    "sendgrid_api_key": "$ENV.TWILIO_SENDGRID_API_KEY"
+  }
+}

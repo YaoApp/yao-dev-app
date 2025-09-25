@@ -1,0 +1,13 @@
+{
+  "name": "Primary SMTP",
+  "description": "Primary SMTP email provider",
+  "connector": "smtp",
+  "options": {
+    "host": "$ENV.SMTP_HOST",
+    "port": "$ENV.SMTP_PORT",
+    "username": "$ENV.SMTP_USERNAME",
+    "password": "$ENV.SMTP_PASSWORD",
+    "from": "$ENV.SMTP_FROM",
+    "use_tls": true
+  }
+}
