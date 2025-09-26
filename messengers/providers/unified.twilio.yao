@@ -7,7 +7,8 @@
     "auth_token": "$ENV.TWILIO_AUTH_TOKEN",
     "from_phone": "$ENV.TWILIO_FROM_PHONE",
     "from_email": "$ENV.TWILIO_FROM_EMAIL",
-    "messaging_service_sid": "$ENV.TWILIO_MESSAGING_SERVICE_SID",
+    "api_sid": "$ENV.TWILIO_API_SID",
+    "api_key": "$ENV.TWILIO_API_KEY",
     "sendgrid_api_key": "$ENV.TWILIO_SENDGRID_API_KEY"
   }
 }
