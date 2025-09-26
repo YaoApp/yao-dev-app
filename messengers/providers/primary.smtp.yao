@@ -8,6 +8,6 @@
     "username": "$ENV.SMTP_USERNAME",
     "password": "$ENV.SMTP_PASSWORD",
     "from": "$ENV.SMTP_FROM",
-    "use_tls": true
+    "use_ssl": true
   }
 }
