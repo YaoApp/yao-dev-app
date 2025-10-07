@@ -1,0 +1,27 @@
+{
+  "roles": [
+    {
+      "role_id": "team_owner",
+      "label": "所有者",
+      "description": "拥有团队设置的完全访问权限，可管理成员和所有团队资源"
+    },
+    {
+      "role_id": "team_admin",
+      "label": "管理员",
+      "description": "可管理团队成员、分配角色和配置团队设置"
+    },
+    {
+      "role_id": "team_member",
+      "label": "成员",
+      "description": "可访问团队资源并与其他团队成员协作"
+    }
+  ],
+  "invite": {
+    "channel": "default",
+    "expiry": "1d", // 邀请链接有效期: 8h, 1d, 20m 等
+    "templates": {
+      "mail": "zh-cn.invite_message", // 邮件模板
+      "sms": "zh-cn.invite_message" // 短信模板
+    }
+  }
+}

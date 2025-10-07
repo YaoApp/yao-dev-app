@@ -1,0 +1,27 @@
+{
+  "roles": [
+    {
+      "role_id": "team_owner",
+      "label": "Owner",
+      "description": "Full access to team settings, member management, and all team resources"
+    },
+    {
+      "role_id": "team_admin",
+      "label": "Admin",
+      "description": "Manage team members, assign roles, and configure team settings"
+    },
+    {
+      "role_id": "team_member",
+      "label": "Member",
+      "description": "Access team resources and collaborate with other team members"
+    }
+  ],
+  "invite": {
+    "channel": "default",
+    "expiry": "1d", // invitation link expiry: 8h, 1d, 20m, etc.
+    "templates": {
+      "mail": "en.invite_message", // mail template
+      "sms": "en.invite_message" // sms template
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<Mail>
+  <Subject>Invitation to join {{ team_name }}</Subject>
+  <body>
+    <p>Hello!</p>
+    <p>
+      {{ inviter_name }} has invited you to join the {{ team_name }} team. We'd
+      love to have you on board!
+    </p>
+    <p>Please click the link below to accept this invitation:</p>
+    <a href="{{ invite_link }}">{{ invite_link }}</a>
+    <p>Best regards,<br />{{ team_name }} Team</p>
+  </body>
+</Mail>
