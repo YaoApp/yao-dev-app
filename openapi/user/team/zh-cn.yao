@@ -27,8 +27,8 @@
     "expiry": "1d", // 邀请链接有效期: 8h, 1d, 20m 等
     "base_url": "", // 邀请链接的基础URL（空表示使用当前域名）
     "templates": {
-      "mail": "zh-cn.invite_message", // 邮件模板
-      "sms": "zh-cn.invite_message" // 短信模板
+      "mail": "zh-cn.invite_member", // 邮件模板
+      "sms": "zh-cn.invite_member" // 短信模板
     }
   }
 }
