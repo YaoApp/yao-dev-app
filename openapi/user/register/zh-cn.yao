@@ -1,0 +1,27 @@
+{
+  "title": "欢迎使用演示应用",
+  "description": "请注册以继续",
+  "success_url": "/chat", // Redirect to the chat page after login (optional), if not set, the user will be redirected to the referer page
+  "failure_url": "/chat/auth/register", // Redirect to the login page if login failed (optional), if not set, the user will be redirected to the referer page, with a error message
+
+  // Form config, you can use it to customize the form of the login page
+  "form": {
+    "username": {
+      "placeholder": "邮箱或手机号",
+      "fields": ["email", "mobile"]
+    },
+    "password": { "placeholder": "登录密码" },
+    "confirm_password": { "placeholder": "确认密码" },
+
+    // Captcha config, you can use it to customize the captcha type and options
+    "captcha": { "type": "image", "options": {} },
+    "forgot_password_link": true,
+    "remember_me": true,
+    "register_link": "https://yaoapps.com/doc/guide/user/register",
+    "terms_of_service_link": "https://yaoapps.com/doc/guide/user/terms-of-service",
+    "privacy_policy_link": "https://yaoapps.com/doc/guide/user/privacy-policy"
+  },
+  "auto_login": true,
+  "role": "guest",
+  "type": "free_zh"
+}

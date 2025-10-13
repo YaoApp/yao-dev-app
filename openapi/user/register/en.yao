@@ -1,0 +1,34 @@
+{
+  "title": "Welcome to Demo App",
+  "description": "Please sign up to continue",
+  "default": true,
+
+  // Form config, you can use it to customize the form of the login page
+  "form": {
+    "username": {
+      "placeholder": "Email or Mobile",
+      "fields": ["email", "mobile"]
+    },
+    "password": { "placeholder": "Password" },
+    "confirm_password": { "placeholder": "Confirm Password" },
+
+    // Captcha config, you can use it to customize the captcha type and options
+    "captcha": {
+      "type": "turnstile",
+      "options": {
+        "sitekey": "$ENV.CLOUDFLARE_TURNSTILE_SITEKEY",
+        "secret": "$ENV.CLOUDFLARE_TURNSTILE_SECRET"
+      }
+    },
+
+    "forgot_password_link": true,
+    "remember_me": true,
+    "register_link": "https://yaoapps.com/doc/guide/user/register",
+    "terms_of_service_link": "https://yaoapps.com/doc/guide/user/terms-of-service",
+    "privacy_policy_link": "https://yaoapps.com/doc/guide/user/privacy-policy"
+  },
+
+  "auto_login": true,
+  "role": "guest",
+  "type": "free"
+}
