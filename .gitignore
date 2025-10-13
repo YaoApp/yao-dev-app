@@ -3,6 +3,7 @@ logs/
 data/*
 !data/excel
 !data/roles
+!data/types
 yao-0.10.3-darwin-amd64
 public/yao
 db

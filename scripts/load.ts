@@ -22,6 +22,7 @@ function After(options) {
 
   // Setup default roles if not exists
   SetupRoles();
+  SetupTypes();
 }
 
 function SetupRoles() {
@@ -41,5 +42,25 @@ function SetupRoles() {
 
     Process("models.__yao.role.Create", role);
     console.log(`Created role: ${id}`);
+  }
+}
+
+function SetupTypes() {
+  const fs = new FS("data");
+  const raw = fs.ReadFile("types/types.json");
+  const types = JSON.parse(raw);
+  console.log(`Setting up ${types.length} user types`);
+  for (const type of types) {
+    const id = type.type_id;
+    // Check if the type already exists
+    const exists = Process("models.__yao.user.type.Get", {
+      wheres: [{ column: "type_id", value: id }],
+    });
+    if (exists.length > 0) {
+      continue;
+    }
+
+    Process("models.__yao.user.type.Create", type);
+    console.log(`Created user type: ${id} (${type.name})`);
   }
 }
