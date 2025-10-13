@@ -1,4 +1,5 @@
 {
+  "type": "free", // 新团队的默认类型
   "roles": [
     {
       "role_id": "team_owner",
