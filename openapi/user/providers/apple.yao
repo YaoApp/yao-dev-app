@@ -20,5 +20,5 @@
     "jwks": "https://appleid.apple.com/auth/keys"
   },
   "mapping": "apple",
-  "register": { "auto": true, "role": "guest" } // Auto register user if not exists
+  "register": { "auto": true, "role": "guest", "type": "free" } // Auto register user if not exists
 }

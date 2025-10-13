@@ -8,5 +8,5 @@
     "user_info": "https://graph.microsoft.com/v1.0/me"
   },
   "mapping": "microsoft",
-  "register": { "auto": true, "role": "guest" } // Auto register user if not exists
+  "register": { "auto": true, "role": "guest", "type": "free" } // Auto register user if not exists
 }
