@@ -23,12 +23,22 @@
 
     "forgot_password_link": true,
     "remember_me": true,
-    "register_link": "https://yaoapps.com/doc/guide/user/register",
+    "login_link": "https://yaoapps.com/doc/guide/user/register",
     "terms_of_service_link": "https://yaoapps.com/doc/guide/user/terms-of-service",
     "privacy_policy_link": "https://yaoapps.com/doc/guide/user/privacy-policy"
   },
 
-  "auto_login": true,
-  "role": "guest",
-  "type": "free"
+  // Messenger config
+  "messenger": {
+    "channel": "default",
+    "templates": {
+      "mail": "en.verify_email", // mail template
+      "sms": "en.verify_mobile" // sms template
+    }
+  },
+
+  "invite_required": true, // Whether to require invite to register
+  "auto_login": true, // Whether to auto login after register default is true
+  "role": "guest", // Role to assign to the user
+  "type": "free" // Type to assign to the user
 }

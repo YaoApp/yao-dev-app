@@ -17,10 +17,21 @@
     "captcha": { "type": "image", "options": {} },
     "forgot_password_link": true,
     "remember_me": true,
-    "register_link": "https://yaoapps.com/doc/guide/user/register",
+    "login_link": "https://yaoapps.com/doc/guide/user/register",
     "terms_of_service_link": "https://yaoapps.com/doc/guide/user/terms-of-service",
     "privacy_policy_link": "https://yaoapps.com/doc/guide/user/privacy-policy"
   },
+
+  // Messenger config
+  "messenger": {
+    "channel": "default",
+    "templates": {
+      "mail": "zh-cn.verify_email", // mail template
+      "sms": "zh-cn.verify_mobile" // sms template
+    }
+  },
+
+  "invite_required": true, // Whether to require invite to register
   "auto_login": true,
   "role": "guest",
   "type": "free_zh"
