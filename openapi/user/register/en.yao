@@ -21,9 +21,7 @@
       }
     },
 
-    "forgot_password_link": true,
-    "remember_me": true,
-    "login_link": "https://yaoapps.com/doc/guide/user/register",
+    "login_link": "https://yaoapps.com/doc/guide/user/login",
     "terms_of_service_link": "https://yaoapps.com/doc/guide/user/terms-of-service",
     "privacy_policy_link": "https://yaoapps.com/doc/guide/user/privacy-policy"
   },
