@@ -36,12 +36,15 @@
     "remember_me_expires_in": "30d"
   },
 
-  // Messenger config (for registration email verification)
+  // Messenger config (for registration email/SMS verification)
   "messenger": {
-    "channel": "default",
-    "templates": {
-      "mail": "en.verify_email",
-      "sms": "en.verify_mobile"
+    "mail": {
+      "channel": "default",
+      "template": "en.verify_email"
+    },
+    "sms": {
+      "channel": "default",
+      "template": "en.verify_mobile"
     }
   },
 

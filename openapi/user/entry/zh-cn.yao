@@ -28,12 +28,15 @@
     "remember_me_expires_in": "30d"
   },
 
-  // Messenger 配置（用于注册邮箱验证）
+  // Messenger 配置（用于注册邮箱/短信验证）
   "messenger": {
-    "channel": "default",
-    "templates": {
-      "mail": "zh-cn.verify_email",
-      "sms": "zh-cn.verify_mobile"
+    "mail": {
+      "channel": "default",
+      "template": "zh-cn.verify_email"
+    },
+    "sms": {
+      "channel": "default",
+      "template": "zh-cn.verify_mobile"
     }
   },
 
