@@ -8,8 +8,8 @@
   // 表单配置
   "form": {
     "username": {
-      "placeholder": "邮箱或手机号",
-      "fields": ["email", "mobile"]
+      "placeholder": "请输入邮箱",
+      "fields": ["email"]
     },
     "password": { "placeholder": "登录密码" },
     "confirm_password": { "placeholder": "确认密码" },

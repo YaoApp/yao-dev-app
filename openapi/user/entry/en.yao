@@ -9,8 +9,8 @@
   // Form config
   "form": {
     "username": {
-      "placeholder": "Email or Mobile",
-      "fields": ["email", "mobile"]
+      "placeholder": "Enter your email",
+      "fields": ["email"]
     },
     "password": { "placeholder": "Password" },
     "confirm_password": { "placeholder": "Confirm Password" },
