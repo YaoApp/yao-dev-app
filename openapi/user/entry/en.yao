@@ -57,7 +57,8 @@
   // Invite Code Setting
   "invite": {
     "title": "Enter Invitation Code",
-    "description": "We are currently in beta testing. An official invitation code is required to access the platform.",
+    "description": "We are currently in beta testing. An official invitation code is required.",
+    "placeholder": "Enter official invitation code",
     "apply_link": "https://yaoapps.com/apply-invite" // Optional: link to apply for invitation code
   },
 
