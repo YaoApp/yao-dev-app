@@ -46,6 +46,13 @@
   "role": "guest", // 新用户默认角色
   "type": "free_zh", // 新用户默认类型
 
+  // 邀请码设置
+  "invite": {
+    "title": "输入邀请码",
+    "description": "当前为公测阶段，需要官方邀请码才能使用本平台",
+    "apply_link": "https://yaoapps.com/apply-invite" // 可选：申请邀请码链接
+  },
+
   // 第三方登录/注册配置（来自 signin）
   "third_party": {
     "providers": [
