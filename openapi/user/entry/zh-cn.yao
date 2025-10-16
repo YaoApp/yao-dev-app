@@ -51,7 +51,9 @@
     "title": "输入邀请码",
     "description": "当前为公测阶段，需要官方邀请码才能使用",
     "placeholder": "输入官方邀请码",
-    "apply_link": "https://yaoapps.com/apply-invite" // 可选：申请邀请码链接
+    "apply_link": "https://yaoapps.com/apply-invite", // 可选：申请邀请码链接
+    "apply_prompt": "没有邀请码？", // 申请链接前的提示文案
+    "apply_text": "申请邀请码" // 申请链接文案
   },
 
   // 第三方登录/注册配置（来自 signin）
