@@ -1,0 +1,5 @@
+profile:read:own:
+  owner: true
+  description: "Read own profile"
+  endpoints:
+    - GET /user/profile
