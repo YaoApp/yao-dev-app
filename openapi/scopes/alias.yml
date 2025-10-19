@@ -1,0 +1,163 @@
+# API Scope Aliases - One alias can map to multiple scopes
+# Used to simplify permission management, one alias can map to multiple specific scopes
+
+# ============ User Management Aliases ============
+
+# User basic access - for user login, registration and other basic operations
+user:auth:
+  - entry:access:public
+  - entry:register:authenticated
+  - entry:logout:own
+
+# User full permission - users can access all their own resources
+user:full:
+  - profile:read:own
+  - entry:logout:own
+
+# ============ Knowledge Base (KB) Aliases ============
+
+# Knowledge Base read-only permission - for viewing knowledge base content
+kb:read:
+  - collections:read:all
+  - documents:read:all
+  - search:read:all
+  - hits:read:all
+
+# Knowledge Base personal permission - users can manage their own knowledge base content
+kb:own:
+  - collections:read:own
+  - collections:write:own
+  - collections:delete:own
+  - documents:read:own
+  - documents:write:own
+  - documents:delete:own
+  - search:read:own
+
+# Knowledge Base team permission - team members can manage team knowledge base content
+kb:team:
+  - collections:read:team
+  - collections:delete:team
+  - documents:read:team
+  - documents:delete:team
+
+# Knowledge Base full permission - admin permission to operate all knowledge bases
+kb:admin:
+  - collections:read:all
+  - collections:write:all
+  - collections:delete:all
+  - documents:read:all
+  - documents:write:all
+  - documents:delete:all
+  - search:read:all
+  - graphs:read:all
+  - segments:read:all
+  - backups:read:all
+  - providers:read:all
+
+# ============ Job Management Aliases ============
+
+# Job read-only permission - for viewing job status
+job:read:
+  - jobs:read:all
+  - executions:read:all
+  - logs:read:all
+  - stats:read:all
+
+# Job personal permission - users can manage their own jobs
+job:own:
+  - jobs:read:own
+  - jobs:control:own
+  - executions:read:own
+  - logs:read:own
+
+# Job team permission - team members can manage team jobs
+job:team:
+  - jobs:read:team
+  - jobs:control:team
+  - executions:read:team
+
+# Job full permission - admin permission to operate all jobs
+job:admin:
+  - jobs:read:all
+  - jobs:control:all
+  - executions:read:all
+  - logs:read:all
+  - stats:read:all
+  - categories:read:all
+
+# ============ File Management Aliases ============
+
+# File read-only permission - for downloading and viewing files
+file:read:
+  - files:read:all
+
+# File personal permission - users can manage their own files
+file:own:
+  - files:read:own
+  - files:write:own
+  - files:delete:own
+
+# File team permission - team members can manage team files
+file:team:
+  - files:read:team
+  - files:write:team
+  - files:delete:team
+
+# File full permission - admin permission to operate all files
+file:admin:
+  - files:read:all
+  - files:write:all
+  - files:delete:all
+
+# ============ Combined Feature Aliases ============
+
+# Basic user permission - default permission set for newly registered users
+user:basic:
+  - profile:read:own
+  - entry:logout:own
+  - kb:read
+  - job:read
+  - file:read
+
+# Content creator permission - for users who can create knowledge base and upload files
+user:creator:
+  - profile:read:own
+  - entry:logout:own
+  - kb:own
+  - job:own
+  - file:own
+
+# Team member permission - basic team collaboration permission
+user:team_member:
+  - profile:read:own
+  - entry:logout:own
+  - kb:team
+  - job:team
+  - file:team
+  - collections:read:team
+  - documents:read:team
+
+# Team admin permission - admin permission within the team
+user:team_admin:
+  - profile:read:own
+  - entry:logout:own
+  - kb:admin
+  - job:admin
+  - file:admin
+
+# System admin permission - highest privilege, can access all resources
+user:admin:
+  - entry:access:public
+  - entry:register:authenticated
+  - entry:logout:own
+  - profile:read:own
+  - kb:admin
+  - job:admin
+  - file:admin
+
+# Public access permission - can only access public content
+user:public:
+  - entry:access:public
+  - kb:read
+  - job:read
+  - file:read
