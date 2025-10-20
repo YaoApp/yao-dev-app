@@ -3,6 +3,13 @@
   "role": "owner:free", // 团队创建者的默认用户角色（与用户注册角色一致）
   "roles": [
     {
+      "role_id": "owner:free",
+      "label": "所有者",
+      "description": "团队所有者，拥有对团队资源和设置的完全控制权",
+      "default": false,
+      "hidden": true
+    },
+    {
       "role_id": "team:admin",
       "label": "管理员",
       "description": "可管理团队成员、分配角色和配置团队设置",

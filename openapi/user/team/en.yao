@@ -3,6 +3,13 @@
   "role": "owner:free", // default user role for team creator (matches user registration role)
   "roles": [
     {
+      "role_id": "owner:free",
+      "label": "Owner",
+      "description": "Team owner with full control over team resources and settings",
+      "default": false,
+      "hidden": true
+    },
+    {
       "role_id": "team:admin",
       "label": "Admin",
       "description": "Manage team members, assign roles, and configure team settings",
