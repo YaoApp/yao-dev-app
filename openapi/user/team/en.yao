@@ -1,22 +1,16 @@
 {
-  "type": "free", // default type for new teams
+  "type": "free", // default subscription type for new teams
+  "role": "owner:free", // default user role for team creator (matches user registration role)
   "roles": [
     {
-      "role_id": "team_owner",
-      "label": "Owner",
-      "description": "Full access to team settings, member management, and all team resources",
-      "default": false,
-      "hidden": true
-    },
-    {
-      "role_id": "team_admin",
+      "role_id": "team:admin",
       "label": "Admin",
       "description": "Manage team members, assign roles, and configure team settings",
       "default": false,
       "hidden": false
     },
     {
-      "role_id": "team_member",
+      "role_id": "team:member",
       "label": "Member",
       "description": "Access team resources and collaborate with other team members",
       "default": true,
@@ -26,7 +20,7 @@
   "invite": {
     "channel": "default",
     "expiry": "1d", // invitation link expiry: 8h, 1d, 20m, etc.
-    "base_url": "", // base URL for invitation links (empty means use current origin)
+    "base_url": "http://localhost:8000/__yao_admin_root/team/invite/", // base URL for invitation links (empty means use current origin)
     "templates": {
       "mail": "en.invite_member", // mail template
       "sms": "en.invite_member" // sms template
