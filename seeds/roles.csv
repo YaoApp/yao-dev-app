@@ -1,7 +1,7 @@
-role_id,name,description,level,is_active,is_default,is_system,sort_order,color,icon
-admin,Administrator,Full system access with all permissions,100,true,false,true,1,#FF5733,icon-shield
-moderator,Moderator,Can manage content and users,50,true,false,false,2,#3498DB,icon-user-check
-editor,Editor,Can create and edit content,30,true,false,false,3,#2ECC71,icon-edit
-viewer,Viewer,Read-only access to content,10,true,true,false,4,#95A5A6,icon-eye
-guest,Guest,Limited guest access,5,true,false,false,5,#BDC3C7,icon-user
+role_id,name,description,level,is_active,is_default,is_system,sort_order,color,icon,permissions,metadata
+admin,Administrator,Full system access with all permissions,100,true,false,true,1,#FF5733,icon-shield,"{""users"":[""create"",""read"",""update"",""delete""],""roles"":[""create"",""read"",""update"",""delete""]}","{""max_users"":5,""requires_approval"":true}"
+moderator,Moderator,Can manage content and users,50,true,false,false,2,#3498DB,icon-user-check,"{""users"":[""read"",""update""],""content"":[""create"",""read"",""update"",""delete""]}","{""max_users"":0}"
+editor,Editor,Can create and edit content,30,true,false,false,3,#2ECC71,icon-edit,"{""content"":[""create"",""read"",""update""]}","{""max_users"":0}"
+viewer,Viewer,Read-only access to content,10,true,true,false,4,#95A5A6,icon-eye,"{""content"":[""read""]}","{}"
+guest,Guest,Limited guest access,5,true,false,false,5,#BDC3C7,icon-user,"{""content"":[""read""]}","{""max_sessions"":1,""session_timeout"":3600}"
 
