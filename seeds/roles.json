@@ -1,0 +1,86 @@
+[
+  {
+    "role_id": "admin",
+    "name": "Administrator",
+    "description": "Full system access with all permissions",
+    "permissions": {
+      "users": ["create", "read", "update", "delete"],
+      "roles": ["create", "read", "update", "delete"],
+      "content": ["create", "read", "update", "delete"]
+    },
+    "level": 100,
+    "is_active": true,
+    "is_default": false,
+    "is_system": true,
+    "sort_order": 1,
+    "color": "#FF5733",
+    "icon": "icon-shield"
+  },
+  {
+    "role_id": "moderator",
+    "name": "Moderator",
+    "description": "Can manage content and users",
+    "permissions": {
+      "users": ["read", "update"],
+      "content": ["create", "read", "update", "delete"]
+    },
+    "level": 50,
+    "is_active": true,
+    "is_default": false,
+    "is_system": false,
+    "sort_order": 2,
+    "color": "#3498DB",
+    "icon": "icon-user-check"
+  },
+  {
+    "role_id": "editor",
+    "name": "Editor",
+    "description": "Can create and edit content",
+    "permissions": {
+      "content": ["create", "read", "update"]
+    },
+    "level": 30,
+    "is_active": true,
+    "is_default": false,
+    "is_system": false,
+    "sort_order": 3,
+    "color": "#2ECC71",
+    "icon": "icon-edit"
+  },
+  {
+    "role_id": "viewer",
+    "name": "Viewer",
+    "description": "Read-only access to content",
+    "permissions": {
+      "content": ["read"]
+    },
+    "level": 10,
+    "is_active": true,
+    "is_default": true,
+    "is_system": false,
+    "sort_order": 4,
+    "color": "#95A5A6",
+    "icon": "icon-eye"
+  },
+  {
+    "role_id": "guest",
+    "name": "Guest",
+    "description": "Limited guest access",
+    "permissions": {
+      "content": ["read"]
+    },
+    "restricted_permissions": ["users", "roles"],
+    "level": 5,
+    "is_active": true,
+    "is_default": false,
+    "is_system": false,
+    "sort_order": 5,
+    "color": "#BDC3C7",
+    "icon": "icon-user",
+    "metadata": {
+      "max_sessions": 1,
+      "session_timeout": 3600
+    }
+  }
+]
+

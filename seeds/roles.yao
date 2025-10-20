@@ -1,0 +1,57 @@
+// Roles seed data with JSONC format
+[
+  {
+    "role_id": "admin",
+    "name": "Administrator",
+    "description": "Full system access with all permissions",
+    "permissions": {
+      "users": ["create", "read", "update", "delete"],
+      "roles": ["create", "read", "update", "delete"],
+      "content": ["create", "read", "update", "delete"],
+      "system": ["configure", "backup", "restore"]
+    },
+    "level": 100,
+    "is_active": true,
+    "is_default": false,
+    "is_system": true,
+    "sort_order": 1,
+    "color": "#FF5733",
+    "icon": "icon-shield",
+    "max_users": 5,
+    "requires_approval": true
+  },
+  {
+    "role_id": "developer",
+    "name": "Developer",
+    "description": "Development and testing access",
+    "permissions": {
+      "content": ["create", "read", "update", "delete"],
+      "api": ["read", "test"]
+    },
+    "level": 70,
+    "is_active": true,
+    "is_default": false,
+    "is_system": false,
+    "sort_order": 2,
+    "color": "#9B59B6",
+    "icon": "icon-code",
+    "max_users": 0
+  },
+  {
+    "role_id": "support",
+    "name": "Support Staff",
+    "description": "Customer support access",
+    "permissions": {
+      "users": ["read"],
+      "tickets": ["create", "read", "update"]
+    },
+    "level": 40,
+    "is_active": true,
+    "is_default": false,
+    "is_system": false,
+    "sort_order": 3,
+    "color": "#F39C12",
+    "icon": "icon-headset"
+  }
+]
+
