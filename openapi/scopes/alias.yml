@@ -155,6 +155,10 @@ user:admin:
   - job:admin
   - file:admin
 
+# System root permission - absolute highest privilege with wildcard access
+system:root:
+  - "*:*:*"
+
 # Public access permission - can only access public content
 user:public:
   - entry:access:public
