@@ -1,0 +1,8 @@
+chat:
+  title: New Chat
+  description: Hi, I'm DeepExcel, what can I help you with today?
+  prompts:
+    - The best 10 colors of 2024, sales and style numbers
+    - The monthly sales situation of 2024
+    - Write a introduction for Xiaohongshu
+description: A general AI agent that automatically identifies task requirements and schedules specialized AI agents to execute them, achieving efficient and precise intelligent collaboration.

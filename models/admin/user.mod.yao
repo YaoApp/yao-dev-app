@@ -1,60 +1,56 @@
 {
-  "name": "用户",
-  "table": {
-    "name": "xiang_user",
-    "comment": "用户表",
-    "engine": "InnoDB"
-  },
+  "name": "AdminUser",
+  "table": { "name": "admin_user", "comment": "The administrator table" },
   "columns": [
     { "label": "ID", "name": "id", "type": "ID" },
     {
-      "label": "类型",
+      "label": "Type",
       "name": "type",
       "type": "enum",
       "option": ["admin", "staff", "user", "robot"],
-      "comment": "账号类型 admin 管理员, staff 员工, user 用户, robot 机器人",
+      "comment": "AccountTypes: admin, staff, user, robot",
       "default": "user",
       "index": true,
       "validations": [
         {
           "method": "typeof",
           "args": ["string"],
-          "message": "{{input}}类型错误, {{label}}应该为字符串"
+          "message": "{{input}}Error, {{label}} should be String"
         },
         {
           "method": "enum",
           "args": ["admin", "staff", "user", "robot"],
-          "message": "{{input}}不在许可范围, {{label}}应该为 admin/staff/user/robot"
+          "message": "{{input}} is not within the allowed range, {{label}} should be admin/staff/user/robot"
         }
       ]
     },
     {
-      "label": "邮箱",
+      "label": "Email",
       "name": "email",
       "type": "string",
       "length": 50,
-      "comment": "邮箱",
+      "comment": "Email",
       "index": true,
       "nullable": true,
       "validations": [
         {
           "method": "typeof",
           "args": ["string"],
-          "message": "{{input}}类型错误, {{label}}应该为字符串"
+          "message": "{{input}}Error, {{label}} should be String"
         },
         {
           "method": "email",
           "args": [],
-          "message": "{{input}}不是邮箱地址"
+          "message": "{{input}} is not an Email address"
         }
       ]
     },
     {
-      "label": "手机号",
+      "label": "Mobile",
       "name": "mobile",
       "type": "string",
       "length": 50,
-      "comment": "手机号",
+      "comment": "Mobile",
       "index": true,
       "nullable": true,
       "crypt": "AES",
@@ -62,16 +58,16 @@
         {
           "method": "mobile",
           "args": [],
-          "message": "{{input}}格式错误"
+          "message": "{{input}} Format error"
         }
       ]
     },
     {
-      "label": "登录密码",
+      "label": "Login Password",
       "name": "password",
       "type": "string",
       "length": 256,
-      "comment": "登录密码",
+      "comment": "Login Password",
       "crypt": "PASSWORD",
       "index": true,
       "nullable": true,
@@ -79,46 +75,31 @@
         {
           "method": "typeof",
           "args": ["string"],
-          "message": "{{input}}类型错误, {{label}}应该为字符串"
+          "message": "{{input}}Error, {{label}} should be String"
         },
         {
           "method": "minLength",
           "args": [6],
-          "message": "{{label}}应该由6-18位，大小写字母、数字和符号构成"
+          "message": "{{label}} should be composed of 6-18 characters, including uppercase and lowercase letters, numbers, and symbols."
         },
         {
           "method": "maxLength",
           "args": [18],
-          "message": "{{label}}应该由6-18位，大小写字母、数字和符号构成"
+          "message": "{{label}} should be composed of 6-18 characters, including uppercase and lowercase letters, numbers, and symbols."
         },
         {
           "method": "pattern",
           "args": ["[0-9]+"],
-          "message": "{{label}}应该至少包含一个数字"
-        },
-        {
-          "method": "pattern",
-          "args": ["[A-Z]+"],
-          "message": "{{label}}应该至少包含一个大写字母"
-        },
-        {
-          "method": "pattern",
-          "args": ["[a-z]+"],
-          "message": "{{label}}应该至少包含一个小写字母"
-        },
-        {
-          "method": "pattern",
-          "args": ["[@#$&*\\+]+"],
-          "message": "{{label}}应该至少包含一个符号"
+          "message": "{{label}} should contain at least one number"
         }
       ]
     },
     {
-      "label": "操作密码",
+      "label": "2nd Password",
       "name": "password2nd",
       "type": "string",
       "length": 256,
-      "comment": "操作密码",
+      "comment": "2nd Password",
       "crypt": "PASSWORD",
       "index": true,
       "nullable": true,
@@ -126,85 +107,48 @@
         {
           "method": "typeof",
           "args": ["string"],
-          "message": "{{input}}类型错误, {{label}}应该为字符串"
+          "message": "{{input}}Error, {{label}} should be String"
         },
         {
           "method": "minLength",
           "args": [6],
-          "message": "{{label}}应该由6-18位，大小写字母、数字和符号构成"
+          "message": "{{label}} should be composed of 6-18 characters, including uppercase and lowercase letters, numbers, and symbols."
         },
         {
           "method": "maxLength",
           "args": [18],
-          "message": "{{label}}应该由6-18位，大小写字母、数字和符号构成"
+          "message": "{{label}} should be composed of 6-18 characters, including uppercase and lowercase letters, numbers, and symbols."
         },
         {
           "method": "pattern",
           "args": ["[0-9]+"],
-          "message": "{{label}}应该至少包含一个数字"
-        },
-        {
-          "method": "pattern",
-          "args": ["[A-Z]+"],
-          "message": "{{label}}应该至少包含一个大写字母"
-        },
-        {
-          "method": "pattern",
-          "args": ["[a-z]+"],
-          "message": "{{label}}应该至少包含一个小写字母"
-        },
-        {
-          "method": "pattern",
-          "args": ["[@#$&*\\+]+"],
-          "message": "{{label}}应该至少包含一个符号"
+          "message": "{{label}} should contain at least one number"
         }
       ]
     },
     {
-      "label": "姓名",
+      "label": "Name",
       "name": "name",
       "type": "string",
       "length": 80,
-      "comment": "姓名",
+      "comment": "Name",
       "index": true,
       "nullable": true,
       "validations": [
         {
           "method": "typeof",
           "args": ["string"],
-          "message": "{{input}}类型错误, {{label}}应该为字符串"
+          "message": "{{input}}Error, {{label}} should be String"
         },
         {
           "method": "minLength",
           "args": [2],
-          "message": "{{label}}至少需要2个字"
+          "message": "{{label}} requires at least 2 characters."
         },
         {
           "method": "maxLength",
           "args": [40],
-          "message": "{{label}}不能超过20个字"
-        }
-      ]
-    },
-    {
-      "label": "身份证号码",
-      "name": "idcard",
-      "type": "string",
-      "length": 256,
-      "comment": "身份证号码",
-      "crypt": "AES",
-      "nullable": true,
-      "index": true,
-      "validations": [
-        {
-          "method": "typeof",
-          "args": ["string"],
-          "message": "{{input}}类型错误, {{label}}应该为字符串"
-        },
-        {
-          "method": "pattern",
-          "args": ["^(\\d{18})|(\\d{14}X)$"],
-          "message": "{{label}}格式错误"
+          "message": "{{label}} maximum 40 characters."
         }
       ]
     },
@@ -220,47 +164,61 @@
         {
           "method": "typeof",
           "args": ["integer"],
-          "message": "{{input}}类型错误, {{label}}应该为数字"
+          "message": "{{input}}Error, {{label}} should be Integer"
         },
         {
           "method": "pattern",
           "args": ["^[0-9]{10}$"],
-          "message": " {{label}}应该由10位数字构成"
+          "message": " {{label}} should be composed of 10 digits."
         }
       ]
     },
     {
-      "label": "API 密钥",
+      "label": "API Secret",
       "name": "secret",
       "type": "string",
       "length": 256,
       "nullable": true,
       "crypt": "AES",
-      "comment": "API 密钥",
+      "comment": "API Secret",
       "index": true,
       "validations": [
         {
           "method": "typeof",
           "args": ["string"],
-          "message": "{{input}}类型错误, {{label}}应该为字符串"
+          "message": "{{input}}Error, {{label}} should be String"
         },
         {
           "method": "pattern",
           "args": ["^[0-9A-Za-z@#$&*]{32}$"],
-          "message": "{{label}}应该由32位，大小写字母、数字和符号构成"
+          "message": "{{label}} should be composed of 32 digits, uppercase and lowercase letters, and special characters."
         }
       ]
     },
     {
-      "label": "扩展信息",
+      "label": "Extra",
       "name": "extra",
       "type": "json",
-      "comment": "扩展信息",
+      "comment": "Extra",
       "nullable": true
     },
     {
-      "label": "状态",
-      "comment": "用户状态 enabled 有效, disabled 无效",
+      "label": "Permission",
+      "name": "permission",
+      "type": "json",
+      "comment": "Permission",
+      "nullable": true
+    },
+    {
+      "label": "Roles",
+      "name": "roles",
+      "type": "json",
+      "comment": "Roles",
+      "nullable": true
+    },
+    {
+      "label": "Status",
+      "comment": "Status",
       "name": "status",
       "type": "enum",
       "default": "enabled",
@@ -270,72 +228,26 @@
         {
           "method": "typeof",
           "args": ["string"],
-          "message": "{{input}}类型错误, {{label}}应该为字符串"
+          "message": "{{input}}Error, {{label}} should be String"
         },
         {
           "method": "enum",
           "args": ["enabled", "disabled"],
-          "message": "{{input}}不在许可范围, {{label}}应该为 enabled/disabled"
+          "message": "{{input}} is not in the range, {{label}} should be enabled/disabled"
         }
       ]
     }
   ],
   "relations": {},
-  "values": [
-    {
-      "name": "管理员",
-      "type": "admin",
-      "email": "xiang@iqka.com",
-      "mobile": null,
-      "password": "A123456p+",
-      "key": "8304925176",
-      "secret": "XMTdNRVigbgUiAPdiJCfaWgWcz2PaQXw",
-      "status": "enabled",
-      "extra": { "sex": "男" }
-    },
-    {
-      "name": "员工",
-      "type": "staff",
-      "email": "staff@iqka.com",
-      "mobile": null,
-      "password": "S123456p+",
-      "key": null,
-      "secret": null,
-      "status": "enabled",
-      "extra": { "sex": "女" }
-    },
-    {
-      "name": "用户",
-      "type": "user",
-      "email": null,
-      "mobile": "13900001111",
-      "password": "U123456p+",
-      "key": null,
-      "secret": null,
-      "status": "enabled",
-      "extra": { "sex": "女" }
-    },
-    {
-      "name": "机器人",
-      "type": "robot",
-      "email": null,
-      "mobile": null,
-      "password": null,
-      "key": "3845196072",
-      "secret": "wBeYjL7FjbcvpAdBrxtDFfjydsoPKhRN",
-      "status": "enabled",
-      "extra": { "sex": "女" }
-    }
-  ],
   "indexes": [
     {
-      "comment": "类型邮箱唯一",
+      "comment": "Email Unique Index",
       "name": "type_email_unique",
       "columns": ["type", "email"],
       "type": "unique"
     },
     {
-      "comment": "类型手机号唯一",
+      "comment": "Mobile Unique Index",
       "name": "type_mobile_unique",
       "columns": ["type", "mobile"],
       "type": "unique"
