@@ -53,3 +53,14 @@ endpoints:
   - POST /user/* deny
   - PUT /user/* deny
   - DELETE /user/* deny
+
+  # Agent Management - All operations allowed for authenticated users (for testing)
+  - GET /agent/* allow
+  - POST /agent/* allow
+  - DELETE /agent/* allow
+
+  # LLM Provider Management - Read operations allowed
+  - GET /llm/* allow
+
+  # MCP Server Management - Read operations allowed
+  - GET /mcp/* allow

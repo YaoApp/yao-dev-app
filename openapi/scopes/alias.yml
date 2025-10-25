@@ -85,6 +85,46 @@ job:admin:
   - stats:read:all
   - categories:read:all
 
+# ============ Agent Management Aliases ============
+
+# Agent read-only permission - for viewing agents
+agent:read:
+  - agents:read:all
+
+# Agent personal permission - users can manage their own agents
+agent:own:
+  - agents:read:own
+  - agents:write:own
+  - agents:delete:own
+  - agents:call:own
+
+# Agent team permission - team members can manage team agents
+agent:team:
+  - agents:read:team
+  - agents:write:team
+  - agents:delete:team
+  - agents:call:team
+
+# Agent full permission - admin permission to operate all agents
+agent:admin:
+  - agents:read:all
+  - agents:write:all
+  - agents:delete:all
+  - agents:call:all
+  - agents:tags:read:all
+
+# ============ LLM Provider Management Aliases ============
+
+# LLM Provider read permission - for viewing available LLM providers
+llm:read:
+  - providers:read:all
+
+# ============ MCP Server Management Aliases ============
+
+# MCP Server read permission - for viewing available MCP servers
+mcp:read:
+  - servers:read:all
+
 # ============ File Management Aliases ============
 
 # File read-only permission - for downloading and viewing files
@@ -118,6 +158,9 @@ user:basic:
   - kb:read
   - job:read
   - file:read
+  - agent:read
+  - llm:read
+  - mcp:read
 
 # Content creator permission - for users who can create knowledge base and upload files
 user:creator:
@@ -126,6 +169,7 @@ user:creator:
   - kb:own
   - job:own
   - file:own
+  - agent:own
 
 # Team member permission - basic team collaboration permission
 user:team_member:
@@ -154,6 +198,9 @@ user:admin:
   - kb:admin
   - job:admin
   - file:admin
+  - agent:admin
+  - llm:read
+  - mcp:read
 
 # System root permission - absolute highest privilege with wildcard access
 system:root:
