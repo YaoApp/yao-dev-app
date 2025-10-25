@@ -9,19 +9,26 @@ public:
   - GET /user/entry/captcha
   - POST /user/entry/verify
   - GET /user/teams/invitations/:invitation_id
+  - GET /helloworld/public
+  - POST /helloworld/public
 
 # Default endpoint rules (can be overridden by specific scopes)
 endpoints:
-  # Knowledge Base - Read operations allowed for authenticated users
-  - GET /kb/* allow
-  - GET /kb/collections allow
-  - GET /kb/documents allow
-  - GET /kb/search allow
+  # Hello World - Protected endpoints allowed for authenticated users
+  - GET /helloworld/protected allow
+  - POST /helloworld/protected allow
 
-  # Knowledge Base - Write operations require specific scopes
-  - POST /kb/* deny
-  - PUT /kb/* deny
-  - DELETE /kb/* deny
+  # DSL Management - All operations allowed for authenticated users (for testing)
+  - GET /dsl/* allow
+  - POST /dsl/* allow
+  - PUT /dsl/* allow
+  - DELETE /dsl/* allow
+
+  # Knowledge Base - All operations allowed for authenticated users (for testing)
+  - GET /kb/* allow
+  - POST /kb/* allow
+  - PUT /kb/* allow
+  - DELETE /kb/* allow
 
   # Job Management - Read operations allowed
   - GET /job/* allow
@@ -33,12 +40,10 @@ endpoints:
   - PUT /job/* deny
   - DELETE /job/* deny
 
-  # File Management - Read operations allowed
+  # File Management - All operations allowed for authenticated users (for testing)
   - GET /file/* allow
-
-  # File Management - Write operations require specific scopes
-  - POST /file/* deny
-  - DELETE /file/* deny
+  - POST /file/* allow
+  - DELETE /file/* allow
 
   # User Management - Profile read allowed
   - GET /user/profile allow
