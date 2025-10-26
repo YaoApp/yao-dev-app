@@ -43,6 +43,7 @@ teams:members:read:
   description: "Read team members"
   endpoints:
     - GET /user/teams/:id/members
+    - GET /user/teams/:id/members/check
     - GET /user/teams/:id/members/:member_id
 
 teams:members:write:
