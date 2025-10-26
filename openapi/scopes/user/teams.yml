@@ -49,6 +49,7 @@ teams:members:write:
   description: "Manage team members"
   endpoints:
     - POST /user/teams/:id/members
+    - POST /user/teams/:id/members/robots
     - PUT /user/teams/:id/members/:member_id
 
 teams:members:delete:
