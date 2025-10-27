@@ -44,6 +44,7 @@ teams:members:read:
   endpoints:
     - GET /user/teams/:id/members
     - GET /user/teams/:id/members/check
+    - GET /user/teams/:id/members/check-robot-email
     - GET /user/teams/:id/members/:member_id
 
 teams:members:write:
@@ -52,6 +53,7 @@ teams:members:write:
     - POST /user/teams/:id/members
     - POST /user/teams/:id/members/robots
     - PUT /user/teams/:id/members/:member_id
+    - PUT /user/teams/:id/members/robots/:member_id
 
 teams:members:delete:
   description: "Remove team members"
