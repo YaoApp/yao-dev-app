@@ -74,6 +74,7 @@
     }
   },
 
+  // Invite config
   "invite": {
     "channel": "default",
     "expiry": "1d", // invitation link expiry: 8h, 1d, 20m, etc.
@@ -82,5 +83,8 @@
       "mail": "en.invite_member", // mail template
       "sms": "en.invite_member" // sms template
     }
-  }
+  },
+
+  "uploader": "__yao.attachment", // uploader for avatar and attachments ( default is __yao.attachment )
+  "avatar_agent": "" // agent ID for avatar generation (optional, can be empty)
 }
