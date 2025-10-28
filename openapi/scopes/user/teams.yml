@@ -46,6 +46,7 @@ teams:members:read:
     - GET /user/teams/:id/members/check
     - GET /user/teams/:id/members/check-robot-email
     - GET /user/teams/:id/members/:member_id
+    - GET /user/teams/:id/members/:member_id/profile
 
 teams:members:write:
   description: "Manage team members"
