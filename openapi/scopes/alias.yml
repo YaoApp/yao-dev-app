@@ -12,6 +12,8 @@ user:auth:
 # User full permission - users can access all their own resources
 user:full:
   - profile:read:own
+  - profile:update:own
+  - member:profile:update:own
   - entry:logout:own
 
 # ============ Knowledge Base (KB) Aliases ============
@@ -154,6 +156,8 @@ file:admin:
 # Basic user permission - default permission set for newly registered users
 user:basic:
   - profile:read:own
+  - profile:update:own
+  - member:profile:update:own
   - entry:logout:own
   - kb:read
   - job:read
@@ -165,6 +169,8 @@ user:basic:
 # Content creator permission - for users who can create knowledge base and upload files
 user:creator:
   - profile:read:own
+  - profile:update:own
+  - member:profile:update:own
   - entry:logout:own
   - kb:own
   - job:own
@@ -174,6 +180,8 @@ user:creator:
 # Team member permission - basic team collaboration permission
 user:team_member:
   - profile:read:own
+  - profile:update:own
+  - member:profile:update:own
   - entry:logout:own
   - kb:team
   - job:team
@@ -184,6 +192,8 @@ user:team_member:
 # Team admin permission - admin permission within the team
 user:team_admin:
   - profile:read:own
+  - profile:update:own
+  - member:profile:update:own
   - entry:logout:own
   - kb:admin
   - job:admin
@@ -195,6 +205,8 @@ user:admin:
   - entry:register:authenticated
   - entry:logout:own
   - profile:read:own
+  - profile:update:own
+  - member:profile:update:own
   - kb:admin
   - job:admin
   - file:admin
@@ -204,7 +216,8 @@ user:admin:
 
 # System root permission - absolute highest privilege with wildcard access
 system:root:
-  - "*:*:*"
+  - "*:*:*" # Matches 3-part scopes (resource:action:level)
+  - "*:*:*:*" # Matches 4-part scopes (e.g., member:profile:update:own)
 
 # Public access permission - can only access public content
 user:public:

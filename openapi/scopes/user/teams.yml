@@ -55,6 +55,12 @@ teams:members:write:
     - PUT /user/teams/:id/members/:member_id
     - PUT /user/teams/:id/members/robots/:member_id
 
+member:profile:update:own:
+  owner: true
+  description: "Update own member profile"
+  endpoints:
+    - PUT /user/teams/:id/members/:member_id/profile
+
 teams:members:delete:
   description: "Remove team members"
   endpoints:

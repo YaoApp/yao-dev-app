@@ -45,11 +45,13 @@ endpoints:
   - POST /file/* allow
   - DELETE /file/* allow
 
-  # User Management - Profile read allowed
+  # User Management - Profile operations allowed (with scope control)
   - GET /user/profile allow
+  - PUT /user/profile allow
   - GET /user/teams allow
+  - PUT /user/teams/*/members/*/profile allow
 
-  # User Management - Write operations require specific scopes
+  # User Management - Other write operations require specific scopes
   - POST /user/* deny
   - PUT /user/* deny
   - DELETE /user/* deny
