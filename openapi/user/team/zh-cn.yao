@@ -83,8 +83,5 @@
       "mail": "zh-cn.invite_member", // 邮件模板
       "sms": "zh-cn.invite_member" // 短信模板
     }
-  },
-
-  "uploader": "__yao.attachment", // uploader for avatar and attachments ( default is __yao.attachment )
-  "avatar_agent": "" // 用于头像生成的智能体ID（可选，可以为空）
+  }
 }
