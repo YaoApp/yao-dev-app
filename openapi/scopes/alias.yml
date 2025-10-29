@@ -14,6 +14,7 @@ user:full:
   - profile:read:own
   - profile:update:own
   - member:profile:update:own
+  - features:read:own
   - entry:logout:own
 
 # ============ Knowledge Base (KB) Aliases ============
@@ -158,6 +159,7 @@ user:basic:
   - profile:read:own
   - profile:update:own
   - member:profile:update:own
+  - features:read:own
   - entry:logout:own
   - kb:read
   - job:read
@@ -171,6 +173,7 @@ user:creator:
   - profile:read:own
   - profile:update:own
   - member:profile:update:own
+  - features:read:own
   - entry:logout:own
   - kb:own
   - job:own
@@ -182,6 +185,7 @@ user:team_member:
   - profile:read:own
   - profile:update:own
   - member:profile:update:own
+  - features:read:own
   - entry:logout:own
   - kb:team
   - job:team
@@ -194,6 +198,7 @@ user:team_admin:
   - profile:read:own
   - profile:update:own
   - member:profile:update:own
+  - features:read:own
   - entry:logout:own
   - kb:admin
   - job:admin
@@ -207,6 +212,7 @@ user:admin:
   - profile:read:own
   - profile:update:own
   - member:profile:update:own
+  - features:read:own
   - kb:admin
   - job:admin
   - file:admin
