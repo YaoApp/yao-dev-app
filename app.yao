@@ -20,7 +20,7 @@
      * - Studio PATH: {"api":"/neo", "studio":true }
      * - Studio URL:  {"api":"http://localhost:5077/neo", "studio":true }
      */
-    "neo": { "api": "/neo", "studio": true },
+    "neo": { "api": "/agent", "studio": true },
 
     /**
      * Avatar service for the application ( Optional )
