@@ -93,6 +93,7 @@ job:admin:
 # Agent read-only permission - for viewing agents
 agent:read:
   - agents:read:all
+  - assistants:read:all
 
 # Agent personal permission - users can manage their own agents
 agent:own:
@@ -100,6 +101,9 @@ agent:own:
   - agents:write:own
   - agents:delete:own
   - agents:call:own
+  - assistants:read:own
+  - assistants:write:own
+  - assistants:delete:own
 
 # Agent team permission - team members can manage team agents
 agent:team:
@@ -107,6 +111,9 @@ agent:team:
   - agents:write:team
   - agents:delete:team
   - agents:call:team
+  - assistants:read:team
+  - assistants:write:team
+  - assistants:delete:team
 
 # Agent full permission - admin permission to operate all agents
 agent:admin:
@@ -115,6 +122,10 @@ agent:admin:
   - agents:delete:all
   - agents:call:all
   - agents:tags:read:all
+  - assistants:read:all
+  - assistants:write:all
+  - assistants:delete:all
+  - assistants:tags:read:all
 
 # ============ LLM Provider Management Aliases ============
 
