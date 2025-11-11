@@ -94,6 +94,7 @@ job:admin:
 agent:read:
   - agents:read:all
   - assistants:read:all
+  - models:read:all
 
 # Agent personal permission - users can manage their own agents
 agent:own:
@@ -104,6 +105,7 @@ agent:own:
   - assistants:read:own
   - assistants:write:own
   - assistants:delete:own
+  - models:read:own
 
 # Agent team permission - team members can manage team agents
 agent:team:
@@ -114,6 +116,7 @@ agent:team:
   - assistants:read:team
   - assistants:write:team
   - assistants:delete:team
+  - models:read:team
 
 # Agent full permission - admin permission to operate all agents
 agent:admin:
@@ -126,6 +129,7 @@ agent:admin:
   - assistants:write:all
   - assistants:delete:all
   - assistants:tags:read:all
+  - models:read:all
 
 # ============ LLM Provider Management Aliases ============
 
