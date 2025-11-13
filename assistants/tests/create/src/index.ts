@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { Process } from "@yao/runtime";
 
 /**
  * Initialize the assistant session
@@ -12,6 +13,7 @@
  * - "return_empty": returns empty object {}
  * - "return_full": returns full HookCreateResponse with all fields
  * - "return_partial": returns partial HookCreateResponse
+ * - "return_process": calls models.__yao.role.Get and adds to messages
  * - default: returns basic response
  */
 function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
@@ -57,6 +59,40 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
     return {
       messages: [{ role: "user", content: "Partial test" }],
       temperature: 0.5,
+    };
+  }
+
+  // Test scenario: call process and add to messages
+  if (content === "return_process") {
+    // Call the process to get roles
+    const roles = Process("models.__yao.role.Get", {});
+
+    // Build messages with role information
+    const roleMessages: agent.Message[] = [
+      {
+        role: "system",
+        content: "Here are the available roles in the system:",
+      },
+    ];
+
+    // Add each role as a message
+    if (roles && Array.isArray(roles)) {
+      for (const role of roles) {
+        roleMessages.push({
+          role: "user",
+          content: `Role: ${role.name || "unknown"}, ID: ${
+            role.id || "unknown"
+          }`,
+        });
+      }
+    }
+
+    return {
+      messages: roleMessages,
+      metadata: {
+        test: "process_call",
+        roles_count: String(roles?.length || 0),
+      },
     };
   }
 
