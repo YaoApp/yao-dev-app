@@ -1,0 +1,7 @@
+chat:
+  title: 新对话
+  description: 只是简单的问候一下。
+  prompts:
+    - 只是简单的问候一下。
+name: 你好
+description: 只是简单的问候一下用户。

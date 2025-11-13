@@ -4,7 +4,7 @@
 # Default Assistant Settings
 # ===============================
 use:
-  default: "mohe" # The Brand Name of the assistant
+  default: "yaobots" # The Brand Name of the assistant
   title: "workers.system.title" # The assistant for generating the topic title.
   prompt: "workers.system.prompt" # The assistant for generating the prompt.
   vision: "workers.system.vision" # optional, The assistant for generating the image/video description, if the assistant enable the vision and model not support vision, use the vision model to describe the image/video, and return the messages with the image/video's description.
@@ -12,164 +12,9 @@ use:
   fetch: "workers.system.fetch" # optional, The assistant for fetching the http/https/ftp/sftp/etc. file, and return the file's content. if not set, use the http process to fetch the file.
 
 # ===============================
-# Authenticate Settings
-# ===============================
-auth:
-  models:
-    user: "admin.user" # The user model is a special model, it is used to handle the user, and the user is a user in the database.
-    guest: "guest" # The guest model is a special model, it is used to handle the guest user, and the guest user is not a user in the database.
-
-  fields: # The fields of the user model, it is used to handle the user, and the user is a user in the database. (Guest and User model must have the id and permission fields)
-    id: "id" # The id of the user, it is used to handle the user, and the user is a user in the database.
-    permission: "permission" # The permission of the user, it is used to handle the user, and the user is a user in the database.
-
-  session_fields: # The session fields of the user, it is used to handle the user, and the user is a user in the database.
-    id: "user_id"
-    guest: "guest" # If the user is a guest, the guest session should be set to the true.
-
-# ===============================
 # Conversation Store Settings
 # ===============================
 store:
-  connector: default
-  prefix: moapi_neo_
   max_size: 20 # optional, default is 20, The max size of the conversation, when the LLM request the conversation, it will be limited to the max size.
   expiration: "90d" # optional, if not set, the conversation will never be deleted.
-
-# ===============================
-# Upload Settings
-# ===============================
-upload:
-  chat:
-    driver: local # local, s3
-    options:
-      path: "$ENV.ATTACHMENTS_PATH"
-    chunk_size: "2M" # the chunk size of the file, if the file is too large, it will be chunked into smaller chunks.
-    max_size: "50M" # the max size of the file, if the file is too large, it will be rejected.
-    gzip: false # default gzip option is true
-    compress_image: 1920 # default compress_image option is the max width of the image, if the image is larger than the compress_image, it will be compressed.
-    allowed_types:
-      - text/*
-      - image/*
-      - video/*
-      - audio/*
-      - application/x-zip-compressed
-      - application/x-tar
-      - application/x-gzip
-      - application/yao
-      - application/zip
-      - application/pdf
-      - application/json
-      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
-      - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-      - application/vnd.openxmlformats-officedocument.presentationml.presentation
-      - application/vnd.openxmlformats-officedocument.presentationml.slideshow
-      - .md
-      - .txt
-      - .csv
-      - .xls
-      - .xlsx
-      - .ppt
-      - .pptx
-      - .doc
-      - .docx
-      - .mdx
-      - .m4a
-      - .mp3
-      - .mp4
-      - .wav
-      - .webm
-      - .yao
-
-  assets:
-    driver: local # local, s3
-    options:
-      path: "$ENV.ASSETS_PATH"
-    chunk_size: "2M" # the chunk size of the file, if the file is too large, it will be chunked into smaller chunks.
-    max_size: "10M" # the max size of the file, if the file is too large, it will be rejected.
-    allowed_types:
-      - text/*
-      - video/*
-      - audio/*
-
-  knowledge: # If the chat model supports vision, upload the image/video to the storage, and return the messages with the image/video's access url.
-    driver: s3 # local, s3
-    options:
-      endpoint: "$ENV.S3_API"
-      key: "$ENV.S3_ACCESS_KEY"
-      secret: "$ENV.S3_SECRET_KEY"
-      bucket: "$ENV.S3_BUCKET"
-      prefix: "moapi-"
-      expiration: "5m" # the temporary token expiration time of the image/video in seconds.
-      cache_path: "$ENV.S3_CACHE_PATH" # the cache path of the file, if the file is too large, it will be cached to the cache path.
-    chunk_size: "2M" # the chunk size of the file, if the file is too large, it will be chunked into smaller chunks.
-    max_size: "100M" # the max size of the file, if the file is too large, it will be rejected.
-    allowed_types:
-      - text/*
-      - image/*
-      - video/*
-      - audio/*
-      - application/x-zip-compressed
-      - application/x-tar
-      - application/x-gzip
-      - application/yao
-      - application/zip
-      - application/pdf
-      - application/json
-      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
-      - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-      - application/vnd.openxmlformats-officedocument.presentationml.presentation
-      - application/vnd.openxmlformats-officedocument.presentationml.slideshow
-      - .md
-      - .txt
-      - .csv
-      - .xls
-      - .xlsx
-      - .ppt
-      - .pptx
-      - .doc
-      - .docx
-      - .mdx
-      - .m4a
-      - .mp3
-      - .mp4
-      - .wav
-      - .webm
-      - .yao
-
-# ===============================
-# Knowledge base Settings
-# ===============================
-knowledge:
-  vector:
-    driver: qdrant
-    options:
-      host: "$ENV.QDRANT_HOST"
-      port: "$ENV.QDRANT_PORT"
-      api_key: "$ENV.QDRANT_API_KEY"
-      prefix: "moapi-"
-
-  graph:
-    driver: neo4j
-    options:
-      host: "$ENV.NEO4J_HOST"
-      port: "$ENV.NEO4J_PORT"
-      username: "$ENV.NEO4J_USERNAME"
-      password: "$ENV.NEO4J_PASSWORD"
-      database: "$ENV.NEO4J_DATABASE"
-      prefix: "moapi-"
-
-  vectorizer:
-    driver: openai
-    options:
-      api_key: "$ENV.OPENAI_API_KEY"
-      model: "$ENV.VECTORIZER_MODEL"
-
-# ===============================
-# API CORS Settings
-# ===============================
-allows:
-  - "http://127.0.0.1:8000"
-  - "http://127.0.0.1:5099"
-  - "http://localhost:5099"
-  - "http://localhost:8000"
+cache: "__yao.agent.cache" # optional, The cache store of the assistant, if not set, default is "__yao.agent.cache"

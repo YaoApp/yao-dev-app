@@ -1,70 +1,97 @@
-# Qwen 2.5 Series (0.5B -> 1.5B -> 3B -> 7B -> 14B)
-qwen2_5-0_5b:
-  vision: false
-  tools: true
-qwen2_5-coder-0_5b:
-  vision: false
-  tools: true
-qwen2_5-1_5b:
-  vision: false
-  tools: true
-qwen2_5-coder-1_5b:
-  vision: false
-  tools: true
-qwen2_5-3b:
-  vision: false
-  tools: true
-qwen2_5-coder-3b:
-  vision: false
-  tools: true
-qwen2_5-7b:
-  vision: false
-  tools: false
-qwen2_5-coder-7b:
-  vision: false
-  tools: true
-qwen2_5-14b:
-  vision: false
-  tools: false
-qwen2_5-coder-14b:
-  vision: false
-  tools: false
-
-# DeepSeek Series (1.5B -> 7B -> 8B -> 14B)
-deepseek-r1-1_5b:
-  vision: false
-  tools: false
-deepseek-r1-7b:
-  vision: false
-  tools: false
-deepseek-r1-8b:
-  vision: false
-  tools: false
-deepseek-r1-14b:
-  vision: false
-  tools: false
-deepseek-v3:
-  vision: false
-  tools: false
-deepseek-r1:
-  vision: false
-  tools: false
-
-# GPT Series
-gpt-o1-mini:
+# ============================================
+# OpenAI GPT-5 Series
+# ============================================
+gpt-5:
   vision: true
   tools: true
-gpt-o1:
+gpt-5-mini:
+  vision: true
+  tools: true
+gpt-5-nano:
+  vision: true
+  tools: true
+gpt-5-pro:
+  vision: true
+  tools: true
+
+# ============================================
+# OpenAI GPT-4.1 Series
+# ============================================
+gpt-4_1:
+  vision: true
+  tools: true
+gpt-4_1-mini:
+  vision: true
+  tools: true
+gpt-4_1-nano:
+  vision: true
+  tools: true
+
+# ============================================
+# OpenAI GPT-4o Series
+# ============================================
+gpt-4o:
   vision: true
   tools: true
 gpt-4o-mini:
   vision: true
   tools: true
-gpt-4o:
+
+# ============================================
+# OpenAI Embedding Models
+# ============================================
+text-embedding-3-small:
+  vision: false
+  tools: false
+text-embedding-3-large:
+  vision: false
+  tools: false
+text-embedding-ada-002:
+  vision: false
+  tools: false
+
+# ============================================
+# Claude Haiku Series
+# ============================================
+claude-haiku-3_0:
+  vision: false
+  tools: true
+claude-haiku-3_5:
+  vision: true
+  tools: true
+claude-haiku-4_5:
   vision: true
   tools: true
 
-# Claude Series
-claude-3_5-sonnet:
+# ============================================
+# Claude Sonnet Series
+# ============================================
+claude-sonnet-4_0:
   vision: true
+  tools: true
+claude-sonnet-4_5:
+  vision: true
+  tools: true
+
+# ============================================
+# Claude Opus Series
+# ============================================
+claude-opus-4_0:
+  vision: true
+  tools: true
+claude-opus-4_1:
+  vision: true
+  tools: true
+
+# ============================================
+# DeepSeek Series
+# ============================================
+deepseek-r1:
+  vision: false
+  tools: true
+deepseek-v3:
+  vision: false
+  tools: true
+deepseek-v3_1:
+  vision: false
   tools: true
