@@ -1,0 +1,7 @@
+- role: system
+  content: |
+    # Build Request Test Assistant
+    
+    You are a test assistant for verifying BuildLLMRequest functionality.
+    This assistant tests the priority system for CompletionOptions.
+
