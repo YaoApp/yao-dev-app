@@ -15,6 +15,7 @@ import { Process } from "@yao/runtime";
  * - "return_partial": returns partial HookCreateResponse
  * - "return_process": calls models.__yao.role.Get and adds to messages
  * - "verify_context": validates all ctx fields and returns validation results
+ * - "adjust_context": tests context field adjustments
  * - default: returns basic response
  */
 function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
@@ -43,6 +44,9 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
 
     case "verify_context":
       return scenarioVerifyContext(ctx);
+
+    case "adjust_context":
+      return scenarioAdjustContext(ctx);
 
     default:
       return scenarioDefault(content);
@@ -274,6 +278,31 @@ function scenarioVerifyContext(ctx: agent.Context): agent.Create {
         content: validations.join("\n"),
       },
     ],
+  };
+}
+
+/**
+ * Test scenario: adjust context fields
+ */
+function scenarioAdjustContext(ctx: agent.Context): agent.Create {
+  return {
+    messages: [
+      {
+        role: "system",
+        content: "Context fields will be adjusted",
+      },
+    ],
+    // Override context fields
+    assistant_id: "adjusted.assistant",
+    connector: "adjusted-connector",
+    locale: "zh-cn",
+    theme: "dark",
+    route: "/adjusted/route",
+    metadata: {
+      adjusted: true,
+      original_assistant: ctx.assistant_id,
+      timestamp: new Date().toISOString(),
+    },
   };
 }
 
