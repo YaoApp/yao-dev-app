@@ -16,6 +16,8 @@ import { Process } from "@yao/runtime";
  * - "return_process": calls models.__yao.role.Get and adds to messages
  * - "verify_context": validates all ctx fields and returns validation results
  * - "adjust_context": tests context field adjustments
+ * - "nested_script_call": calls scripts.tests.create.GetRoles (script calls model)
+ * - "deep_nested_call": calls scripts.tests.create.NestedCall (script calls script calls model)
  * - default: returns basic response
  */
 function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
@@ -47,6 +49,12 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
 
     case "adjust_context":
       return scenarioAdjustContext(ctx);
+
+    case "nested_script_call":
+      return scenarioNestedScriptCall();
+
+    case "deep_nested_call":
+      return scenarioDeepNestedCall();
 
     default:
       return scenarioDefault(content);
@@ -302,6 +310,61 @@ function scenarioAdjustContext(ctx: agent.Context): agent.Create {
       adjusted: true,
       original_assistant: ctx.assistant_id,
       timestamp: new Date().toISOString(),
+    },
+  };
+}
+
+/**
+ * Test scenario: nested script call (hook -> script -> model)
+ * This tests V8 context sharing through Process("scripts.xxx")
+ */
+function scenarioNestedScriptCall(): agent.Create {
+  // Call script which will call model - tests nested Process with shared context
+  const roles = Process("scripts.tests.create.GetRoles");
+
+  return {
+    messages: [
+      {
+        role: "system",
+        content: "Nested script call completed (hook -> script -> model)",
+      },
+      {
+        role: "assistant",
+        content: `Retrieved ${
+          roles?.length || 0
+        } roles through nested script call`,
+      },
+    ],
+    metadata: {
+      test: "nested_script_call",
+      roles_count: String(roles?.length || 0),
+    },
+  };
+}
+
+/**
+ * Test scenario: deep nested call (hook -> script -> script -> model)
+ * This tests deep V8 context sharing through multiple Process calls
+ */
+function scenarioDeepNestedCall(): agent.Create {
+  // Call script which calls another script which calls model
+  const result = Process("scripts.tests.create.NestedCall");
+
+  return {
+    messages: [
+      {
+        role: "system",
+        content:
+          "Deep nested call completed (hook -> script -> script -> model)",
+      },
+      {
+        role: "assistant",
+        content: `Nested result: ${JSON.stringify(result)}`,
+      },
+    ],
+    metadata: {
+      test: "deep_nested_call",
+      nested_result: result,
     },
   };
 }
