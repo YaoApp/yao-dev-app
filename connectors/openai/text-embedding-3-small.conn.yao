@@ -1,0 +1,9 @@
+{
+  "label": "OpenAI Text Embedding 3 Small",
+  "type": "openai",
+  "options": {
+    "model": "text-embedding-3-small",
+    "key": "$ENV.OPENAI_API_KEY",
+    "proxy": "$ENV.OPENAI_API_PROXY"
+  }
+}
