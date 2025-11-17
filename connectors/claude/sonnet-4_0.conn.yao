@@ -1,0 +1,9 @@
+{
+  "label": "Claude Sonnet 4.0",
+  "type": "openai",
+  "options": {
+    "model": "$ENV.CLAUDE_SONNET_4",
+    "key": "$ENV.CLAUDE_API_KEY",
+    "host": "$ENV.CLAUDE_API_HOST"
+  }
+}

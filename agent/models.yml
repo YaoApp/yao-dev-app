@@ -64,8 +64,24 @@ claude-haiku-4_5:
   tools: true
 
 # ============================================
-# Claude Sonnet Series
+# Claude Sonnet Series (via OpenAI-compatible proxy)
 # ============================================
+claude.sonnet-4_0:
+  vision: "claude" # Claude format (converts image_url to base64)
+  tool_calls: true
+  audio: false
+  reasoning: false # Standard Sonnet 4 doesn't expose reasoning
+  streaming: true
+  json: true
+  multimodal: true
+claude.sonnet-4_0-thinking:
+  vision: "claude" # Claude format (converts image_url to base64)
+  tool_calls: false # Thinking mode typically doesn't support tools
+  audio: false
+  reasoning: true # Thinking mode exposes reasoning process
+  streaming: true
+  json: true
+  multimodal: true
 claude-sonnet-4_0:
   vision: true
   tools: true
