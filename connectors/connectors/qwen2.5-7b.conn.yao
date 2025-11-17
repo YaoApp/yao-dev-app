@@ -1,9 +1,0 @@
-{
-  "label": "Qwen2.5 7B",
-  "type": "openai",
-  "options": {
-    "model": "$ENV.OLLAMA_QWEN_2_5_7B",
-    "key": "$ENV.OLLAMA_API_KEY",
-    "proxy": "$ENV.OLLAMA_API_PROXY"
-  }
-}

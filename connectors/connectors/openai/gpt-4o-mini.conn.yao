@@ -1,9 +1,0 @@
-{
-  "label": "OpenAI GPT-4o-mini",
-  "type": "openai",
-  "options": {
-    "model": "gpt-4o-mini",
-    "key": "$ENV.OPENAI_API_KEY",
-    "proxy": "$ENV.OPENAI_API_PROXY"
-  }
-}

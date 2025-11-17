@@ -1,9 +1,0 @@
-{
-  "label": "Qwen2.5 Coder 3B",
-  "type": "openai",
-  "options": {
-    "model": "qwen2.5-coder:3b",
-    "key": "$ENV.OLLAMA_API_KEY",
-    "proxy": "$ENV.OLLAMA_API_PROXY"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "label": "DeepSeek R1 32B",
-  "type": "openai",
-  "options": {
-    "model": "$ENV.DEEPSEEK_MODELS_R1_32B",
-    "key": "$ENV.DEEPSEEK_API_KEY",
-    "proxy": "$ENV.DEEPSEEK_API_PROXY"
-  }
-}

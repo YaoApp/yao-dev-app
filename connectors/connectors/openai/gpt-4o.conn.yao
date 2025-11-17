@@ -1,9 +1,0 @@
-{
-  "label": "OpenAI GPT-4o",
-  "type": "openai",
-  "options": {
-    "model": "gpt-4o",
-    "key": "$ENV.OPENAI_API_KEY",
-    "host": "$ENV.OPENAI_API_HOST"
-  }
-}

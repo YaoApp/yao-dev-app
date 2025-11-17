@@ -1,9 +1,0 @@
-{
-  "label": "恒源云 R1 70B",
-  "type": "openai",
-  "options": {
-    "model": "$ENV.HY_MODELS_R1_70B",
-    "key": "$ENV.HY_API_KEY",
-    "proxy": "$ENV.HY_API_PROXY"
-  }
-}

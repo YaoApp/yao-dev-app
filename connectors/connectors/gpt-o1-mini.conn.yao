@@ -1,9 +1,0 @@
-{
-  "label": "O1-mini",
-  "type": "openai",
-  "options": {
-    "model": "o1-mini",
-    "key": "$ENV.OPENAI_API_KEY",
-    "proxy": "$ENV.OPENAI_API_PROXY"
-  }
-}
