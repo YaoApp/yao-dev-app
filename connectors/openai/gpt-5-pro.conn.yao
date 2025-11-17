@@ -1,0 +1,9 @@
+{
+  "label": "OpenAI GPT-5 Pro",
+  "type": "openai",
+  "options": {
+    "model": "gpt-5-pro",
+    "key": "$ENV.OPENAI_API_KEY",
+    "host": "$ENV.OPENAI_API_HOST"
+  }
+}

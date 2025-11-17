@@ -1,0 +1,9 @@
+{
+  "label": "OpenAI GPT-5 Nano",
+  "type": "openai",
+  "options": {
+    "model": "gpt-5-nano",
+    "key": "$ENV.OPENAI_API_KEY",
+    "host": "$ENV.OPENAI_API_HOST"
+  }
+}

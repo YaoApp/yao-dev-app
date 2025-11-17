@@ -86,12 +86,83 @@ claude-opus-4_1:
 # ============================================
 # DeepSeek Series
 # ============================================
-deepseek-r1:
+deepseek.r1:
   vision: false
-  tools: true
-deepseek-v3:
+  tool_calls: false
+  audio: false
+  reasoning: true
+  streaming: true
+  json: false
+  multimodal: false
+deepseek.v3:
   vision: false
-  tools: true
-deepseek-v3_1:
+  tool_calls: true
+  audio: false
+  reasoning: false
+  streaming: true
+  json: true
+  multimodal: false
+deepseek.v3_1:
   vision: false
-  tools: true
+  tool_calls: false
+  audio: false
+  reasoning: false
+  streaming: true
+  json: true
+  multimodal: false
+
+# ============================================
+# OpenAI GPT-4o Series
+# ============================================
+openai.gpt-4o:
+  vision: true
+  tool_calls: true
+  audio: true
+  reasoning: false
+  streaming: true
+  json: true
+  multimodal: true
+openai.gpt-4o-mini:
+  vision: true
+  tool_calls: true
+  audio: false
+  reasoning: false
+  streaming: true
+  json: true
+  multimodal: true
+
+# ============================================
+# OpenAI GPT-5 Series
+# ============================================
+openai.gpt-5:
+  vision: true
+  tool_calls: true
+  audio: false
+  reasoning: true # GPT-5 supports reasoning (hidden, only reasoning_tokens)
+  streaming: true
+  json: true
+  multimodal: true
+openai.gpt-5-mini:
+  vision: true
+  tool_calls: true
+  audio: false
+  reasoning: true # GPT-5 mini supports reasoning
+  streaming: true
+  json: true
+  multimodal: true
+openai.gpt-5-nano:
+  vision: true
+  tool_calls: true
+  audio: false
+  reasoning: true # GPT-5 nano supports reasoning
+  streaming: true
+  json: true
+  multimodal: true
+openai.gpt-5-pro:
+  vision: true
+  tool_calls: true
+  audio: false
+  reasoning: true # GPT-5 pro supports reasoning
+  streaming: true
+  json: true
+  multimodal: true
