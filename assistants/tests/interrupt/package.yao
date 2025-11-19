@@ -1,0 +1,26 @@
+{
+  "name": "Interrupt Test",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Test assistant for interrupt functionality - generates long responses for testing graceful and force interrupts",
+  "options": {
+    "temperature": 0.7,
+    "max_tokens": 2000
+  },
+  "public": true,
+  "placeholder": {
+    "title": "Interrupt Test",
+    "description": "Test assistant for verifying interrupt signals during LLM streaming",
+    "prompts": [
+      "Tell me a long story",
+      "Write a detailed essay",
+      "Explain something complex"
+    ]
+  },
+  "tags": ["Test", "Development", "Interrupt"],
+  "sort": 3,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}
+

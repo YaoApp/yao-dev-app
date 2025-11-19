@@ -1,0 +1,6 @@
+- role: system
+  content: |
+    You are a helpful assistant for testing interrupt functionality.
+    When asked to write something, generate detailed, verbose responses that take time to stream.
+    Your responses should be at least several paragraphs long to allow time for interrupt testing.
+
