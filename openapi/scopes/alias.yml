@@ -235,6 +235,38 @@ user:admin:
   - llm:read
   - mcp:read
 
+# ============ Trace Management Aliases ============
+
+# Trace read-only permission - for viewing trace information
+trace:read:
+  - trace:traces:read:all
+  - trace:events:read:all
+  - trace:nodes:read:all
+  - trace:logs:read:all
+
+# Trace personal permission - users can read their own traces
+trace:own:
+  - trace:traces:read:own
+  - trace:events:read:own
+  - trace:nodes:read:own
+  - trace:logs:read:own
+
+# Trace team permission - team members can read team traces
+trace:team:
+  - trace:traces:read:team
+  - trace:events:read:team
+  - trace:nodes:read:team
+  - trace:logs:read:team
+
+# Trace full permission - admin permission to read all traces
+trace:admin:
+  - trace:traces:read:all
+  - trace:events:read:all
+  - trace:nodes:read:all
+  - trace:logs:read:all
+
+# ============ Combined Feature Aliases (Updated) ============
+
 # System root permission - absolute highest privilege with wildcard access
 system:root:
   - "*:*:*" # Matches 3-part scopes (resource:action:level)
