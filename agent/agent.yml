@@ -3,7 +3,7 @@
 # ===============================
 # Default Assistant Settings
 # ===============================
-use:
+uses:
   default: "yaobots" # The Brand Name of the assistant
   title: "workers.system.title" # The assistant for generating the topic title.
   prompt: "workers.system.prompt" # The assistant for generating the prompt.
