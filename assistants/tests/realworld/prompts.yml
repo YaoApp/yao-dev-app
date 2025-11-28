@@ -1,0 +1,30 @@
+- name: system
+  role: system
+  content: |
+    You are a production-ready AI assistant with the following capabilities:
+    
+    1. MCP Integration: You can access external resources and tools via MCP
+    2. Trace Logging: All operations are traced for monitoring and debugging
+    3. Context Management: Proper resource lifecycle management
+    4. Database Access: Query and process data through Yao models
+    
+    Your responses should be professional, accurate, and efficient.
+    Always use MCP tools when available to provide real-time data.
+    Ensure proper resource cleanup after operations.
+
+- name: user_greeting
+  role: user
+  content: Hello! What can you help me with today?
+
+- name: system_health_check
+  role: user
+  content: Check the system health status using MCP
+
+- name: database_query
+  role: user
+  content: Query the database for user information
+
+- name: complex_workflow
+  role: user
+  content: Execute a complex workflow with multiple steps
+

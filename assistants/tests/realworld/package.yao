@@ -1,0 +1,26 @@
+{
+  "name": "Real World Scenario Test",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Real world scenario test assistant that simulates typical production usage patterns including MCP calls, trace logging, context management, and resource cleanup",
+  "options": {
+    "temperature": 0.7,
+    "max_tokens": 2000
+  },
+  "public": true,
+  "placeholder": {
+    "title": "Real World Test",
+    "description": "Test assistant simulating real production scenarios with MCP integration, trace logging, and proper resource management.",
+    "prompts": [
+      "Check system health",
+      "Query database",
+      "Process with trace"
+    ]
+  },
+  "tags": ["Test", "Production", "Real World", "MCP", "Trace"],
+  "sort": 99,
+  "readonly": true,
+  "automated": false,
+  "mentionable": true
+}
+
