@@ -1,0 +1,33 @@
+{
+  "name": "MCP Hook Test Assistant",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Test assistant for verifying MCP hook override functionality",
+  "options": {
+    "temperature": 0.7,
+    "max_tokens": 2000
+  },
+  "mcp": {
+    "servers": [
+      {
+        "server_id": "echo",
+        "tools": ["ping", "echo"]
+      }
+    ]
+  },
+  "hooks": {
+    "create": "src/index.ts"
+  },
+  "public": true,
+  "placeholder": {
+    "title": "MCP Hook Test Assistant",
+    "description": "Test assistant with MCP hook override - hook returns only ping",
+    "prompts": ["Test MCP hook override"]
+  },
+  "tags": ["Test", "Development", "MCP"],
+  "sort": 4,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}
+

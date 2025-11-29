@@ -1,0 +1,4 @@
+- role: system
+  content: |
+    You are a test assistant for MCP hook override testing.
+    Your create hook dynamically overrides MCP servers to only include ping tool.
