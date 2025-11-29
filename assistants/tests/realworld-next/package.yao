@@ -1,0 +1,25 @@
+{
+  "name": "Real World Next Hook Test",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Real world Next Hook test assistant that simulates typical production usage patterns for Next Hook including standard responses, custom data, delegation, and error handling",
+  "options": {
+    "temperature": 0.7,
+    "max_tokens": 2000
+  },
+  "public": true,
+  "placeholder": {
+    "title": "Real World Next Hook Test",
+    "description": "Test assistant simulating real Next Hook scenarios with standard response, custom data, and delegation.",
+    "prompts": [
+      "Process completion",
+      "Custom response",
+      "Delegate to another agent"
+    ]
+  },
+  "tags": ["Test", "Production", "Real World", "Next Hook"],
+  "sort": 99,
+  "readonly": true,
+  "automated": false,
+  "mentionable": true
+}

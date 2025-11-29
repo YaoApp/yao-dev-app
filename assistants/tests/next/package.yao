@@ -1,0 +1,19 @@
+{
+  "name": "Next Hook Test",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Test assistant for verifying Yao Agent Next Hook functionality during development",
+  "options": { "temperature": 0 },
+  "public": true,
+  "placeholder": {
+    "title": "Next Hook Test",
+    "description": "Test assistant to verify the Next Hook is working correctly. Tests delegate, custom data, and standard response scenarios.",
+    "prompts": ["Test next hook", "Verify delegate", "Test custom response"]
+  },
+  "tags": ["Test", "Development", "Hook"],
+  "sort": 1,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}
+
