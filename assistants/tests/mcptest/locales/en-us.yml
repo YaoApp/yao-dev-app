@@ -1,0 +1,9 @@
+name: MCP Test Assistant
+description: Test assistant for verifying MCP tool integration with filtering
+chat:
+  title: MCP Tool Test
+  description: Test MCP tool calling and filtering
+  prompts:
+    - Test the ping tool
+    - Test the echo tool
+    - Use multiple tools together

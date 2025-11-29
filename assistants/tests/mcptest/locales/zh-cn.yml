@@ -1,0 +1,10 @@
+name: MCP 测试助手
+description: 用于验证 MCP 工具集成和过滤的测试助手
+chat:
+  title: MCP 工具测试
+  description: 测试 MCP 工具调用和过滤
+  prompts:
+    - 测试 ping 工具
+    - 测试 echo 工具
+    - 同时使用多个工具
+
