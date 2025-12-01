@@ -1,0 +1,9 @@
+name: Message Types Test
+description: Assistant for testing various message types and features
+chat:
+  title: Message Types Test
+  description: Test text, reasoning, streaming, and other message types
+  prompts:
+    - Answer a complex question with Markdown formatting
+    - Show your reasoning process (use thinking mode)
+    - Generate a long response with code, tables, and lists

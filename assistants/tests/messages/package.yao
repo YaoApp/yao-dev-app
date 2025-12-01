@@ -1,0 +1,22 @@
+{
+  "name": "{{ name }}",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "{{ description }}",
+  "options": { "temperature": 0.7 },
+  "public": true,
+  "placeholder": {
+    "title": "{{ chat.title }}",
+    "description": "{{ chat.description }}",
+    "prompts": [
+      "{{ chat.prompts.0 }}",
+      "{{ chat.prompts.1 }}",
+      "{{ chat.prompts.2 }}"
+    ]
+  },
+  "tags": ["Test", "Messages", "Streaming", "Reasoning", "Delta"],
+  "sort": 101,
+  "readonly": false,
+  "automated": true,
+  "mentionable": true
+}
