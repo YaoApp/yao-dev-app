@@ -57,6 +57,8 @@
     ]
   },
   "tags": ["Test", "Development", "FullFields"],
+  "modes": ["chat", "task", "analyze"],
+  "default_mode": "chat",
   "sort": 100,
   "public": true,
   "readonly": true,
