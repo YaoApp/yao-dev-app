@@ -1,0 +1,10 @@
+name: Full Fields Test Assistant
+description: Test assistant with all available fields for unit testing
+chat:
+  title: Full Fields Test
+  description: Test assistant with complete field coverage
+  prompts:
+    - Test all fields
+    - Verify prompt presets
+    - Check connector options
+

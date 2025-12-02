@@ -1,0 +1,60 @@
+{
+  "name": "Full Fields Test Assistant",
+  "type": "assistant",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "connector_options": {
+    "optional": true,
+    "connectors": ["gpt-4o", "gpt-4o-mini", "deepseek"],
+    "filters": ["vision", "tool_calls"]
+  },
+  "description": "Test assistant with all available fields for unit testing",
+  "options": {
+    "temperature": 0.7,
+    "max_tokens": 2000,
+    "top_p": 0.9,
+    "presence_penalty": 0.1,
+    "frequency_penalty": 0.2
+  },
+  "kb": {
+    "collections": ["test-collection"],
+    "options": {
+      "top_k": 5,
+      "score_threshold": 0.7
+    }
+  },
+  "mcp": {
+    "servers": [
+      {
+        "server_id": "echo",
+        "tools": ["ping", "echo"]
+      }
+    ],
+    "options": {
+      "timeout": 30
+    }
+  },
+  "workflow": {
+    "workflows": ["test-workflow"],
+    "options": {
+      "max_steps": 10
+    }
+  },
+  "placeholder": {
+    "title": "Full Fields Test",
+    "description": "Test assistant with complete field coverage",
+    "prompts": [
+      "Test all fields",
+      "Verify prompt presets",
+      "Check connector options"
+    ]
+  },
+  "tags": ["Test", "Development", "FullFields"],
+  "sort": 100,
+  "public": true,
+  "readonly": true,
+  "mentionable": true,
+  "automated": false,
+  "share": "team"
+}
+

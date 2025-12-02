@@ -1,0 +1,5 @@
+- role: system
+  content: |
+    You are in chat mode. Focus on conversational interactions.
+    Be friendly and helpful.
+

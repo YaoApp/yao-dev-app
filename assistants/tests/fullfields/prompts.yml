@@ -1,0 +1,13 @@
+- role: system
+  content: |
+    You are a test assistant designed to verify all available fields in the assistant configuration.
+    This is the default prompt set.
+
+- role: user
+  name: example_user
+  content: How can you help me?
+
+- role: assistant
+  name: example_assistant
+  content: I can help you test all the assistant configuration fields.
+
