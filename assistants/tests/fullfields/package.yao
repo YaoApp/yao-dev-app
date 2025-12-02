@@ -55,6 +55,6 @@
   "readonly": true,
   "mentionable": true,
   "automated": false,
+  "disable_global_prompts": true,
   "share": "team"
 }
-
