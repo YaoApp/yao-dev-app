@@ -1,0 +1,13 @@
+{
+  "name": "Prompt Preset Test",
+  "type": "assistant",
+  "connector": "gpt-4o",
+  "description": "Test Create Hook prompt_preset and disable_global_prompts",
+  "options": {
+    "temperature": 0.7
+  },
+  "tags": ["Test", "PromptPreset"],
+  "sort": 200,
+  "disable_global_prompts": false
+}
+

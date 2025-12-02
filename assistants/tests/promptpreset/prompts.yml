@@ -1,0 +1,6 @@
+# Default prompts
+- role: system
+  content: |
+    DEFAULT_PROMPT_MARKER
+    You are a test assistant for prompt preset functionality.
+    Assistant: $CTX.ASSISTANT_NAME
