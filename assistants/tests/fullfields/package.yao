@@ -23,6 +23,13 @@
       "score_threshold": 0.7
     }
   },
+  "db": {
+    "models": ["test-model"],
+    "options": {
+      "limit": 100,
+      "offset": 0
+    }
+  },
   "mcp": {
     "servers": [
       {
