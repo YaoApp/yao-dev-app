@@ -1,0 +1,10 @@
+{
+  "name": "Vision Helper",
+  "type": "assistant",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Helper assistant for vision processing - analyzes images when the main model doesn't support vision",
+  "tags": ["Helper", "Vision"],
+  "sort": 999,
+  "public": false
+}
