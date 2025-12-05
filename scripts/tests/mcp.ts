@@ -55,9 +55,10 @@ function Status(args: any): any {
  * @param {Object} args - Arguments
  * @param {string} args.message - Message to echo
  * @param {boolean} args.uppercase - Convert to uppercase (default: false)
+ * @param {Object} ctx - Agent context (extra parameter for Process transport)
  * @returns {Object} Echo response
  */
-function Echo(args: any): any {
+function Echo(args: any, ctx?: any): any {
   if (!args?.message) {
     throw new Error("message is required");
   }
@@ -65,12 +66,36 @@ function Echo(args: any): any {
   const message = args.message;
   const uppercase = args.uppercase || false;
 
-  return {
+  const response: any = {
     echo: uppercase ? message.toUpperCase() : message,
     uppercase: uppercase,
     length: message.length,
     timestamp: new Date().toISOString(),
   };
+
+  // Include context information if available
+  if (ctx) {
+    const authorized = ctx.authorized || ctx.Authorized;
+
+    response.context = {
+      has_context: true,
+      chat_id: ctx.chat_id || ctx.ChatID || null,
+      assistant_id: ctx.assistant_id || ctx.AssistantID || null,
+      locale: ctx.locale || ctx.Locale || null,
+      authorized: authorized
+        ? {
+            user_id: authorized.user_id || authorized.UserID || null,
+            tenant_id: authorized.tenant_id || authorized.TenantID || null,
+          }
+        : null,
+    };
+  } else {
+    response.context = {
+      has_context: false,
+    };
+  }
+
+  return response;
 }
 
 /**
