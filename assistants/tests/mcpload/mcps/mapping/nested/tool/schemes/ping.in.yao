@@ -1,0 +1,15 @@
+{
+  "name": "ping",
+  "description": "A simple ping tool for testing nested MCP",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "description": "Message to echo back"
+      }
+    },
+    "required": ["message"]
+  }
+}
+

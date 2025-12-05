@@ -1,0 +1,58 @@
+{
+  "name": "Test Record",
+  "label": "Test Record",
+  "description": "Simple test model for verifying model loading from assistant directory",
+  "tags": ["test", "mcpload"],
+  "table": {
+    "name": "test_records",
+    "comment": "Test records for mcpload assistant"
+  },
+  "columns": [
+    {
+      "name": "id",
+      "type": "ID",
+      "label": "ID",
+      "comment": "Primary key",
+      "primary": true
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "label": "Title",
+      "comment": "Record title",
+      "length": 200,
+      "nullable": false,
+      "index": true
+    },
+    {
+      "name": "description",
+      "type": "text",
+      "label": "Description",
+      "comment": "Record description",
+      "nullable": true
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "label": "Count",
+      "comment": "Test counter",
+      "default": 0,
+      "nullable": false
+    },
+    {
+      "name": "is_active",
+      "type": "boolean",
+      "label": "Is Active",
+      "comment": "Active status",
+      "default": true,
+      "nullable": false
+    }
+  ],
+  "relations": {},
+  "indexes": [],
+  "option": {
+    "timestamps": true,
+    "soft_deletes": true
+  }
+}
+

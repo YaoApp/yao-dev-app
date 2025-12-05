@@ -1,0 +1,24 @@
+{
+  "name": "calculate",
+  "description": "A simple calculator that can add, subtract, multiply, or divide two numbers",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "operation": {
+        "type": "string",
+        "description": "The operation to perform: add, subtract, multiply, or divide",
+        "enum": ["add", "subtract", "multiply", "divide"]
+      },
+      "a": {
+        "type": "number",
+        "description": "The first number"
+      },
+      "b": {
+        "type": "number",
+        "description": "The second number"
+      }
+    },
+    "required": ["operation", "a", "b"]
+  }
+}
+

@@ -1,0 +1,15 @@
+// Nested MCP for testing nested path support
+{
+  "label": "Nested Tools",
+  "description": "Test tools in nested directory for verifying nested MCP loading",
+  "transport": "process",
+  "capabilities": {
+    "tools": { "listChanged": false }
+  },
+
+  // === Tools ===
+  "tools": {
+    "ping": "agents.tests.mcpload.tools.Ping"
+  }
+}
+

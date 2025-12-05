@@ -1,0 +1,22 @@
+{
+  "name": "MCP Load Test",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Test assistant for verifying MCP loading from assistant's mcps directory",
+  "options": {
+    "temperature": 0.7,
+    "max_tokens": 2000
+  },
+  "public": true,
+  "placeholder": {
+    "title": "MCP Load Test Assistant",
+    "description": "Test assistant with MCP tools loaded from mcps directory",
+    "prompts": ["Test MCP loading", "Check available tools", "Verify agent tools"]
+  },
+  "tags": ["Test", "Development", "MCP"],
+  "sort": 10,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}
+

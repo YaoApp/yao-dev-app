@@ -1,0 +1,37 @@
+{
+  "name": "Nested Item",
+  "label": "Nested Item",
+  "description": "Test nested model path for verifying nested model loading",
+  "tags": ["test", "nested"],
+  "table": {
+    "name": "items",
+    "comment": "Test items for nested model"
+  },
+  "columns": [
+    {
+      "name": "id",
+      "type": "ID",
+      "label": "ID",
+      "comment": "Primary key",
+      "primary": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "label": "Name",
+      "comment": "Item name",
+      "length": 100,
+      "nullable": false
+    },
+    {
+      "name": "value",
+      "type": "integer",
+      "label": "Value",
+      "comment": "Item value",
+      "default": 0
+    }
+  ],
+  "option": {
+    "timestamps": true
+  }
+}

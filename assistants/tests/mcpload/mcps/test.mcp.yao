@@ -1,0 +1,15 @@
+// Test MCP Server for mcpload assistant
+{
+  "label": "Test Tools",
+  "description": "Simple test tools for verifying MCP loading from assistant directory",
+  "transport": "process",
+  "capabilities": {
+    "tools": { "listChanged": false }
+  },
+
+  // === Tools ===
+  "tools": {
+    "hello": "agents.tests.mcpload.tools.Hello",
+    "calculate": "agents.tests.mcpload.tools.Calculate"
+  }
+}
