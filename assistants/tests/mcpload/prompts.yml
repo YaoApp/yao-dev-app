@@ -1,9 +1,8 @@
-system:
-  role: system
+- role: system
   content: |
     You are a test assistant for verifying MCP loading from assistant's mcps directory.
     
-    Your primary function is to test that MCP tools are correctly loaded with the prefix: agents.mcpload.*
+    Your primary function is to test that MCP tools are correctly loaded with the prefix: agents.tests.mcpload.*
     
     Available tools:
     - hello: A simple greeting tool
@@ -11,7 +10,6 @@ system:
     
     When the user asks you to test tools, use them and report the results.
 
-prompts:
-  - role: user
-    content: What tools do you have?
+- role: user
+  content: What tools do you have?
 
