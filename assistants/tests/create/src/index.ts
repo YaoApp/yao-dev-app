@@ -16,6 +16,8 @@ import { Process } from "@yao/runtime";
  * - "return_process": calls models.__yao.role.Get and adds to messages
  * - "verify_context": validates all ctx fields and returns validation results
  * - "adjust_context": tests context field adjustments
+ * - "adjust_uses": tests uses configuration adjustments
+ * - "adjust_uses_force": tests uses configuration with force_uses flag
  * - "nested_script_call": calls scripts.tests.create.GetRoles (script calls model)
  * - "deep_nested_call": calls scripts.tests.create.NestedCall (script calls script calls model)
  * - default: returns basic response
@@ -49,6 +51,12 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
 
     case "adjust_context":
       return scenarioAdjustContext(ctx);
+
+    case "adjust_uses":
+      return scenarioAdjustUses(ctx);
+
+    case "adjust_uses_force":
+      return scenarioAdjustUsesForce(ctx);
 
     case "nested_script_call":
       return scenarioNestedScriptCall();
@@ -310,6 +318,57 @@ function scenarioAdjustContext(ctx: agent.Context): agent.Create {
       adjusted: true,
       original_assistant: ctx.assistant_id,
       timestamp: new Date().toISOString(),
+    },
+  };
+}
+
+/**
+ * Test scenario: adjust uses configuration
+ */
+function scenarioAdjustUses(ctx: agent.Context): agent.Create {
+  return {
+    messages: [
+      {
+        role: "system",
+        content: "Uses configuration will be adjusted",
+      },
+    ],
+    // Override uses configuration
+    uses: {
+      vision: "mcp:vision-server",
+      audio: "mcp:audio-server",
+      search: "agent",
+      fetch: "mcp:fetch-server",
+    },
+    metadata: {
+      uses_adjusted: true,
+      chat_id: ctx.chat_id,
+    },
+  };
+}
+
+/**
+ * Test scenario: adjust uses configuration with force_uses flag
+ */
+function scenarioAdjustUsesForce(ctx: agent.Context): agent.Create {
+  return {
+    messages: [
+      {
+        role: "system",
+        content:
+          "Uses configuration will be forced (ignore model capabilities)",
+      },
+    ],
+    // Override uses configuration
+    uses: {
+      vision: "tests.vision-helper",
+      audio: "mcp:audio-server",
+    },
+    // Force using the specified tools even if model supports multimodal
+    force_uses: true,
+    metadata: {
+      uses_forced: true,
+      chat_id: ctx.chat_id,
     },
   };
 }
