@@ -78,7 +78,7 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
 
     default:
       // Show menu with streaming output
-      const message_id = ctx.Send({
+      const message_id = ctx.SendStream({
         type: "text",
         props: {
           content: "# 📋 Available Tests\n\n",
@@ -109,6 +109,9 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
         ctx.Append(message_id, chunk);
         time.Sleep(50);
       }
+
+      // End the streaming message
+      ctx.End(message_id);
   }
 
   // Wait for 200ms

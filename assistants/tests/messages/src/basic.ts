@@ -48,10 +48,9 @@ export function basic(ctx: agent.Context) {
  * Streaming text message - simulates LLM token-by-token output
  */
 function streaming_text(ctx: agent.Context) {
-  // Send initial message with message_id
-  const message_id = ctx.Send({
+  // Start streaming message (no message_end until ctx.End())
+  const message_id = ctx.SendStream({
     type: "text",
-    delta: true,
     props: {
       content: "## 📝 Streaming Text\n\n",
     },
@@ -88,6 +87,9 @@ function streaming_text(ctx: agent.Context) {
     ctx.Append(message_id, token);
     time.Sleep(50); // Simulate network delay
   }
+
+  // End the streaming message
+  ctx.End(message_id);
 }
 
 /**
@@ -128,10 +130,9 @@ function loading(ctx: agent.Context) {
  * Streaming markdown content - simulates formatting output
  */
 function streaming_markdown(ctx: agent.Context) {
-  // Send initial message
-  const message_id = ctx.Send({
+  // Start streaming message
+  const message_id = ctx.SendStream({
     type: "text",
-    delta: true,
     props: {
       content: "## 📋 Streaming Markdown\n\n",
     },
@@ -153,6 +154,9 @@ function streaming_markdown(ctx: agent.Context) {
     ctx.Append(message_id, chunk);
     time.Sleep(100);
   }
+
+  // End the streaming message
+  ctx.End(message_id);
 }
 
 /**

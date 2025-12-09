@@ -56,11 +56,10 @@ export function markdown(ctx: agent.Context) {
 function streaming_headings(ctx: agent.Context) {
   const block_id = ctx.BlockID();
 
-  // Initial message
-  const message_id = ctx.Send(
+  // Start streaming message
+  const message_id = ctx.SendStream(
     {
       type: "text",
-      delta: true,
       props: {
         content: "## 📐 Headings & Text Formatting\n\n",
       },
@@ -88,6 +87,8 @@ function streaming_headings(ctx: agent.Context) {
     time.Sleep(80);
   }
 
+  // End the streaming message
+  ctx.End(message_id);
   ctx.EndBlock(block_id);
 }
 
@@ -97,10 +98,9 @@ function streaming_headings(ctx: agent.Context) {
 function streaming_lists(ctx: agent.Context) {
   const block_id = ctx.BlockID();
 
-  const message_id = ctx.Send(
+  const message_id = ctx.SendStream(
     {
       type: "text",
-      delta: true,
       props: {
         content: "## 📋 Lists\n\n### Unordered List\n",
       },
@@ -132,6 +132,8 @@ function streaming_lists(ctx: agent.Context) {
     time.Sleep(100);
   }
 
+  // End the streaming message
+  ctx.End(message_id);
   ctx.EndBlock(block_id);
 }
 
@@ -141,10 +143,9 @@ function streaming_lists(ctx: agent.Context) {
 function streaming_table(ctx: agent.Context) {
   const block_id = ctx.BlockID();
 
-  const message_id = ctx.Send(
+  const message_id = ctx.SendStream(
     {
       type: "text",
-      delta: true,
       props: {
         content: "## 📊 Table\n\n",
       },
@@ -168,6 +169,8 @@ function streaming_table(ctx: agent.Context) {
     time.Sleep(120);
   }
 
+  // End the streaming message
+  ctx.End(message_id);
   ctx.EndBlock(block_id);
 }
 
@@ -177,10 +180,9 @@ function streaming_table(ctx: agent.Context) {
 function streaming_code_block(ctx: agent.Context) {
   const block_id = ctx.BlockID();
 
-  const message_id = ctx.Send(
+  const message_id = ctx.SendStream(
     {
       type: "text",
-      delta: true,
       props: {
         content:
           "## 💻 Code Example\n\nGenerating TypeScript code...\n\n```typescript\n",
@@ -217,6 +219,8 @@ function streaming_code_block(ctx: agent.Context) {
     time.Sleep(80);
   }
 
+  // End the streaming message
+  ctx.End(message_id);
   ctx.EndBlock(block_id);
 }
 
@@ -226,10 +230,9 @@ function streaming_code_block(ctx: agent.Context) {
 function streaming_mermaid(ctx: agent.Context) {
   const block_id = ctx.BlockID();
 
-  const message_id = ctx.Send(
+  const message_id = ctx.SendStream(
     {
       type: "text",
-      delta: true,
       props: {
         content:
           "## 📈 Mermaid Diagram\n\nGenerating flowchart...\n\n```mermaid\n",
@@ -259,6 +262,8 @@ function streaming_mermaid(ctx: agent.Context) {
     time.Sleep(100);
   }
 
+  // End the streaming message
+  ctx.End(message_id);
   ctx.EndBlock(block_id);
 }
 

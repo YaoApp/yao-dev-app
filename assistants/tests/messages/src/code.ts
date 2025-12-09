@@ -72,10 +72,9 @@ The entire code appears instantly.`,
 function streaming_code_block(ctx: agent.Context) {
   const block_id = ctx.BlockID();
 
-  const message_id = ctx.Send(
+  const message_id = ctx.SendStream(
     {
       type: "text",
-      delta: true,
       props: {
         content:
           "## 🌊 Streaming Code Block\n\nThis code block is generated **line by line** (streaming):\n\n```python\n",
@@ -109,5 +108,7 @@ function streaming_code_block(ctx: agent.Context) {
     "\n\nEach line appears gradually, simulating LLM code generation."
   );
 
+  // End the streaming message
+  ctx.End(message_id);
   ctx.EndBlock(block_id);
 }

@@ -1,7 +1,7 @@
 {
   "name": "{{ name }}",
   "avatar": "/api/__yao/app/icons/app.png",
-  "connector": "gpt-4o",
+  "connector": "deepseek.r1",
   "description": "{{ description }}",
   "options": { "temperature": 0.7 },
   "public": true,
