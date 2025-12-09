@@ -85,8 +85,8 @@ function scenarioSimple(ctx: agent.Context): agent.Create {
 function scenarioMCPHealth(ctx: agent.Context): agent.Create {
   try {
     // Use Context MCP API to check health via status tool
-    const tools = ctx.MCP.ListTools("echo", "");
-    const statusResult = ctx.MCP.CallTool("echo", "status", {
+    const tools = ctx.mcp.ListTools("echo", "");
+    const statusResult = ctx.mcp.CallTool("echo", "status", {
       verbose: true,
     });
 
@@ -135,11 +135,11 @@ Available Tools: ${tools.tools.length}`,
 function scenarioMCPTools(ctx: agent.Context): agent.Create {
   try {
     // List available tools
-    const toolsList = ctx.MCP.ListTools("echo", "");
+    const toolsList = ctx.mcp.ListTools("echo", "");
 
     // Call multiple tools (echo only has ping and status)
-    const pingResult = ctx.MCP.CallTool("echo", "ping", { count: 3 });
-    const statusResult = ctx.MCP.CallTool("echo", "status", {
+    const pingResult = ctx.mcp.CallTool("echo", "ping", { count: 3 });
+    const statusResult = ctx.mcp.CallTool("echo", "status", {
       verbose: true,
     });
 
@@ -232,7 +232,7 @@ function scenarioDatabaseQuery(ctx: agent.Context): agent.Create {
  */
 function scenarioTraceIntensive(ctx: agent.Context): agent.Create {
   try {
-    const trace = ctx.Trace;
+    const trace = ctx.trace;
     const nodeCount = 10;
     const nodes = [];
 
@@ -296,7 +296,7 @@ function scenarioTraceIntensive(ctx: agent.Context): agent.Create {
  */
 function scenarioFullWorkflow(ctx: agent.Context): agent.Create {
   try {
-    const trace = ctx.Trace;
+    const trace = ctx.trace;
 
     // Step 1: Initialize
     const initNode = trace.Add(
@@ -309,7 +309,7 @@ function scenarioFullWorkflow(ctx: agent.Context): agent.Create {
     const mcpNode = trace.Add({ phase: "mcp" }, { label: "MCP Operations" });
     mcpNode.Info("Checking MCP tools");
 
-    const tools = ctx.MCP.ListTools("echo", "");
+    const tools = ctx.mcp.ListTools("echo", "");
 
     mcpNode.Complete({ tools_count: tools.tools.length });
 
@@ -328,8 +328,8 @@ function scenarioFullWorkflow(ctx: agent.Context): agent.Create {
     const toolNode = trace.Add({ phase: "tools" }, { label: "MCP Tools" });
     toolNode.Info("Executing MCP tools");
 
-    const pingResult = ctx.MCP.CallTool("echo", "ping", { count: 1 });
-    const statusResult = ctx.MCP.CallTool("echo", "status", {
+    const pingResult = ctx.mcp.CallTool("echo", "ping", { count: 1 });
+    const statusResult = ctx.mcp.CallTool("echo", "status", {
       verbose: false,
     });
 
@@ -415,16 +415,16 @@ Adjusted: production.assistant (zh-cn)`,
  */
 function scenarioResourceHeavy(ctx: agent.Context): agent.Create {
   try {
-    const trace = ctx.Trace;
+    const trace = ctx.trace;
     const operations = [];
 
     // Multiple MCP operations
     for (let i = 0; i < 5; i++) {
       const node = trace.Add({ op: i }, { label: `Operation ${i + 1}` });
 
-      const tools = ctx.MCP.ListTools("echo", "");
-      const ping = ctx.MCP.CallTool("echo", "ping", { count: 1 });
-      const status = ctx.MCP.CallTool("echo", "status", { verbose: false });
+      const tools = ctx.mcp.ListTools("echo", "");
+      const ping = ctx.mcp.CallTool("echo", "ping", { count: 1 });
+      const status = ctx.mcp.CallTool("echo", "status", { verbose: false });
 
       node.Complete({
         tools: tools.tools.length,
@@ -484,14 +484,14 @@ Total trace nodes: ${operations.length + 1}`,
  */
 function scenarioDefault(ctx: agent.Context, content: string): agent.Create {
   try {
-    const trace = ctx.Trace;
+    const trace = ctx.trace;
 
     // Add trace node
     const node = trace.Add({ type: "default" }, { label: "Default Handler" });
     node.Info(`Processing: ${content}`);
 
     // Simple MCP call
-    const tools = ctx.MCP.ListTools("echo", "");
+    const tools = ctx.mcp.ListTools("echo", "");
 
     node.Complete({ tools_available: tools.tools.length });
 
