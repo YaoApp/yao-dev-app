@@ -88,6 +88,40 @@ job:admin:
   - stats:read:all
   - categories:read:all
 
+# ============ Chat Management Aliases ============
+
+# Chat read-only permission - for viewing chat sessions and completions
+chat:read:
+  - sessions:read:all
+  - completions:read:all
+
+# Chat personal permission - users can manage their own chats
+chat:own:
+  - sessions:read:own
+  - sessions:write:own
+  - sessions:delete:own
+  - completions:read:own
+  - completions:write:own
+  - completions:delete:own
+
+# Chat team permission - team members can manage team chats
+chat:team:
+  - sessions:read:team
+  - sessions:write:team
+  - sessions:delete:team
+  - completions:read:team
+  - completions:write:team
+  - completions:delete:team
+
+# Chat full permission - admin permission to operate all chats
+chat:admin:
+  - sessions:read:all
+  - sessions:write:all
+  - sessions:delete:all
+  - completions:read:all
+  - completions:write:all
+  - completions:delete:all
+
 # ============ Agent Management Aliases ============
 
 # Agent read-only permission - for viewing agents
@@ -180,6 +214,7 @@ user:basic:
   - job:read
   - file:read
   - agent:read
+  - chat:read
   - llm:read
   - mcp:read
 
@@ -194,6 +229,7 @@ user:creator:
   - job:own
   - file:own
   - agent:own
+  - chat:own
 
 # Team member permission - basic team collaboration permission
 user:team_member:
@@ -205,6 +241,7 @@ user:team_member:
   - kb:team
   - job:team
   - file:team
+  - chat:team
   - collections:read:team
   - documents:read:team
 
@@ -232,6 +269,7 @@ user:admin:
   - job:admin
   - file:admin
   - agent:admin
+  - chat:admin
   - llm:read
   - mcp:read
 
