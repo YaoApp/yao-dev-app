@@ -1,0 +1,18 @@
+{
+  "name": "History Test",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Test assistant for verifying chat history loading and merging functionality",
+  "options": { "temperature": 0 },
+  "public": true,
+  "placeholder": {
+    "title": "History Test",
+    "description": "Test assistant to verify history loading, overlap detection, and message merging.",
+    "prompts": ["Test history", "Check overlap", "Verify messages"]
+  },
+  "tags": ["Test", "Development", "History"],
+  "sort": 1,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}
