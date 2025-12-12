@@ -53,6 +53,15 @@ function Next(
     case "conditional":
       return scenarioConditional(completion);
 
+    // Sub-scenario: conditional_success - always return success data, never delegate
+    // This is used by integration tests to avoid LLM response unpredictability
+    case "conditional_success":
+      return scenarioConditionalSuccess(completion);
+
+    // Sub-scenario: conditional_delegate - always delegate
+    case "conditional_delegate":
+      return scenarioConditionalDelegate();
+
     default:
       // Default: return null for standard response
       return null;
@@ -61,6 +70,7 @@ function Next(
 
 /**
  * Extract scenario from messages
+ * Supports sub-scenarios like "conditional_success" or "conditional_delegate"
  */
 function extractScenario(messages: any[]): string {
   if (!messages || messages.length === 0) {
@@ -73,7 +83,8 @@ function extractScenario(messages: any[]): string {
     if (msg.role === "user" && msg.content && typeof msg.content === "string") {
       const content = msg.content.toLowerCase();
       if (content.includes("scenario:")) {
-        const match = content.match(/scenario:\s*(\w+)/);
+        // Support sub-scenarios like "conditional_success" or "conditional_delegate"
+        const match = content.match(/scenario:\s*([\w_]+)/);
         if (match) {
           return match[1];
         }
@@ -227,6 +238,61 @@ function scenarioErrorRecovery(error: string): agent.NextHookResponse {
     metadata: {
       scenario: "error_recovery",
       error_handled: true,
+    },
+  };
+}
+
+/**
+ * Sub-scenario: Conditional success (deterministic)
+ * Always returns success data without delegation - for integration tests
+ */
+function scenarioConditionalSuccess(completion: any): agent.NextHookResponse {
+  const content = completion?.content?.toLowerCase() || "";
+
+  const conditions = {
+    hasQuestion: content.includes("?"),
+    hasError: content.includes("error") || content.includes("fail"),
+    hasSuccess: content.includes("success") || content.includes("complete"),
+    isLong: content.length > 500,
+    mentions_delegate: false, // Always false to prevent delegation
+  };
+
+  return {
+    data: {
+      message: "Conditional analysis complete",
+      action: conditions.hasSuccess ? "confirm_success" : "continue",
+      reason: conditions.hasSuccess
+        ? "Completion indicates success"
+        : "Standard completion",
+      conditions: conditions,
+      completion_preview: content.substring(0, 100) + "...",
+    },
+    metadata: {
+      scenario: "conditional_success",
+      action_taken: conditions.hasSuccess ? "confirm_success" : "continue",
+    },
+  };
+}
+
+/**
+ * Sub-scenario: Conditional delegate (deterministic)
+ * Always delegates - for integration tests
+ */
+function scenarioConditionalDelegate(): agent.NextHookResponse {
+  return {
+    delegate: {
+      agent_id: "tests.create",
+      messages: [
+        {
+          role: "user",
+          content: "Delegated based on conditional analysis",
+        },
+      ],
+    },
+    metadata: {
+      scenario: "conditional_delegate",
+      action: "delegate",
+      reason: "Explicit delegation requested",
     },
   };
 }
