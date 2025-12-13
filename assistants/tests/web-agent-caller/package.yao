@@ -1,0 +1,27 @@
+{
+  "name": "Web Agent Caller Test",
+  "type": "assistant",
+  "description": "Test assistant that uses agent mode for web search (delegates to tests.web-agent)",
+  "connector": "gpt-4o",
+  "tags": ["Test", "Search", "Web", "Agent"],
+  "sort": 206,
+  "public": false,
+  "readonly": false,
+  "mentionable": true,
+  "automated": true,
+  "share": "private",
+
+  // Uses agent mode for web search - delegates to tests.web-agent
+  "uses": {
+    "web": "tests.web-agent",
+    "search": "builtin"
+  },
+
+  // Search configuration
+  "search": {
+    "web": {
+      "max_results": 10
+    }
+  }
+}
+

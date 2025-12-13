@@ -1,0 +1,22 @@
+{
+  "name": "Web Agent Search Test",
+  "type": "assistant",
+  "description": "Test assistant for agent-based web search (returns mock data via Next hook, no LLM)",
+  "connector": "gpt-4o",
+  "tags": ["Test", "Search", "Web", "Agent"],
+  "sort": 205,
+  "public": false,
+  "readonly": false,
+  "mentionable": true,
+  "automated": true,
+  "share": "private",
+
+  // No prompts - we return data directly from Next hook
+  // No MCP tools - pure agent mode
+
+  "option": {
+    "temperature": 0,
+    "max_tokens": 1
+  }
+}
+

@@ -1,0 +1,23 @@
+// Search MCP Server for Testing
+// Used to test MCP-based web search integration
+{
+  "label": "Search Test Server",
+  "description": "MCP server providing mock web search for testing search module MCP integration",
+  "transport": "process",
+  "capabilities": {
+    "tools": { "listChanged": false },
+    "resources": { "subscribe": false, "listChanged": false }
+  },
+
+  // === Tools ===
+  "tools": {
+    "web_search": "scripts.tests.search.WebSearch",
+    "news_search": "scripts.tests.search.NewsSearch"
+  },
+
+  // === Resources ===
+  "resources": {
+    "search_config": "scripts.tests.search.GetConfig"
+  }
+}
+

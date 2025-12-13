@@ -1,0 +1,27 @@
+{
+  "name": "Web MCP Test",
+  "type": "assistant",
+  "description": "Test assistant for MCP-based web search",
+  "connector": "gpt-4o",
+  "tags": ["Test", "Search", "Web", "MCP"],
+  "sort": 204,
+  "public": false,
+  "readonly": false,
+  "mentionable": true,
+  "automated": true,
+  "share": "private",
+
+  // Uses MCP for web search
+  "uses": {
+    "web": "mcp:search.web_search",
+    "search": "builtin"
+  },
+
+  // Search configuration
+  "search": {
+    "web": {
+      "max_results": 10
+    }
+  }
+}
+
