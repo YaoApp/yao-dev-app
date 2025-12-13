@@ -47,6 +47,39 @@
       "max_steps": 10
     }
   },
+  "uses": {
+    "vision": "agent",
+    "audio": "mcp:audio-server",
+    "fetch": "agent",
+    "web": "builtin",
+    "keyword": "builtin",
+    "querydsl": "builtin",
+    "rerank": "builtin"
+  },
+  "search": {
+    "web": {
+      "provider": "tavily",
+      "max_results": 15
+    },
+    "kb": {
+      "collections": ["docs", "faq"],
+      "threshold": 0.8,
+      "graph": true
+    },
+    "db": {
+      "models": ["user", "product"],
+      "max_results": 50
+    },
+    "citation": {
+      "format": "#ref:{id}",
+      "auto_inject_prompt": true
+    },
+    "weights": {
+      "user": 1.0,
+      "hook": 0.9,
+      "auto": 0.7
+    }
+  },
   "placeholder": {
     "title": "Full Fields Test",
     "description": "Test assistant with complete field coverage",

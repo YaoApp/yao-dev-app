@@ -1,0 +1,59 @@
+{
+  "name": "Search Config Test Assistant",
+  "type": "assistant",
+  "avatar": "/api/__yao/app/icons/search.png",
+  "connector": "gpt-4o",
+  "description": "Dedicated assistant for testing the Search module configuration",
+  "tags": ["Test", "Search"],
+  "sort": 200,
+  "public": false,
+  "readonly": false,
+  "mentionable": true,
+  "automated": true,
+  "share": "private",
+  "uses": {
+    "web": "builtin",
+    "keyword": "builtin",
+    "querydsl": "builtin",
+    "rerank": "builtin"
+  },
+  "search": {
+    "web": {
+      "provider": "serper",
+      "api_key_env": "$ENV.SERPER_API_KEY",
+      "max_results": 20
+    },
+    "kb": {
+      "collections": ["knowledge-base", "documents"],
+      "threshold": 0.75,
+      "graph": false
+    },
+    "db": {
+      "models": ["article", "comment"],
+      "max_results": 30
+    },
+    "keyword": {
+      "max_keywords": 8,
+      "language": "auto"
+    },
+    "querydsl": {
+      "strict": true
+    },
+    "rerank": {
+      "top_n": 5
+    },
+    "citation": {
+      "format": "#cite:{id}",
+      "auto_inject_prompt": false,
+      "custom_prompt": "Please cite sources using #cite:{id} format."
+    },
+    "weights": {
+      "user": 1.0,
+      "hook": 0.85,
+      "auto": 0.65
+    },
+    "options": {
+      "skip_threshold": 3
+    }
+  }
+}

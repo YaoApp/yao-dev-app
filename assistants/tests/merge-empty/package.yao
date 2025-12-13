@@ -1,0 +1,9 @@
+{
+  "name": "Merge Empty Test Assistant",
+  "type": "assistant",
+  "connector": "gpt-4o",
+  "description": "Test assistant with no uses/search config - should inherit all from global",
+  "tags": ["Test", "Merge", "Empty"],
+  "sort": 302
+}
+

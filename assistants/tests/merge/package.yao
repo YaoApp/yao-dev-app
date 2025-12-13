@@ -1,0 +1,25 @@
+{
+  "name": "Merge Config Test Assistant",
+  "type": "assistant",
+  "connector": "gpt-4o",
+  "description": "Test assistant for verifying global config merge behavior",
+  "tags": ["Test", "Merge"],
+  "sort": 300,
+
+  "uses": {
+    "web": "mcp:custom-web",
+    "keyword": "mcp:custom-keyword"
+  },
+
+  "search": {
+    "web": {
+      "provider": "custom-provider",
+      "max_results": 25
+    },
+    "kb": {
+      "collections": ["merge-test-kb"],
+      "threshold": 0.85
+    }
+  }
+}
+

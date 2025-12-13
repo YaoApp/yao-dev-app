@@ -1,0 +1,60 @@
+{
+  "name": "Merge Override Test Assistant",
+  "type": "assistant",
+  "connector": "gpt-4o",
+  "description": "Test assistant for verifying global config override behavior",
+  "tags": ["Test", "Merge", "Override"],
+  "sort": 301,
+
+  "uses": {
+    "vision": "mcp:custom-vision",
+    "audio": "mcp:custom-audio",
+    "search": "mcp:custom-search",
+    "fetch": "mcp:custom-fetch",
+    "web": "mcp:custom-web",
+    "keyword": "mcp:custom-keyword",
+    "querydsl": "mcp:custom-querydsl",
+    "rerank": "mcp:custom-rerank"
+  },
+
+  "search": {
+    "web": {
+      "provider": "override-provider",
+      "api_key_env": "$ENV.OVERRIDE_API_KEY",
+      "max_results": 100
+    },
+    "kb": {
+      "collections": ["override-kb"],
+      "threshold": 0.99,
+      "graph": true
+    },
+    "db": {
+      "models": ["override-model"],
+      "max_results": 200
+    },
+    "keyword": {
+      "max_keywords": 20,
+      "language": "zh"
+    },
+    "querydsl": {
+      "strict": true
+    },
+    "rerank": {
+      "top_n": 20
+    },
+    "citation": {
+      "format": "[override:{id}]",
+      "auto_inject_prompt": false,
+      "custom_prompt": "Override citation prompt"
+    },
+    "weights": {
+      "user": 2.0,
+      "hook": 1.5,
+      "auto": 1.0
+    },
+    "options": {
+      "skip_threshold": 10
+    }
+  }
+}
+
