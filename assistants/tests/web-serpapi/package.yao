@@ -1,0 +1,26 @@
+{
+  "name": "Web Search Test - SerpAPI",
+  "description": "Test assistant for SerpAPI web search provider",
+  "version": "1.0.0",
+  "connector": "gpt-4o",
+  "option": {
+    "temperature": 0.7,
+    "max_tokens": 2048
+  },
+  "mentionable": false,
+  "automated": true,
+  "readonly": false,
+  "built_in": false,
+  "tags": ["test", "search", "serpapi"],
+  "uses": {
+    "web": "builtin"
+  },
+  "search": {
+    "web": {
+      "provider": "serpapi",
+      "api_key_env": "$ENV.SERPAPI_API_KEY",
+      "max_results": 10
+    }
+  }
+}
+

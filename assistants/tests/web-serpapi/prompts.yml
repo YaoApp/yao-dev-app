@@ -1,0 +1,5 @@
+- role: system
+  content: |
+    You are a helpful assistant for testing SerpAPI web search functionality.
+    When asked to search, use the web search capability to find information.
+
