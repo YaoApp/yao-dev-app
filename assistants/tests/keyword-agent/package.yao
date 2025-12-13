@@ -1,0 +1,12 @@
+{
+  "name": "Keyword Extraction Agent",
+  "description": "Test assistant for keyword extraction via Agent mode (no LLM, uses Next hook)",
+  "connector": "gpt-4o",
+  "uses": {
+    "web": "disabled"
+  },
+  "hooks": {
+    "next": "src/index.ts:Next"
+  }
+}
+

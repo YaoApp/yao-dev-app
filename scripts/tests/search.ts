@@ -77,6 +77,82 @@ function NewsSearch(args: any): any {
 }
 
 /**
+ * ExtractKeywords - Mock keyword extraction tool
+ * Simulates keyword extraction for testing MCP integration
+ *
+ * @param {Object} args - Extraction arguments
+ * @param {string} args.content - Text content to extract keywords from
+ * @param {number} args.max_keywords - Max keywords to return (default: 10)
+ * @param {string} args.language - Language hint: "auto", "en", "zh" (optional)
+ * @returns {Object} Extracted keywords
+ */
+function ExtractKeywords(args: any): any {
+  if (!args?.content) {
+    throw new Error("content is required");
+  }
+
+  const content = args.content;
+  const maxKeywords = args.max_keywords || 10;
+  const language = args.language || "auto";
+
+  // Simple mock keyword extraction
+  const keywords = extractKeywordsFromText(content, maxKeywords);
+
+  return {
+    keywords: keywords,
+    metadata: {
+      provider: "mcp:search.extract_keywords",
+      language: language,
+      input_length: content.length,
+    },
+  };
+}
+
+/**
+ * Extract keywords from text (mock implementation)
+ */
+function extractKeywordsFromText(content: string, maxKeywords: number): string[] {
+  // Common stop words
+  const stopWords = new Set([
+    "the", "a", "an", "is", "are", "was", "were", "be", "been", "being",
+    "have", "has", "had", "do", "does", "did", "will", "would", "could",
+    "should", "may", "might", "must", "shall", "can", "need", "i", "you",
+    "he", "she", "it", "we", "they", "me", "him", "her", "us", "them",
+    "my", "your", "his", "its", "our", "their", "this", "that", "these",
+    "those", "what", "which", "who", "whom", "whose", "where", "when",
+    "why", "how", "all", "each", "every", "both", "few", "more", "most",
+    "other", "some", "such", "no", "not", "only", "same", "so", "than",
+    "too", "very", "just", "also", "now", "here", "there", "in", "on",
+    "at", "by", "for", "with", "about", "against", "between", "into",
+    "through", "during", "before", "after", "above", "below", "to",
+    "from", "up", "down", "out", "off", "over", "under", "again",
+    "further", "then", "once", "as", "if", "because", "until", "while",
+    "and", "or", "but"
+  ]);
+
+  // Tokenize and filter
+  const words = content
+    .toLowerCase()
+    .replace(/[^\w\s]/g, " ")
+    .split(/\s+/)
+    .filter((word: string) => word.length > 2 && !stopWords.has(word));
+
+  // Count frequency
+  const freq: Record<string, number> = {};
+  for (const word of words) {
+    freq[word] = (freq[word] || 0) + 1;
+  }
+
+  // Sort by frequency and return top N
+  const sorted = Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, maxKeywords)
+    .map(([word]) => word);
+
+  return sorted;
+}
+
+/**
  * GetConfig - Get search configuration (Resource)
  * Returns the current mock search configuration
  *

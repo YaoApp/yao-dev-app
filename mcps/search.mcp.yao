@@ -12,7 +12,8 @@
   // === Tools ===
   "tools": {
     "web_search": "scripts.tests.search.WebSearch",
-    "news_search": "scripts.tests.search.NewsSearch"
+    "news_search": "scripts.tests.search.NewsSearch",
+    "extract_keywords": "scripts.tests.search.ExtractKeywords"
   },
 
   // === Resources ===
