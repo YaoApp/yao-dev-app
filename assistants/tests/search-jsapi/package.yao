@@ -1,0 +1,34 @@
+{
+  "name": "Search JSAPI Test Assistant",
+  "type": "assistant",
+  "avatar": "/api/__yao/app/icons/search.png",
+  "connector": "gpt-4o",
+  "description": "Test assistant for ctx.search.Web/KB/DB/All/Any/Race JSAPI methods",
+  "tags": ["Test", "Search", "JSAPI"],
+  "sort": 210,
+  "public": false,
+  "readonly": false,
+  "mentionable": true,
+  "automated": true,
+  "share": "private",
+  "uses": {
+    "web": "builtin",
+    "search": "builtin"
+  },
+  "search": {
+    "web": {
+      "provider": "tavily",
+      "api_key_env": "$ENV.TAVILY_API_KEY",
+      "max_results": 10
+    },
+    "citation": {
+      "format": "#ref:{id}",
+      "auto_inject_prompt": true
+    },
+    "weights": {
+      "user": 1.0,
+      "hook": 0.8,
+      "auto": 0.6
+    }
+  }
+}
