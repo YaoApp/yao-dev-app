@@ -301,3 +301,43 @@ function slugify(text: string): string {
 function capitalize(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
+
+/**
+ * Rerank - Mock reranking tool
+ * Simulates semantic reranking by reversing item order
+ *
+ * @param {Object} args - Rerank arguments
+ * @param {string} args.query - Search query for relevance comparison
+ * @param {Object[]} args.items - Items to rerank
+ * @param {number} args.top_n - Number of top results to return (default: 10)
+ * @returns {Object} Reranked results
+ */
+function Rerank(args: any): any {
+  if (!args?.query) {
+    throw new Error("query is required");
+  }
+
+  if (!args?.items || !Array.isArray(args.items)) {
+    return { order: [] };
+  }
+
+  const items = args.items;
+  const topN = args.top_n || items.length;
+
+  // Mock semantic reranking: reverse order to simulate LLM analysis
+  // In real implementation, this would use semantic similarity
+  const reordered = [...items].reverse();
+
+  // Apply top_n
+  const finalItems = reordered.slice(0, topN);
+
+  // Return ordered citation IDs
+  const order = finalItems.map((item: any) => item.citation_id);
+
+  return {
+    order: order,
+    query: args.query,
+    total: items.length,
+    returned: order.length,
+  };
+}

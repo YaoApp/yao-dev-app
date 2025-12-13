@@ -1,0 +1,9 @@
+{
+  "name": "Rerank Agent",
+  "description": "Test assistant for Agent-based reranking",
+  "connector": "gpt-4o",
+  "uses": {
+    "rerank": "tests.rerank-agent"
+  }
+}
+
