@@ -1,0 +1,17 @@
+{
+  "name": "Search Auto Hook Disable Test",
+  "description": "Test assistant where Create Hook disables search",
+  "connector": "deepseek.v3",
+  "search": {
+    "web": {
+      "provider": "tavily",
+      "api_key_env": "TAVILY_API_KEY",
+      "max_results": 3
+    }
+  },
+  "uses": {
+    "search": "builtin",
+    "web": "builtin"
+  }
+}
+

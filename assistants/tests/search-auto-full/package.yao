@@ -1,0 +1,34 @@
+{
+  "name": "Search Auto Full Test",
+  "description": "Test assistant with full search configuration (Web + KB + DB)",
+  "connector": "deepseek.v3",
+  "search": {
+    "web": {
+      "provider": "tavily",
+      "api_key_env": "TAVILY_API_KEY",
+      "max_results": 3
+    },
+    "kb": {
+      "threshold": 0.7,
+      "graph": false
+    },
+    "db": {
+      "max_results": 10
+    },
+    "citation": {
+      "format": "xml",
+      "auto_inject_prompt": true
+    }
+  },
+  "kb": {
+    "collections": ["test-collection"]
+  },
+  "db": {
+    "models": ["user", "article"]
+  },
+  "uses": {
+    "search": "builtin",
+    "web": "builtin"
+  }
+}
+

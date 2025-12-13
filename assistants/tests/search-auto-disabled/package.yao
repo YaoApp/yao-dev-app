@@ -1,0 +1,15 @@
+{
+  "name": "Search Auto Disabled Test",
+  "description": "Test assistant with search disabled via uses.search",
+  "connector": "deepseek.v3",
+  "search": {
+    "web": {
+      "provider": "tavily",
+      "api_key_env": "TAVILY_API_KEY",
+      "max_results": 3
+    }
+  },
+  "uses": {
+    "search": "disabled"
+  }
+}
