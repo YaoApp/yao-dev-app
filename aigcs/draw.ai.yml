@@ -1,7 +1,7 @@
 # Draw a picture
 # yao run aigcs.draw "帮我画一个可爱的猫咪的照片, 宽度是 100, 高度是 100"
 name: Draw
-connector: gpt-3_5-turbo
+connector: openai.gpt-4o-mini
 process: "scripts.sd.Draw"
 prompts:
   - role: system
