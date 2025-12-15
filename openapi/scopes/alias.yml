@@ -94,6 +94,7 @@ job:admin:
 chat:read:
   - sessions:read:all
   - completions:read:all
+  - references:read:all
 
 # Chat personal permission - users can manage their own chats
 chat:own:
@@ -103,6 +104,7 @@ chat:own:
   - completions:read:own
   - completions:write:own
   - completions:delete:own
+  - references:read:own
 
 # Chat team permission - team members can manage team chats
 chat:team:
@@ -112,6 +114,7 @@ chat:team:
   - completions:read:team
   - completions:write:team
   - completions:delete:team
+  - references:read:team
 
 # Chat full permission - admin permission to operate all chats
 chat:admin:
@@ -121,6 +124,7 @@ chat:admin:
   - completions:read:all
   - completions:write:all
   - completions:delete:all
+  - references:read:all
 
 # ============ Agent Management Aliases ============
 
