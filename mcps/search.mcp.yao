@@ -14,7 +14,8 @@
     "web_search": "scripts.tests.search.WebSearch",
     "news_search": "scripts.tests.search.NewsSearch",
     "extract_keywords": "scripts.tests.search.ExtractKeywords",
-    "rerank": "scripts.tests.search.Rerank"
+    "rerank": "scripts.tests.search.Rerank",
+    "generate_querydsl": "scripts.tests.search.GenerateQueryDSL"
   },
 
   // === Resources ===
@@ -22,4 +23,3 @@
     "search_config": "scripts.tests.search.GetConfig"
   }
 }
-

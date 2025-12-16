@@ -111,23 +111,128 @@ function ExtractKeywords(args: any): any {
 /**
  * Extract keywords from text (mock implementation)
  */
-function extractKeywordsFromText(content: string, maxKeywords: number): string[] {
+function extractKeywordsFromText(
+  content: string,
+  maxKeywords: number
+): string[] {
   // Common stop words
   const stopWords = new Set([
-    "the", "a", "an", "is", "are", "was", "were", "be", "been", "being",
-    "have", "has", "had", "do", "does", "did", "will", "would", "could",
-    "should", "may", "might", "must", "shall", "can", "need", "i", "you",
-    "he", "she", "it", "we", "they", "me", "him", "her", "us", "them",
-    "my", "your", "his", "its", "our", "their", "this", "that", "these",
-    "those", "what", "which", "who", "whom", "whose", "where", "when",
-    "why", "how", "all", "each", "every", "both", "few", "more", "most",
-    "other", "some", "such", "no", "not", "only", "same", "so", "than",
-    "too", "very", "just", "also", "now", "here", "there", "in", "on",
-    "at", "by", "for", "with", "about", "against", "between", "into",
-    "through", "during", "before", "after", "above", "below", "to",
-    "from", "up", "down", "out", "off", "over", "under", "again",
-    "further", "then", "once", "as", "if", "because", "until", "while",
-    "and", "or", "but"
+    "the",
+    "a",
+    "an",
+    "is",
+    "are",
+    "was",
+    "were",
+    "be",
+    "been",
+    "being",
+    "have",
+    "has",
+    "had",
+    "do",
+    "does",
+    "did",
+    "will",
+    "would",
+    "could",
+    "should",
+    "may",
+    "might",
+    "must",
+    "shall",
+    "can",
+    "need",
+    "i",
+    "you",
+    "he",
+    "she",
+    "it",
+    "we",
+    "they",
+    "me",
+    "him",
+    "her",
+    "us",
+    "them",
+    "my",
+    "your",
+    "his",
+    "its",
+    "our",
+    "their",
+    "this",
+    "that",
+    "these",
+    "those",
+    "what",
+    "which",
+    "who",
+    "whom",
+    "whose",
+    "where",
+    "when",
+    "why",
+    "how",
+    "all",
+    "each",
+    "every",
+    "both",
+    "few",
+    "more",
+    "most",
+    "other",
+    "some",
+    "such",
+    "no",
+    "not",
+    "only",
+    "same",
+    "so",
+    "than",
+    "too",
+    "very",
+    "just",
+    "also",
+    "now",
+    "here",
+    "there",
+    "in",
+    "on",
+    "at",
+    "by",
+    "for",
+    "with",
+    "about",
+    "against",
+    "between",
+    "into",
+    "through",
+    "during",
+    "before",
+    "after",
+    "above",
+    "below",
+    "to",
+    "from",
+    "up",
+    "down",
+    "out",
+    "off",
+    "over",
+    "under",
+    "again",
+    "further",
+    "then",
+    "once",
+    "as",
+    "if",
+    "because",
+    "until",
+    "while",
+    "and",
+    "or",
+    "but",
   ]);
 
   // Tokenize and filter
@@ -300,6 +405,43 @@ function slugify(text: string): string {
  */
 function capitalize(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+/**
+ * GenerateQueryDSL - Mock QueryDSL generation tool
+ * Returns fixed QueryDSL structure for testing MCP integration
+ *
+ * @param {Object} args - Generation arguments
+ * @param {string} args.query - Natural language query
+ * @param {string[]} args.models - Target model IDs
+ * @param {number} args.limit - Max results (default: 20)
+ * @param {string[]} args.allowed_fields - Allowed fields whitelist (optional)
+ * @returns {Object} Generated QueryDSL result
+ */
+function GenerateQueryDSL(args: any): any {
+  // Return fixed structure for testing
+  // Note: Expression fields (select, field in wheres/orders) are parsed from strings
+  return {
+    dsl: {
+      select: ["id", "name", "status"],
+      wheres: [
+        {
+          field: "status",
+          op: "=",
+          value: "active",
+        },
+      ],
+      orders: [
+        {
+          field: "created_at",
+          sort: "desc",
+        },
+      ],
+      limit: args.limit || 20,
+    },
+    explain: `Mock QueryDSL for: "${args.query}"`,
+    warnings: [],
+  };
 }
 
 /**
