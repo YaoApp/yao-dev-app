@@ -424,6 +424,7 @@ function GenerateQueryDSL(args: any): any {
   return {
     dsl: {
       select: ["id", "name", "status"],
+      from: "users",
       wheres: [
         {
           field: "status",
@@ -442,6 +443,76 @@ function GenerateQueryDSL(args: any): any {
     explain: `Mock QueryDSL for: "${args.query}"`,
     warnings: [],
   };
+}
+
+/**
+ * GenerateQueryDSLWithRetry - Mock QueryDSL generation tool that simulates retry
+ * Checks for lint_errors in retry context to determine if this is a retry request
+ * - No lint_errors: return invalid DSL (missing 'from')
+ * - Has lint_errors: return valid DSL (simulates fixing the error)
+ *
+ * @param {Object} args - Generation arguments
+ * @param {string} args.query - Natural language query
+ * @param {string[]} args.models - Target model IDs
+ * @param {number} args.limit - Max results (default: 20)
+ * @param {Object} args.retry - Retry context with lint_errors from previous attempt
+ * @returns {Object} Generated QueryDSL result
+ */
+function GenerateQueryDSLWithRetry(args: any): any {
+  // Check if this is a retry attempt by looking for lint_errors in retry context
+  const hasLintErrors = args.retry && args.retry.lint_errors;
+
+  // No lint_errors means first attempt: return invalid DSL
+  if (!hasLintErrors) {
+    return {
+      dsl: {
+        select: ["id", "name", "status"],
+        // Missing 'from' field - this will fail linting
+        wheres: [
+          {
+            field: "status",
+            op: "=",
+            value: "active",
+          },
+        ],
+        limit: args.limit || 20,
+      },
+      explain: `Mock QueryDSL (first attempt, intentionally invalid - missing 'from')`,
+      warnings: ["This is a test: missing 'from' field"],
+    };
+  }
+
+  // Has lint_errors means retry: return valid DSL (fixed the error)
+  const attempt = args.retry.attempt || 2;
+  return {
+    dsl: {
+      select: ["id", "name", "status"],
+      from: "users",
+      wheres: [
+        {
+          field: "status",
+          op: "=",
+          value: "active",
+        },
+      ],
+      orders: [
+        {
+          field: "created_at",
+          sort: "desc",
+        },
+      ],
+      limit: args.limit || 20,
+    },
+    explain: `Mock QueryDSL (attempt ${attempt}, fixed after receiving lint errors)`,
+    warnings: [],
+  };
+}
+
+/**
+ * ResetQueryDSLRetryCounter - Reset the retry counter for testing (no-op now)
+ */
+function ResetQueryDSLRetryCounter(): void {
+  generateQueryDSLRetryCounter = {};
 }
 
 /**

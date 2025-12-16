@@ -9,13 +9,18 @@
     "resources": { "subscribe": false, "listChanged": false }
   },
 
+  // === Mapping ===
+  "mapping": "mapping.search",
+
   // === Tools ===
   "tools": {
     "web_search": "scripts.tests.search.WebSearch",
     "news_search": "scripts.tests.search.NewsSearch",
     "extract_keywords": "scripts.tests.search.ExtractKeywords",
     "rerank": "scripts.tests.search.Rerank",
-    "generate_querydsl": "scripts.tests.search.GenerateQueryDSL"
+    "generate_querydsl": "scripts.tests.search.GenerateQueryDSL",
+    "generate_querydsl_with_retry": "scripts.tests.search.GenerateQueryDSLWithRetry",
+    "reset_querydsl_retry_counter": "scripts.tests.search.ResetQueryDSLRetryCounter"
   },
 
   // === Resources ===

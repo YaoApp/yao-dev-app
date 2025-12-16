@@ -1,0 +1,15 @@
+// QueryDSL Generation Agent with Retry Simulation
+// First call returns invalid DSL, second call returns valid DSL
+// Used to test retry mechanism with lint validation
+{
+  "name": "QueryDSL Retry Test Agent",
+  "description": "Test assistant that simulates QueryDSL generation with retry - first attempt fails lint, second succeeds",
+  "connector": "gpt-4o",
+  "uses": {
+    "web": "disabled"
+  },
+  "hooks": {
+    "next": "src/index.ts:Next"
+  }
+}
+

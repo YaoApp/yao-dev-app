@@ -39,10 +39,12 @@ function Next(
 
   // Return fixed QueryDSL structure for testing
   // Note: Expression fields are strings, not objects
+  // Must include 'from' field to pass linting
   return {
     data: {
       dsl: {
         select: ["id", "name", "status", "created_at"],
+        from: "users",
         wheres: [
           {
             field: "status",
