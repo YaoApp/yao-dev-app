@@ -11,6 +11,9 @@ uses:
   search: "workers.system.search" # optional, The assistant for searching the knowledge, global web search. If not set, and the assistant enable the knowledge, it will search the result from the knowledge automatically.
   fetch: "workers.system.fetch" # optional, The assistant for fetching the http/https/ftp/sftp/etc. file, and return the file's content. if not set, use the http process to fetch the file.
 
+system:
+  default: "deepseek.v3"
+
 # ===============================
 # Conversation Store Settings
 # ===============================
