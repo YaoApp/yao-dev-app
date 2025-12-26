@@ -1,0 +1,18 @@
+{
+  "name": "Response Validator",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Validates agent responses against specified criteria for agent-driven assertions",
+  "options": { "temperature": 0 },
+  "public": false,
+  "placeholder": {
+    "title": "Response Validator",
+    "description": "Validates responses against criteria",
+    "prompts": ["Validate response"]
+  },
+  "tags": ["Test", "Validator"],
+  "sort": 99,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}
