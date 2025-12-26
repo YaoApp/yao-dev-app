@@ -1,0 +1,19 @@
+{
+  "name": "Simple Greeting",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "A simple greeting agent that responds to greetings and basic questions. Used for testing the agent test framework.",
+  "options": { "temperature": 0 },
+  "public": false,
+  "placeholder": {
+    "title": "Simple Greeting",
+    "description": "Say hello and I'll greet you back!",
+    "prompts": ["Hello", "Hi there", "Good morning"]
+  },
+  "tags": ["Test", "Greeting"],
+  "sort": 99,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}
+

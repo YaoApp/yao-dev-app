@@ -1,0 +1,18 @@
+{
+  "name": "Test Case Generator",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Generates test cases for agent testing based on agent description and tools",
+  "options": { "temperature": 0.7 },
+  "public": false,
+  "placeholder": {
+    "title": "Test Case Generator",
+    "description": "Generate test cases for agents",
+    "prompts": ["Generate test cases"]
+  },
+  "tags": ["Test", "Generator"],
+  "sort": 99,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}
