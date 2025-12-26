@@ -1,0 +1,19 @@
+{
+  "name": "User Simulator",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Simulates user behavior for dynamic agent testing. Generates realistic user messages based on persona and goal.",
+  "options": { "temperature": 0.7 },
+  "public": false,
+  "placeholder": {
+    "title": "User Simulator",
+    "description": "Simulate user interactions for testing",
+    "prompts": ["Simulate user"]
+  },
+  "tags": ["Test", "Simulator"],
+  "sort": 99,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}
+

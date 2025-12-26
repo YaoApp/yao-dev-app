@@ -1,0 +1,19 @@
+{
+  "name": "Dynamic Test Agent",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "A simple agent for testing dynamic mode. Handles basic conversation flows like ordering coffee.",
+  "options": { "temperature": 0.3 },
+  "public": false,
+  "placeholder": {
+    "title": "Coffee Order Assistant",
+    "description": "I'll help you order coffee",
+    "prompts": ["I'd like to order a coffee"]
+  },
+  "tags": ["Test", "Dynamic"],
+  "sort": 99,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}
+
