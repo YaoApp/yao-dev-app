@@ -1,0 +1,3 @@
+{"id": "T001", "input": "Hello from T001", "before": "env_test.Before", "after": "env_test.After", "assert": {"type": "contains", "value": "Hello"}}
+{"id": "T002", "input": "Test case T002", "before": "env_test.Before", "after": "env_test.After", "assert": {"type": "contains", "value": "T002"}}
+{"id": "T003", "input": "No hooks test", "assert": {"type": "contains", "value": "hooks"}}

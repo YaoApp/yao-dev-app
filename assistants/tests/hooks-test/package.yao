@@ -1,0 +1,22 @@
+{
+  "name": "Hooks Test Agent",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Test agent for before/after hook functionality in Agent Test Framework V2",
+  "options": {
+    "temperature": 0.3,
+    "max_tokens": 500
+  },
+  "public": true,
+  "placeholder": {
+    "title": "Hooks Test",
+    "description": "Agent for testing before/after scripts",
+    "prompts": ["Test hooks", "Check context"]
+  },
+  "tags": ["Test", "Hooks", "V2"],
+  "sort": 99,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}
+
