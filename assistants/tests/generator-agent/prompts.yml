@@ -13,11 +13,9 @@
     ```json
     {
       "id": "unique-id",
-      "name": "Human-readable test name",
       "input": "User message or array of messages",
-      "assertions": [
-        {"type": "contains", "value": "expected text"},
-        {"type": "tool_called", "name": "tool_name"}
+      "assert": [
+        {"type": "contains", "value": "expected text"}
       ]
     }
     ```
@@ -28,35 +26,30 @@
     - `equals`: Response exactly matches the value
     - `regex`: Response matches the regex pattern
     - `json_path`: JSON path value check (requires `path` and `value`)
-    - `tool_called`: Specific tool was invoked (requires `name`)
-    - `type`: Value type check (requires `path` and `value` like "string", "number", "array")
+    - `type`: Value type check (requires `value` like "string", "object", "array", "number", "boolean")
 
     ## Guidelines
     1. Generate diverse test cases covering different scenarios
     2. Include edge cases and error scenarios
-    3. Test tool usage when applicable
-    4. Use meaningful test IDs (e.g., "expense-submit-valid", "expense-invalid-amount")
-    5. Write clear, descriptive test names
-    6. Match assertions to expected agent behavior
+    3. Use meaningful test IDs (e.g., "expense-submit-valid", "expense-invalid-amount")
+    4. Match assertions to expected agent behavior
 
     ## Example Output
     ```json
     [
       {
         "id": "greeting-basic",
-        "name": "Basic greeting response",
         "input": "Hello",
-        "assertions": [
+        "assert": [
           {"type": "contains", "value": "help"}
         ]
       },
       {
         "id": "expense-submit",
-        "name": "Submit valid expense",
         "input": "Submit a $500 travel expense for client meeting",
-        "assertions": [
-          {"type": "tool_called", "name": "create_expense"},
-          {"type": "contains", "value": "submitted"}
+        "assert": [
+          {"type": "contains", "value": "expense"},
+          {"type": "regex", "value": "(?i)(submitted|created)"}
         ]
       }
     ]
