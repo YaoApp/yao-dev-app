@@ -273,6 +273,36 @@ interface TurnResult {
 }
 ```
 
+### Checkpoint Result Structure
+
+Each checkpoint in the output includes:
+
+```typescript
+interface CheckpointResult {
+  id: string;             // Checkpoint identifier
+  reached: boolean;       // Whether checkpoint was reached
+  reached_at_turn?: number; // Turn number when reached (if reached)
+  required: boolean;      // Whether checkpoint is required
+  passed: boolean;        // Whether assertion passed
+  message?: string;       // Assertion result message
+  agent_validation?: {    // Agent assertion details (for type: "agent")
+    passed: boolean;      // Validator's determination
+    reason: string;       // Explanation from validator
+    criteria: string;     // Validation criteria checked
+    input: any;           // Content sent to validator
+    response: {           // Raw validator response
+      passed: boolean;
+      reason: string;
+    };
+  };
+}
+```
+
+**Note**: For agent-based assertions (`type: "agent"`), the `agent_validation` field provides full transparency into the validation process:
+- `input`: The content that was validated (agent response + tool result messages)
+- `response`: The raw JSON response from the validator agent
+- `criteria`: The validation criteria from the test case
+
 ## Test Case Fields
 
 ### Standard Mode Fields
@@ -378,6 +408,59 @@ interface TurnResult {
 {"assert": {"type": "json_path", "path": "joins[0].from", "value": "users"}}
 {"assert": {"type": "json_path", "path": "error", "value": ["missing_schema", "missing_query"]}}
 ```
+
+### Agent Assertion Details
+
+Agent assertions use an LLM-based validator to semantically evaluate responses. This is useful when exact pattern matching is insufficient.
+
+**How it works:**
+
+1. The framework sends the agent's response (including tool results) to the validator agent
+2. The validator evaluates against the specified criteria
+3. The validator returns `{"passed": true/false, "reason": "explanation"}`
+
+**Example with checkpoint:**
+
+```jsonl
+{
+  "id": "setup-test",
+  "input": "Configure my system",
+  "checkpoints": [
+    {
+      "id": "confirm_setup",
+      "assert": {
+        "type": "agent",
+        "use": "agents:workers.tests.checkpoint-validator",
+        "value": "The response should confirm the configuration is complete"
+      }
+    }
+  ]
+}
+```
+
+**Output in report:**
+
+```json
+{
+  "confirm_setup": {
+    "id": "confirm_setup",
+    "reached": true,
+    "passed": true,
+    "agent_validation": {
+      "passed": true,
+      "reason": "Response explicitly states 'Setup complete'",
+      "criteria": "The response should confirm the configuration is complete",
+      "input": "Setup complete! Your settings have been saved.",
+      "response": {
+        "passed": true,
+        "reason": "Response explicitly states 'Setup complete'"
+      }
+    }
+  }
+}
+```
+
+**Note**: In dynamic mode, the validator checks the combined output which includes both the agent's text response AND any `message` fields from tool results. This ensures tool-based completions are properly validated.
 
 ## Before/After Hooks
 
