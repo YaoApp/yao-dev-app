@@ -171,6 +171,24 @@ Each line is a JSON object. Examples by scenario:
 {"id": "T005", "input": "Hello", "assert": [{"type": "contains", "value": "Hi"}, {"type": "not_contains", "value": "error"}]}
 ```
 
+### Tool Assertions
+
+Check if specific tools were called and their results:
+
+```jsonl
+// Check tool was called (supports suffix matching)
+{"id": "T006", "input": "Set up system", "assert": {"type": "tool_called", "value": "setup"}}
+
+// Check tool called with specific arguments
+{"id": "T007", "input": "Update config", "assert": {"type": "tool_called", "value": {"name": "setup", "arguments": {"action": "update"}}}}
+
+// Check tool result
+{"id": "T008", "input": "Initialize", "assert": {"type": "tool_result", "value": {"tool": "setup", "result": {"success": true}}}}
+
+// Combine tool assertions
+{"id": "T009", "input": "Complete setup", "assert": [{"type": "tool_called", "value": "setup"}, {"type": "tool_result", "value": {"tool": "setup", "result": {"success": true}}}]}
+```
+
 ### Agent-Driven Assertion
 
 ```jsonl
