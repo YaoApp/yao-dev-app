@@ -250,6 +250,29 @@ Each line is a JSON object. Examples by scenario:
 }
 ```
 
+### Dynamic Mode Output Structure
+
+Each turn in the output includes:
+
+```typescript
+interface TurnResult {
+  turn: number;           // Turn number (1-based)
+  input: string;          // User message
+  output: any;            // Agent response summary (for display)
+  response: {             // Full agent response (for detailed analysis)
+    content: string;      // LLM text content
+    tool_calls: [{        // Tool calls made
+      tool: string;       // Tool name
+      arguments: any;     // Call arguments
+      result: any;        // Execution result
+    }];
+    next: any;            // Next hook data
+  };
+  checkpoints_reached: string[];  // Checkpoint IDs reached
+  duration_ms: number;    // Execution time
+}
+```
+
 ## Test Case Fields
 
 ### Standard Mode Fields
@@ -466,9 +489,12 @@ export function AfterAll(ctx: Context, results: TestResult[], beforeData: any) {
 
 ```typescript
 interface Context {
-  user_id: string; // Test user ID
-  team_id: string; // Test team ID
   locale: string; // Locale (e.g., "en-us")
+  authorized: {
+    user_id: string; // Test user ID
+    team_id: string; // Test team ID
+    constraints?: object; // Access constraints
+  };
   metadata: object; // Custom metadata from test case
 }
 ```
@@ -478,10 +504,17 @@ interface Context {
 ```typescript
 interface TestCase {
   id: string; // Test case ID
-  input: any; // Test input
+  input: any; // Test input (string, Message, or Message[])
   assert?: object; // Assertion rules
+  expected?: any; // Expected output
+  user?: string; // Override user ID
+  team?: string; // Override team ID
   metadata?: object; // Custom metadata
   options?: object; // Context options
+  timeout?: string; // Timeout (e.g., "30s")
+  skip?: boolean; // Skip flag
+  before?: string; // Before hook reference
+  after?: string; // After hook reference
 }
 ```
 
@@ -491,9 +524,12 @@ interface TestCase {
 interface TestResult {
   id: string; // Test case ID
   status: string; // "passed" | "failed" | "error" | "skipped" | "timeout"
+  input: any; // Actual input sent
   output: any; // Agent response
+  expected?: any; // Expected output (if defined)
   error?: string; // Error message (if failed)
-  duration_ms: number; // Execution time
+  duration_ms: number; // Execution time in milliseconds
+  assertions?: object[]; // Assertion results
 }
 ```
 
@@ -549,7 +585,7 @@ export function Before(ctx: Context, testCase: TestCase): any {
 | `--after`     | Global AfterAll hook (e.g., `env_test.AfterAll`)         | -                          |
 | `--runs`      | Runs per test (stability analysis)                       | 1                          |
 | `--run`       | Regex pattern to filter which tests to run               | -                          |
-| `--timeout`   | Timeout per test                                         | 5m                         |
+| `--timeout`   | Timeout per test                                         | 2m                         |
 | `--parallel`  | Parallel test cases                                      | 1                          |
 | `--fail-fast` | Stop on first failure                                    | false                      |
 | `--dry-run`   | Generate test cases without running them                 | false                      |
@@ -560,6 +596,7 @@ Create a JSON file for custom authorization:
 
 ```json
 {
+  "chat_id": "test-chat-001",
   "authorized": {
     "user_id": "test-user-123",
     "team_id": "test-team-456",

@@ -14,6 +14,16 @@
  */
 
 // Type definitions
+interface Context {
+  user_id?: string;
+  team_id?: string;
+  locale?: string;
+  authorized?: {
+    user_id?: string;
+    team_id?: string;
+  };
+}
+
 interface TestCase {
   id: string;
   input: any;
@@ -36,24 +46,25 @@ interface BeforeResult {
 /**
  * Before - Called before each test case runs
  *
+ * @param ctx - Agent context
  * @param testCase - The test case about to run
  * @returns BeforeResult with data to pass to After
  */
-function Before(testCase: TestCase): BeforeResult {
-  console.log(`[env_test] Before called for test: ${testCase.id}`);
+function Before(ctx: Context, testCase: TestCase): BeforeResult {
+  console.log(`[env_test] Before called for test: ${testCase?.id}`);
 
   const startTime = Date.now();
 
   // Prepare test data
   const testData = {
-    test_id: testCase.id,
+    test_id: testCase?.id,
     start_time: startTime,
     prepared_by: "env_test.Before",
-    mock_user_id: `user_${testCase.id}_${startTime}`,
+    mock_user_id: `user_${testCase?.id}_${startTime}`,
     mock_session_id: `session_${Date.now()}`,
   };
 
-  console.log(`[env_test] Before completed for test: ${testCase.id}`);
+  console.log(`[env_test] Before completed for test: ${testCase?.id}`);
 
   return {
     data: testData,
@@ -63,13 +74,19 @@ function Before(testCase: TestCase): BeforeResult {
 /**
  * After - Called after each test case completes (pass or fail)
  *
+ * @param ctx - Agent context
  * @param testCase - The test case that ran
  * @param result - The test result
  * @param beforeData - Data returned from Before
  */
-function After(testCase: TestCase, result: TestResult, beforeData: any): void {
+function After(
+  ctx: Context,
+  testCase: TestCase,
+  result: TestResult,
+  beforeData: any
+): void {
   console.log(
-    `[env_test] After called for test: ${testCase.id}, status: ${result.status}`
+    `[env_test] After called for test: ${testCase?.id}, status: ${result?.status}`
   );
 
   // Cleanup mock data
@@ -83,22 +100,25 @@ function After(testCase: TestCase, result: TestResult, beforeData: any): void {
     );
   }
 
-  console.log(`[env_test] After completed for test: ${testCase.id}`);
+  console.log(`[env_test] After completed for test: ${testCase?.id}`);
 }
 
 /**
  * BeforeAll - Called once before all test cases
  *
+ * @param ctx - Agent context
  * @param testCases - All test cases to be run
  * @returns BeforeResult with global data
  */
-function BeforeAll(testCases: TestCase[]): BeforeResult {
-  console.log(`[env_test] BeforeAll called for ${testCases.length} test cases`);
+function BeforeAll(ctx: Context, testCases: TestCase[]): BeforeResult {
+  console.log(
+    `[env_test] BeforeAll called for ${testCases?.length} test cases`
+  );
 
   // Global initialization
   const globalData = {
     suite_id: `suite_${Date.now()}`,
-    test_count: testCases.length,
+    test_count: testCases?.length,
     started_at: new Date().toISOString(),
     initialized_by: "env_test.BeforeAll",
   };
@@ -115,21 +135,24 @@ function BeforeAll(testCases: TestCase[]): BeforeResult {
 /**
  * AfterAll - Called once after all test cases complete
  *
+ * @param ctx - Agent context
  * @param results - All test results
  * @param beforeData - Data returned from BeforeAll
  */
-function AfterAll(results: TestResult[], beforeData: any): void {
-  console.log(`[env_test] AfterAll called for ${results.length} results`);
+function AfterAll(ctx: Context, results: TestResult[], beforeData: any): void {
+  console.log(`[env_test] AfterAll called for ${results?.length} results`);
 
   // Calculate summary
   const summary = {
-    total: results.length,
-    passed: results.filter((r) => r.status === "passed").length,
-    failed: results.filter((r) => r.status === "failed").length,
-    errors: results.filter((r) => r.status === "error").length,
+    total: results?.length || 0,
+    passed: results?.filter((r) => r.status === "passed").length || 0,
+    failed: results?.filter((r) => r.status === "failed").length || 0,
+    errors: results?.filter((r) => r.status === "error").length || 0,
   };
 
-  console.log(`[env_test] Test Summary: ${summary.passed}/${summary.total} passed`);
+  console.log(
+    `[env_test] Test Summary: ${summary.passed}/${summary.total} passed`
+  );
 
   // Global cleanup
   if (beforeData?.suite_id) {
@@ -138,4 +161,3 @@ function AfterAll(results: TestResult[], beforeData: any): void {
 
   console.log(`[env_test] AfterAll completed`);
 }
-
