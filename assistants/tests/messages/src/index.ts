@@ -4,6 +4,7 @@ import { basic } from "./basic";
 import { markdown } from "./markdown";
 import { error } from "./error";
 import { code } from "./code";
+import { action } from "./action";
 
 /**
  * Create hook - Route to different test scenarios
@@ -26,6 +27,8 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
     test_type = "error";
   } else if (user_input.includes("code")) {
     test_type = "code";
+  } else if (user_input.includes("action")) {
+    test_type = "action";
   } else if (user_input.includes("delta")) {
     test_type = "delta";
   } else if (user_input.includes("grouping")) {
@@ -50,6 +53,10 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
 
     case "code":
       code(ctx);
+      break;
+
+    case "action":
+      action(ctx);
       break;
 
     case "delta":
@@ -96,6 +103,8 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
         "Error messages (basic, with code, with details, recovery)\n",
         "- **code** - ",
         "Code blocks (complete vs streaming)\n",
+        "- **action** - ",
+        "Action messages (navigate, notify, menu reload)\n",
         "- **delta** - ",
         "Delta operations (replace, append, merge, set)\n",
         "- **grouping** - ",
