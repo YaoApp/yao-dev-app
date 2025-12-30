@@ -69,7 +69,7 @@ function navigate_tests(ctx: agent.Context) {
     props: {
       name: "navigate",
       payload: {
-        pathname: "https://yaoapps.com",
+        route: "https://yaoapps.com",
         target: "_blank",
       },
     },
@@ -93,7 +93,7 @@ function navigate_tests(ctx: agent.Context) {
     props: {
       name: "navigate",
       payload: {
-        pathname: "$dashboard/kb",
+        route: "$dashboard/kb",
         query: {
           id: "123",
         },
@@ -118,7 +118,7 @@ function navigate_tests(ctx: agent.Context) {
     props: {
       name: "navigate",
       payload: {
-        pathname: "/expense/setup",
+        route: "/expense/setup",
         title: "Expense Setup",
       },
     },
