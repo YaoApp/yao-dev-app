@@ -126,6 +126,132 @@ The `uses` field controls search-related tool usage:
 | `querydsl` | `"<agent>"`, `"mcp:"`               | QueryDSL generation       |
 | `rerank`   | `"<agent>"`, `"mcp:"`               | Result reranking          |
 
+## Search JSAPI (ctx.search)
+
+The `ctx.search` object provides direct search methods in hooks:
+
+### Single Search Methods
+
+```typescript
+// Web search
+const webResult = ctx.search.Web(query, options?);
+
+// Knowledge base search
+const kbResult = ctx.search.KB(query, options?);
+
+// Database search
+const dbResult = ctx.search.DB(query, options?);
+```
+
+### Web Search Options
+
+```typescript
+ctx.search.Web("Yao App Engine", {
+  limit: 10, // Max results (default: 10)
+  sites: ["github.com", "yaoapps.com"], // Restrict to sites
+  time_range: "week", // "day", "week", "month", "year"
+  rerank: { top_n: 5 }, // Rerank options
+});
+```
+
+### KB Search Options
+
+```typescript
+ctx.search.KB("expense policy", {
+  collections: ["policy", "guidelines"], // Collection IDs
+  threshold: 0.7, // Similarity threshold (0-1)
+  limit: 10, // Max results
+  graph: true, // Enable graph association
+  rerank: { top_n: 5 }, // Rerank options
+});
+```
+
+### DB Search Options
+
+```typescript
+ctx.search.DB("recent expenses", {
+  models: ["agents.expense.expense"], // Model IDs
+  wheres: [{ column: "status", value: "pending" }], // Pre-filters (QueryDSL)
+  orders: [{ column: "created_at", option: "desc" }], // Sort orders
+  select: ["id", "amount", "description"], // Fields to return
+  limit: 20, // Max results
+  rerank: { top_n: 10 }, // Rerank options
+});
+```
+
+### Parallel Search Methods
+
+```typescript
+// All: Wait for all searches (like Promise.all)
+const results = ctx.search.All([
+  { type: "web", query: "Yao framework" },
+  { type: "kb", query: "expense policy", collections: ["policy"] },
+]);
+
+// Any: Return when any succeeds with results (like Promise.any)
+const results = ctx.search.Any([
+  { type: "web", query: "latest news" },
+  { type: "kb", query: "internal docs" },
+]);
+
+// Race: Return when any completes (like Promise.race)
+const results = ctx.search.Race([
+  { type: "web", query: "fast search" },
+  { type: "kb", query: "cached docs" },
+]);
+```
+
+### Search Result Structure
+
+```typescript
+interface SearchResult {
+  type: "web" | "kb" | "db";
+  query: string;
+  source: "hook" | "auto" | "user";
+  items: SearchItem[];
+  error?: string;
+}
+
+interface SearchItem {
+  citation_id: string; // "1", "2", etc.
+  title: string;
+  url: string;
+  content: string;
+  score: number;
+}
+```
+
+### Example: Custom Search in Create Hook
+
+```typescript
+function Create(
+  ctx: agent.Context,
+  messages: agent.Message[]
+): agent.Create {
+  const lastMessage = messages[messages.length - 1];
+  const query = lastMessage.content as string;
+
+  // Execute custom search
+  const kbResult = ctx.search.KB(query, {
+    collections: ["company_policy"],
+    threshold: 0.8,
+  });
+
+  if (kbResult.items?.length > 0) {
+    // Inject search context
+    return {
+      messages,
+      search: {
+        need_search: false, // Skip auto search
+      },
+      context: formatSearchResults(kbResult),
+    };
+  }
+
+  return { messages };
+}
+```
+
 ## Search in Next Hook
 
 Access search results in payload:
