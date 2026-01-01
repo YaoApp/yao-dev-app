@@ -85,14 +85,14 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
 
   // Or return configuration
   return {
-    messages,                    // Modified messages
-    temperature: 0.7,            // Override temperature
-    connector: "gpt-4o-mini",    // Override connector
-    prompt_preset: "task",       // Select preset
-    disable_global_prompts: true,// Skip global prompts
+    messages, // Modified messages
+    temperature: 0.7, // Override temperature
+    connector: "gpt-4o-mini", // Override connector
+    prompt_preset: "task", // Select preset
+    disable_global_prompts: true, // Skip global prompts
     mcp_servers: [{ server_id: "tools" }],
     uses: { search: "disabled" },
-    search: false,               // Disable auto search
+    search: false, // Disable auto search
     locale: "zh-cn",
     metadata: { key: "value" },
   };
@@ -101,8 +101,8 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
   return {
     delegate: {
       agent_id: "specialist",
-      messages: messages
-    }
+      messages: messages,
+    },
   };
 }
 
@@ -118,15 +118,15 @@ function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
     return {
       data: {
         status: "success",
-        results: tools.map(t => t.result)
-      }
+        results: tools.map((t) => t.result),
+      },
     };
   }
 
   // Delegate based on response
   if (completion?.content?.includes("transfer")) {
     return {
-      delegate: { agent_id: "transfer", messages }
+      delegate: { agent_id: "transfer", messages },
     };
   }
 
@@ -166,7 +166,7 @@ ctx.EndBlock(blockId);
 ```typescript
 // Scopes: user (persistent), team (persistent), chat (persistent), context (request)
 ctx.memory.user.Set("pref", "value");
-ctx.memory.user.Set("temp", "value", 300);  // With TTL
+ctx.memory.user.Set("temp", "value", 300); // With TTL
 const pref = ctx.memory.user.Get("pref");
 ctx.memory.user.Del("pref");
 ctx.memory.user.Has("pref");
@@ -207,7 +207,7 @@ ctx.mcp.ListTools("server-id");
 ctx.mcp.CallTool("server-id", "tool-name", { arg: "value" });
 ctx.mcp.CallToolsParallel("server-id", [
   { name: "tool1", arguments: {} },
-  { name: "tool2", arguments: {} }
+  { name: "tool2", arguments: {} },
 ]);
 ctx.mcp.ReadResource("server-id", "resource://uri");
 ```
@@ -223,7 +223,7 @@ ctx.search.DB("query", { models: ["articles"], limit: 20 });
 // Parallel
 ctx.search.All([
   { type: "web", query: "topic" },
-  { type: "kb", query: "topic", collections: ["docs"] }
+  { type: "kb", query: "topic", collections: ["docs"] },
 ]);
 ```
 
@@ -266,6 +266,30 @@ chat:
 }
 ```
 
+## Pages (Web UI)
+
+Agent Pages use SUI framework for building web interfaces.
+
+**Directory Structure:**
+
+```
+agent/template/              # Global template
+├── __document.html          # Document template
+├── __data.json              # Global data
+└── __assets/                # Global assets
+
+assistants/<id>/pages/       # Assistant pages
+├── index/
+│   ├── index.html           # Page template
+│   ├── index.css            # Styles
+│   ├── index.ts             # Frontend script
+│   └── index.backend.ts     # Backend script
+```
+
+**Routes:** `/agents/<assistant-id>/<page-name>`
+
+**Build:** `yao sui build agent` / `yao sui watch agent`
+
 ## Testing
 
 ```bash
@@ -297,16 +321,21 @@ export function TestSetup(t: TestingT, ctx: Context) {
   const result = Setup(ctx);
   t.assert.True(result.success, "Should succeed");
   t.assert.Equal(result.status, "ready");
-  t.assert.Agent(result.message, "tests.validator", { criteria: "Clear confirmation" });
+  t.assert.Agent(result.message, "tests.validator", {
+    criteria: "Clear confirmation",
+  });
 }
 ```
 
 ## API Endpoints
 
-| Endpoint                        | Method | Description          |
-| ------------------------------- | ------ | -------------------- |
-| `/api/__yao/agent`              | POST   | Chat with assistant  |
-| `/api/__yao/agent/history`      | GET    | Get chat history     |
-| `/api/__yao/agent/chats`        | GET    | List chat sessions   |
-| `/api/__yao/agent/assistants`   | GET    | List assistants      |
-| `/api/__yao/agent/upload/:type` | POST   | Upload files         |
+OpenAPI endpoints (base URL: `/v1`):
+
+| Endpoint                               | Method | Description         |
+| -------------------------------------- | ------ | ------------------- |
+| `/v1/chat/completions`                 | POST   | Chat with assistant |
+| `/v1/chat/sessions`                    | GET    | List chat sessions  |
+| `/v1/chat/sessions/:chat_id/messages`  | GET    | Get messages        |
+| `/v1/agent/assistants`                 | GET    | List assistants     |
+| `/v1/file/:uploaderID`                 | POST   | Upload files        |
+| `/v1/file/:uploaderID/:fileID/content` | GET    | Download file       |
