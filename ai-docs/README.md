@@ -19,6 +19,7 @@ These documents serve as a knowledge base for AI coding assistants to:
 
 | Document                                    | Description                                        |
 | ------------------------------------------- | -------------------------------------------------- |
+| [Agent Reference](./agent-reference.md)     | Quick reference: structure, hooks, context API     |
 | [Runtime API](./runtime-api.md)             | V8 runtime globals: Process, http, FS, Store, etc. |
 | [Agent Context API](./agent-context-api.md) | Context object, messaging, memory, trace, MCP APIs |
 | [Hooks Reference](./hooks-reference.md)     | Create and Next hooks with execution flow          |
