@@ -290,6 +290,39 @@ assistants/<id>/pages/       # Assistant pages
 
 **Build:** `yao sui build agent` / `yao sui watch agent`
 
+**Trigger from Hook:**
+
+```typescript
+// Open page in sidebar
+ctx.Send({
+  type: "action",
+  props: {
+    name: "navigate",
+    payload: {
+      route: "/agents/my-assistant/result",
+      title: "Results",
+      query: { id: "123" },
+    },
+  },
+});
+```
+
+**Open page from hook:**
+
+```javascript
+ctx.Send({
+  type: "action",
+  props: {
+    name: "navigate",
+    payload: {
+      route: "/agents/my-assistant/result",
+      title: "Results",
+      query: { id: "123" },
+    },
+  },
+});
+```
+
 ## Testing
 
 ```bash
