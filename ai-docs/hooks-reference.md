@@ -7,7 +7,7 @@ Hooks are TypeScript functions that intercept and customize the agent execution 
 ## Execution Flow
 
 ```
-User Input → Load History → Create Hook → [Delegate?] → LLM Call → Tool Execution → Next Hook → [Delegate?] → Response
+User Input → Load History → Create Hook → LLM Call → Tool Execution → Next Hook → Response
 ```
 
 ```mermaid
@@ -16,10 +16,7 @@ flowchart TD
     B --> C{Create Hook?}
     C -->|Yes| D[Execute Create Hook]
     C -->|No| E{Has Prompts/MCP?}
-    D --> D1{Delegate?}
-    D1 -->|Yes| D2[Call Target Agent]
-    D2 --> M
-    D1 -->|No| E
+    D --> E
     E -->|Yes| F[Build LLM Request]
     E -->|No| K
     F --> G[LLM Stream Call]
@@ -91,13 +88,6 @@ interface HookCreateResponse {
 
   // Audio output
   audio?: AudioConfig;
-
-  // Delegate to another agent (skip LLM call)
-  delegate?: {
-    agent_id: string;
-    messages: Message[];
-    options?: Record<string, any>;
-  };
 }
 ```
 
@@ -108,14 +98,10 @@ function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
   // Store data for Next hook
   ctx.memory.context.Set("start_time", Date.now());
 
-  // Check system readiness - delegate to setup agent if not ready
+  // Check system readiness
   if (!SystemReady(ctx)) {
-    return {
-      delegate: {
-        agent_id: "myassistant.setup",
-        messages: messages,
-      },
-    };
+    ctx.Send("System not initialized. Running setup...");
+    Setup(ctx);
   }
 
   // Configure based on user intent
@@ -236,44 +222,16 @@ function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
 
 ## Common Patterns
 
-### 1. Early Delegation in Create Hook
-
-Use `delegate` in Create hook to route to sub-agents before LLM call. This saves LLM tokens when the routing decision can be made without LLM.
+### 1. System Initialization Check
 
 ```typescript
 function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
-  // Check system readiness - delegate to setup agent if not ready
   if (!SystemReady(ctx)) {
-    return {
-      delegate: {
-        agent_id: "myassistant.setup",
-        messages: messages,
-      },
-    };
+    Setup(ctx);
   }
-
-  // Check pending tasks - delegate to specific handler
-  const pendingTask = GetPendingTask(ctx);
-  if (pendingTask && pendingTask.type === "submission") {
-    return {
-      delegate: {
-        agent_id: "myassistant.submission",
-        messages: messages,
-        options: { metadata: { pending_task: pendingTask } },
-      },
-    };
-  }
-
-  // No early delegation - proceed with LLM call
-  return {
-    mcp_servers: [{ server_id: "agents.myassistant.tools" }],
-  };
+  return { messages };
 }
-```
 
-### 2. System Initialization Check
-
-```typescript
 function SystemReady(ctx: agent.Context): boolean {
   const ownerID = ctx.authorized?.team_id || ctx.authorized?.user_id;
   if (!ownerID) return false;
@@ -288,7 +246,7 @@ function SystemReady(ctx: agent.Context): boolean {
 }
 ```
 
-### 3. Intent-Based Routing (Next Hook)
+### 2. Intent-Based Routing
 
 ```typescript
 function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
@@ -315,7 +273,7 @@ function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
 }
 ```
 
-### 4. Streaming Output
+### 3. Streaming Output
 
 ```typescript
 function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
@@ -336,7 +294,7 @@ function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
 }
 ```
 
-### 5. Error Recovery
+### 4. Error Recovery
 
 ```typescript
 function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
@@ -370,9 +328,7 @@ function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
 3. **LLM call is optional** - Skipped if no prompts/MCP configured
 4. **Use `ctx.memory.context`** to pass data between hooks
 5. **Hooks can send messages** via `ctx.Send()`, `ctx.SendStream()`
-6. **Delegation in both hooks** - Both Create and Next hooks support `delegate`
-7. **Create hook delegate skips LLM** - Use for early routing decisions
-8. **Next hook delegate after LLM** - Use for intent-based routing after tool calls
+6. **Delegation** allows chaining agents together
 
 ## See Also
 

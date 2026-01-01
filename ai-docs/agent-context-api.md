@@ -44,27 +44,120 @@ interface Context {
 
 ### Authorized Object
 
-The `ctx.authorized` object contains authentication information:
+The `ctx.authorized` object contains authentication and authorization information:
 
 ```typescript
 interface Authorized {
-  user_id?: string; // User ID (for personal users)
-  team_id?: string; // Team ID (for team users)
-  // Additional auth fields...
+  // Identity
+  user_id?: string; // User ID
+  team_id?: string; // Team ID (if team login)
+  tenant_id?: string; // Tenant ID (multi-tenancy)
+  client_id?: string; // OAuth client ID
+  session_id?: string; // Session ID
+
+  // Data Access Constraints (set by ACL)
+  constraints?: DataConstraints;
+}
+
+interface DataConstraints {
+  owner_only?: boolean; // Only access owner's data
+  creator_only?: boolean; // Only access creator's data
+  editor_only?: boolean; // Only access editor's data
+  team_only?: boolean; // Only access team's data
+  extra?: Record<string, any>; // Custom constraints
 }
 ```
 
-**Usage Example:**
+**Usage Examples:**
 
 ```javascript
+// Get owner ID (team takes priority)
 function getOwnerID(ctx) {
   const authorized = ctx.authorized;
   if (!authorized) return null;
+  return authorized.team_id || authorized.user_id;
+}
 
-  // Team takes priority
-  if (authorized.team_id) return authorized.team_id;
-  if (authorized.user_id) return authorized.user_id;
-  return null;
+// Check if team context
+function isTeamContext(ctx) {
+  return !!ctx.authorized?.team_id;
+}
+
+// Apply permission filter based on constraints
+function applyPermissionFilter(ctx) {
+  const authorized = ctx.authorized;
+  const constraints = authorized?.constraints || {};
+  const wheres = [];
+
+  if (constraints.owner_only || constraints.creator_only) {
+    wheres.push({ column: "__yao_created_by", value: authorized.user_id });
+  }
+
+  if (constraints.team_only && authorized.team_id) {
+    wheres.push({ column: "__yao_team_id", value: authorized.team_id });
+  }
+
+  return wheres;
+}
+```
+
+### Permission Columns
+
+When querying models with `permission: true` option, use these columns for access control:
+
+| Column             | Description                    | Use Case                |
+| ------------------ | ------------------------------ | ----------------------- |
+| `__yao_created_by` | User ID who created the record | Owner/Creator filtering |
+| `__yao_updated_by` | User ID who last updated       | Editor filtering        |
+| `__yao_team_id`    | Team ID                        | Team-based access       |
+| `__yao_tenant_id`  | Tenant ID                      | Multi-tenancy           |
+
+**Creating Records with Permission:**
+
+```javascript
+function createRecord(ctx, data) {
+  const authorized = ctx.authorized;
+  return Process("models.agents.expense.voucher.Create", {
+    ...data,
+    __yao_created_by: authorized.user_id,
+    __yao_updated_by: authorized.user_id,
+    __yao_team_id: authorized.team_id || null,
+    __yao_tenant_id: authorized.tenant_id || null,
+  });
+}
+```
+
+**Querying with Permission Filter:**
+
+```javascript
+function getRecords(ctx) {
+  const authorized = ctx.authorized;
+  const constraints = authorized?.constraints || {};
+
+  const wheres = [];
+
+  // Team-based access: user's own records OR team records
+  if (constraints.team_only && authorized.team_id) {
+    wheres.push({
+      wheres: [
+        { column: "__yao_created_by", value: authorized.user_id },
+        {
+          column: "__yao_team_id",
+          value: authorized.team_id,
+          method: "orwhere",
+        },
+      ],
+    });
+  }
+  // Owner-only access
+  else if (constraints.owner_only) {
+    wheres.push({ column: "__yao_created_by", value: authorized.user_id });
+  }
+
+  return Process("models.agents.expense.voucher.Get", {
+    select: ["id", "title", "amount"],
+    wheres: wheres,
+  });
 }
 ```
 
