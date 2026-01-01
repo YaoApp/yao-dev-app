@@ -422,7 +422,7 @@ The agent system provides automatic search capabilities that can search the web,
 
 ### Search Configuration
 
-Search is configured in `assistant.yao` under the `uses` field:
+Search is configured in `package.yao` under the `uses` field:
 
 ```yaml
 uses:

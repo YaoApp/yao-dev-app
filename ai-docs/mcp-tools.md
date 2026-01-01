@@ -21,7 +21,7 @@ MCP tool names use a double-underscore separator:
 
 ## Configuring MCP Servers
 
-### In Assistant Configuration (assistant.yao)
+### In Assistant Configuration (package.yao)
 
 ```json
 {

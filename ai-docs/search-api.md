@@ -74,7 +74,7 @@ interface SearchIntent {
 
 ## Assistant Search Configuration
 
-### In assistant.yao
+### In package.yao
 
 ```json
 {
