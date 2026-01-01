@@ -14,12 +14,19 @@ assistants/<id>/
 ├── locales/             # Translations
 │   ├── en-us.yml
 │   └── zh-cn.yml
-├── src/                 # Hooks
+├── src/                 # Hooks & Scripts
 │   └── index.ts
-├── models/              # Database models
-│   └── data.mod.yao
-└── mcps/                # MCP servers
-    └── tools.mcp.yao
+├── models/              # Database models (→ agents.<id>.*)
+│   └── order.mod.yao    # → agents.my-assistant.order
+├── mcps/                # MCP servers (→ agents.<id>.*)
+│   ├── tools.mcp.yao    # → agents.my-assistant.tools
+│   └── mapping/         # Tool schemas
+│       └── tools/
+│           └── schemes/
+│               └── search.in.yao
+└── pages/               # Web UI (SUI)
+    └── index/
+        └── index.html
 ```
 
 ## package.yao
@@ -240,30 +247,69 @@ chat:
 
 ## MCP Server (mcps/tools.mcp.yao)
 
+MCP servers in `mcps/` are auto-loaded with `agents.<assistant-id>.` prefix.
+
 ```json
 {
-  "name": "Tools",
+  "label": "Tools",
   "description": "Custom tools",
   "transport": "process",
-  "process": {
-    "command": "node",
-    "args": ["server.js"]
+  "tools": {
+    "search": "agents.my-assistant.tools.Search",
+    "list_orders": "models.agents.my-assistant.order.Paginate"
   }
 }
 ```
 
-## Model (models/data.mod.yao)
+**Tool Schema (mcps/mapping/tools/schemes/search.in.yao):**
 
 ```json
 {
-  "name": "Data",
-  "table": { "name": "agent_data" },
-  "option": { "permission": true },
-  "columns": [
-    { "label": "ID", "name": "id", "type": "ID" },
-    { "label": "Name", "name": "name", "type": "string", "length": 200 }
-  ]
+  "type": "object",
+  "description": "Search records",
+  "properties": {
+    "keyword": { "type": "string" },
+    "limit": { "type": "integer", "default": 10 }
+  },
+  "x-process-args": [":arguments"]
 }
+```
+
+## Model (models/order.mod.yao)
+
+Models in `models/` are auto-loaded with `agents.<assistant-id>.` prefix.
+Tables are prefixed with `agents_<assistant-id>_`.
+
+```json
+{
+  "name": "Order",
+  "table": { "name": "order" },
+  "columns": [
+    { "name": "id", "type": "ID", "primary": true },
+    { "name": "order_no", "type": "string", "length": 100, "unique": true },
+    {
+      "name": "status",
+      "type": "enum",
+      "option": ["pending", "completed"],
+      "default": "pending"
+    },
+    { "name": "total", "type": "decimal", "precision": 10, "scale": 2 }
+  ],
+  "option": { "timestamps": true, "soft_deletes": true }
+}
+```
+
+**Usage in Hooks/Scripts:**
+
+```typescript
+// Model ID: agents.my-assistant.order
+// Table: agents_my_assistant_order
+Process("models.agents.my-assistant.order.Paginate", { limit: 10 });
+Process("models.agents.my-assistant.order.Find", id);
+Process("models.agents.my-assistant.order.Create", {
+  order_no: "001",
+  total: 100,
+});
 ```
 
 ## Pages (Web UI)
