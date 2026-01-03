@@ -109,30 +109,42 @@ Common Expr functions: `len()`, `filter()`, `map()`, `find()`, `count()`, `sum()
 ## Events
 
 ```html
-<button s:on-click="handleClick" s:data-id="{{ item.id }}" s:json-item="{{ item }}">
+<button s:on-click="HandleClick" s:data-id="{{ item.id }}" s:json-item="{{ item }}">
   Click
 </button>
 ```
 
+**Direct style** (simple pages):
+
 ```typescript
-function Page(component: HTMLElement) {
-  this.root = component;
-  this.store = new __sui_store(component);
-  this.state = new __sui_state(this);
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("#myForm") as HTMLFormElement;
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    // Handle submission
+  });
+});
+```
 
-  this.handleClick = async (event: Event, data: any, ctx: EventContext) => {
-    const id = data.id; // from s:data-id
-    const item = data.item; // from s:json-item
-    await this.backend.ApiDelete(id);
-  };
+**Component style** (interactive pages):
 
-  // State watchers
-  this.watch = {
-    count: (value, state) => {
-      this.root.querySelector(".count").textContent = value;
-    },
-  };
-}
+```typescript
+import { $Backend, Component, EventData } from "@yao/sui";
+
+const self = this as Component;
+
+self.HandleClick = async (event: Event, data: EventData) => {
+  const id = data.id; // from s:data-id
+  const item = data.item; // from s:json-item
+  await $Backend().Call("ApiDelete", id);
+};
+
+// State watchers
+self.watch = {
+  count: (value: number) => {
+    self.root.querySelector(".count")!.textContent = String(value);
+  },
+};
 ```
 
 ## Backend Script
@@ -192,16 +204,20 @@ function ApiGetItems(page: number, request: Request): any {
 ## Frontend API
 
 ```typescript
+import { $Backend, Component } from "@yao/sui";
+
+const self = this as Component;
+
+// Backend call
+const users = await $Backend().Call("ApiGetUsers");
+
+// Render target
+await self.render("userList", { users });
+
 // Component query
 const card = $$("#my-card");
 card.query(".title");
 card.queryAll(".item");
-
-// Backend call
-const users = await this.backend.ApiGetUsers();
-
-// Render target
-await this.render("userList", { users });
 
 // OpenAPI client
 const api = new OpenAPI({ baseURL: "/api" });
@@ -229,6 +245,37 @@ messages:
 script_messages:
   "Confirm?": "确定吗？"
 ```
+
+## CUI Integration
+
+When SUI pages are embedded in CUI via `/web/` routes:
+
+```typescript
+// Helper: Send action to CUI parent
+const sendAction = (name: string, payload?: any) => {
+  window.parent.postMessage(
+    { type: "action", message: { name, payload } },
+    window.location.origin
+  );
+};
+
+// Show notification
+sendAction("notify.success", { message: "Done!" });
+
+// Navigate
+sendAction("navigate", { route: "/agents/my-app/detail", title: "Details" });
+
+// Receive context from CUI
+window.addEventListener("message", (e) => {
+  if (e.origin !== window.location.origin) return;
+  if (e.data.type === "setup") {
+    const { theme, locale } = e.data.message;
+    document.documentElement.setAttribute("data-theme", theme);
+  }
+});
+```
+
+**Actions:** `navigate`, `navigate.back`, `notify.success/error/warning/info`, `app.menu.reload`, `modal.open/close`, `table.search/refresh`, `form.submit/reset`, `event.emit`, `confirm`
 
 ## Commands
 
@@ -274,16 +321,15 @@ function ApiAddItem(name: string, request: Request): any {
 **`/home/home.ts`**:
 
 ```typescript
-function home(component: HTMLElement) {
-  this.root = component;
-  this.store = new __sui_store(component);
+import { $Backend, Component } from "@yao/sui";
 
-  this.addItem = async (event: Event) => {
-    const input = this.root.querySelector("input") as HTMLInputElement;
-    await this.backend.ApiAddItem(input.value);
-    location.reload();
-  };
-}
+const self = this as Component;
+
+self.AddItem = async (event: Event) => {
+  const input = self.root.querySelector("input") as HTMLInputElement;
+  await $Backend().Call("ApiAddItem", input.value);
+  location.reload();
+};
 ```
 
 ### Page Config
