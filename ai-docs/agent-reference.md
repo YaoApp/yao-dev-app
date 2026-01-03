@@ -336,26 +336,9 @@ assistants/<id>/pages/       # Assistant pages
 
 **Build:** `yao sui build agent` / `yao sui watch agent`
 
-**Trigger from Hook:**
-
-```typescript
-// Open page in sidebar
-ctx.Send({
-  type: "action",
-  props: {
-    name: "navigate",
-    payload: {
-      route: "/agents/my-assistant/result",
-      title: "Results",
-      query: { id: "123" },
-    },
-  },
-});
-```
-
 **Open page from hook:**
 
-```javascript
+```typescript
 ctx.Send({
   type: "action",
   props: {
@@ -368,6 +351,63 @@ ctx.Send({
   },
 });
 ```
+
+## Frontend Script
+
+**Direct style (simple pages):**
+
+```typescript
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("#myForm") as HTMLFormElement;
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    // Handle submission
+  });
+});
+```
+
+**Component style (interactive pages):**
+
+```typescript
+import { $Backend, Component, EventData } from "@yao/sui";
+
+const self = this as Component;
+
+self.HandleClick = async (event: Event, data: EventData) => {
+  const result = await $Backend().Call("ApiMethod", data.id);
+};
+```
+
+## Iframe Communication
+
+Pages embedded in CUI (`/web/<assistant-id>/<page>`) can communicate with host:
+
+```typescript
+// Helper: Send action to CUI parent
+const sendAction = (name: string, payload?: any) => {
+  window.parent.postMessage(
+    { type: "action", message: { name, payload } },
+    window.location.origin
+  );
+};
+
+// Usage
+sendAction("notify.success", { message: "Done!" });
+sendAction("navigate", {
+  route: "/agents/my-assistant/detail",
+  title: "Details",
+});
+
+// Receive messages from CUI
+window.addEventListener("message", (e) => {
+  if (e.origin !== window.location.origin) return;
+  if (e.data.type === "setup") {
+    const { theme, locale } = e.data.message;
+  }
+});
+```
+
+**Actions:** `navigate`, `navigate.back`, `notify.success/error/warning/info`, `app.menu.reload`, `modal.open/close`, `table.search/refresh/save/delete`, `form.find/submit/reset`, `mcp.tool.call`, `event.emit`, `confirm`
 
 ## Testing
 
