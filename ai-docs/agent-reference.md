@@ -374,7 +374,7 @@ import { $Backend, Component, EventData } from "@yao/sui";
 const self = this as Component;
 
 self.HandleClick = async (event: Event, data: EventData) => {
-  const result = await $Backend().Call("ApiMethod", data.id);
+  const result = await $Backend().Call("Method", data.id);
 };
 ```
 

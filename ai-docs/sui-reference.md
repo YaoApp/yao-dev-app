@@ -31,11 +31,16 @@
 ### Data Binding
 
 ```html
-{{ name }}                       <!-- Variable -->
-{{ user.email }}                 <!-- Nested -->
-{{ title ?? 'Default' }}         <!-- Default value -->
-{{ price * quantity }}           <!-- Expression -->
-{{ count > 0 ? 'Yes' : 'No' }}   <!-- Ternary -->
+{{ name }}
+<!-- Variable -->
+{{ user.email }}
+<!-- Nested -->
+{{ title ?? 'Default' }}
+<!-- Default value -->
+{{ price * quantity }}
+<!-- Expression -->
+{{ count > 0 ? 'Yes' : 'No' }}
+<!-- Ternary -->
 ```
 
 ### Conditionals
@@ -109,7 +114,11 @@ Common Expr functions: `len()`, `filter()`, `map()`, `find()`, `count()`, `sum()
 ## Events
 
 ```html
-<button s:on-click="HandleClick" s:data-id="{{ item.id }}" s:json-item="{{ item }}">
+<button
+  s:on-click="HandleClick"
+  s:data-id="{{ item.id }}"
+  s:json-item="{{ item }}"
+>
   Click
 </button>
 ```
@@ -136,7 +145,7 @@ const self = this as Component;
 self.HandleClick = async (event: Event, data: EventData) => {
   const id = data.id; // from s:data-id
   const item = data.item; // from s:json-item
-  await $Backend().Call("ApiDelete", id);
+  await $Backend().Call("Delete", id);
 };
 
 // State watchers
@@ -162,14 +171,18 @@ function formatDate(d: string): string {
 }
 
 // Called before render (data merged with page data)
-function BeforeRender(request: Request, props?: Record<string, any>): Record<string, any> {
+function BeforeRender(
+  request: Request,
+  props?: Record<string, any>
+): Record<string, any> {
   return {
     user: Process("session.Get", "user"),
     items: Process("models.item.Get", { limit: 10 }),
   };
 }
 
-// API methods (callable from frontend as this.backend.ApiXxx)
+// API methods (callable from frontend as $Backend().Call("GetItems", ...))
+// Backend automatically adds "Api" prefix - frontend calls without it
 function ApiGetItems(page: number, request: Request): any {
   return Process("models.item.Paginate", { page, pageSize: 10 });
 }
@@ -179,17 +192,17 @@ function ApiGetItems(page: number, request: Request): any {
 
 ### Built-in Variables
 
-| Variable     | Description          |
-| ------------ | -------------------- |
-| `$query`     | URL query params     |
-| `$param`     | Route params         |
-| `$payload`   | POST body            |
-| `$cookie`    | Cookies              |
-| `$url`       | URL info (.path, .host, .domain, .scheme) |
-| `$theme`     | Current theme        |
-| `$locale`    | Current locale       |
-| `$global`    | From `__data.json`   |
-| `$auth`      | OAuth info (if guard="oauth") |
+| Variable   | Description                               |
+| ---------- | ----------------------------------------- |
+| `$query`   | URL query params                          |
+| `$param`   | Route params                              |
+| `$payload` | POST body                                 |
+| `$cookie`  | Cookies                                   |
+| `$url`     | URL info (.path, .host, .domain, .scheme) |
+| `$theme`   | Current theme                             |
+| `$locale`  | Current locale                            |
+| `$global`  | From `__data.json`                        |
+| `$auth`    | OAuth info (if guard="oauth")             |
 
 ### Page Data (`<page>.json`)
 
@@ -208,8 +221,8 @@ import { $Backend, Component } from "@yao/sui";
 
 const self = this as Component;
 
-// Backend call
-const users = await $Backend().Call("ApiGetUsers");
+// Backend call (calls ApiGetUsers in backend, without "Api" prefix)
+const users = await $Backend().Call("GetUsers");
 
 // Render target
 await self.render("userList", { users });
@@ -222,18 +235,21 @@ card.queryAll(".item");
 // OpenAPI client
 const api = new OpenAPI({ baseURL: "/api" });
 const res = await api.Get<User[]>("/users");
-if (api.IsError(res)) { console.error(res.error); }
+if (api.IsError(res)) {
+  console.error(res.error);
+}
 
 // File upload
 const fileApi = new FileAPI(api);
-await fileApi.Upload(file, { path: "uploads" }, (p) => console.log(p.percentage));
+await fileApi.Upload(file, { path: "uploads" }, (p) =>
+  console.log(p.percentage)
+);
 ```
 
 ## i18n
 
 ```html
-<span s:trans>Hello World</span>
-<span>{{ '::Welcome' }}</span>
+<span s:trans>Hello World</span> <span>{{ '::Welcome' }}</span>
 ```
 
 **`__locales/zh-cn/<route>.yml`**:
@@ -327,7 +343,7 @@ const self = this as Component;
 
 self.AddItem = async (event: Event) => {
   const input = self.root.querySelector("input") as HTMLInputElement;
-  await $Backend().Call("ApiAddItem", input.value);
+  await $Backend().Call("AddItem", input.value);
   location.reload();
 };
 ```
