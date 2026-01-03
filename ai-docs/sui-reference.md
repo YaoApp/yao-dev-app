@@ -7,23 +7,32 @@
 ```
 /templates/<template>/
 ├── __document.html          # Global HTML wrapper (contains {{ __page }})
-├── __data.json              # Global data
-├── __assets/                # Static assets
-├── __locales/<locale>/      # i18n files (.yml)
-└── <route>/<page>/
-    ├── <page>.html          # Template
-    ├── <page>.css           # Styles (auto-scoped)
-    ├── <page>.ts            # Frontend script
-    ├── <page>.json          # Data config
-    ├── <page>.config        # Page config (title, guard, cache)
-    └── <page>.backend.ts    # Server-side script
+├── __data.json              # Global data (accessible via $global)
+├── __assets/                # Static assets (reference via @assets/)
+├── __locales/               # Global i18n files (.yml)
+└── pages/                   # All pages go here
+    └── <page>/              # Route = folder name (can be nested: foo/bar/page)
+        ├── <page>.html          # Template (filename must match folder name)
+        ├── <page>.css           # Styles (auto-scoped)
+        ├── <page>.ts            # Frontend script (NOT auto-compiled, use .js for runtime)
+        ├── <page>.json          # Data config
+        ├── <page>.config        # Page config (title, guard, cache)
+        ├── <page>.backend.ts    # Server-side script
+        └── __locales/           # Page-level i18n files
 ```
 
 **Agent SUI** (for AI assistants):
 
 ```
-/agent/template/             # Global template
+/agent/template/             # Global template (shared across all assistants)
+├── __document.html
+├── __data.json
+├── __assets/
+└── pages/                   # Global pages (401, 404, etc.)
+    └── <page>/
+
 /assistants/<name>/pages/    # Assistant pages → /agents/<name>/<route>
+└── <page>/                  # Can be nested: foo/bar/page → /agents/<name>/foo/bar/page
 ```
 
 ## Template Syntax
@@ -192,17 +201,18 @@ function ApiGetItems(page: number, request: Request): any {
 
 ### Built-in Variables
 
-| Variable   | Description                               |
-| ---------- | ----------------------------------------- |
-| `$query`   | URL query params                          |
-| `$param`   | Route params                              |
-| `$payload` | POST body                                 |
-| `$cookie`  | Cookies                                   |
-| `$url`     | URL info (.path, .host, .domain, .scheme) |
-| `$theme`   | Current theme                             |
-| `$locale`  | Current locale                            |
-| `$global`  | From `__data.json`                        |
-| `$auth`    | OAuth info (if guard="oauth")             |
+| Variable     | Description                               |
+| ------------ | ----------------------------------------- |
+| `$query`     | URL query params                          |
+| `$param`     | Route params                              |
+| `$payload`   | POST body                                 |
+| `$cookie`    | Cookies                                   |
+| `$url`       | URL info (.path, .host, .domain, .scheme) |
+| `$theme`     | Current theme ('light' or 'dark')         |
+| `$locale`    | Current locale (e.g., 'zh-CN', 'en-US')   |
+| `$direction` | Text direction ('ltr' or 'rtl')           |
+| `$global`    | From `__data.json`                        |
+| `$auth`      | OAuth info (if guard="oauth")             |
 
 ### Page Data (`<page>.json`)
 
@@ -246,20 +256,121 @@ await fileApi.Upload(file, { path: "uploads" }, (p) =>
 );
 ```
 
-## i18n
+## i18n (Internationalization)
+
+### Server-Side Translation (s:trans)
+
+`s:trans` is **server-side rendered**. The translation happens when the page is generated on the server. To apply locale changes, the page must be reloaded.
 
 ```html
-<span s:trans>Hello World</span> <span>{{ '::Welcome' }}</span>
+<span s:trans>Hello World</span>
 ```
 
-**`__locales/zh-cn/<route>.yml`**:
+### Dynamic Translation ({{ '::text' }})
+
+For text inside attributes or dynamic content:
+
+```html
+<input placeholder="{{ '::Enter your name' }}" />
+```
+
+### Locale Files
+
+Locale files can be placed at:
+
+1. **Page-level**: `<page>/__locales/zh-cn.yml` (highest priority)
+2. **Template-level**: `__locales/zh-cn.yml`
+
+**File format:**
 
 ```yaml
 messages:
   Hello World: 你好世界
   Welcome: 欢迎
+  Enter your name: 请输入您的姓名
+
 script_messages:
   "Confirm?": "确定吗？"
+```
+
+### Locale Detection
+
+SUI reads locale from the `locale` HTTP cookie. To change locale and have `s:trans` reflect the change, you must:
+
+1. Set the `locale` cookie
+2. Reload the page
+
+```javascript
+// Set locale cookie and reload
+document.cookie = "locale=zh-CN;path=/;max-age=31536000";
+location.reload();
+```
+
+## Theming
+
+### CSS Variables
+
+Define CSS variables in your global stylesheet. Use `data-theme` attribute for theme switching:
+
+```css
+:root {
+  --color_primary: #3371fc;
+  --color_bg: #ffffff;
+  --color_text: #1f2937;
+}
+
+[data-theme="dark"] {
+  --color_primary: #4580ff;
+  --color_bg: #0a0a0a;
+  --color_text: #f3f4f6;
+}
+```
+
+### Using Theme in Templates
+
+```html
+<html lang="{{ $locale }}" data-theme="{{ $theme }}">
+  <body data-theme="{{ $theme }}" dir="{{ $direction }}">
+    {{ __page }}
+  </body>
+</html>
+```
+
+### Theme Switching
+
+Theme can be switched client-side by changing the `data-theme` attribute:
+
+```javascript
+document.documentElement.setAttribute("data-theme", "dark");
+```
+
+## Assets Reference
+
+Use `@assets/` prefix to reference files in `__assets/` directory:
+
+```html
+<link rel="stylesheet" href="@assets/css/styles.css" />
+<script src="@assets/js/app.js"></script>
+<img src="@assets/images/logo.png" />
+```
+
+## TypeScript in Frontend
+
+**Important:** Frontend `.ts` files are NOT automatically compiled. For runtime JavaScript:
+
+1. Use `.js` files directly, OR
+2. Use `.ts` for type checking during development, but ensure there's a compiled `.js` for runtime
+
+**Type Declarations:**
+
+For global JavaScript APIs (like custom libraries), create `.d.ts` files and reference them:
+
+```typescript
+/// <reference path="../../__assets/js/my-lib.d.ts" />
+import { Component } from "@yao/sui";
+
+const self = this as Component;
+// Now TypeScript knows about global types
 ```
 
 ## CUI Integration
@@ -302,6 +413,28 @@ yao sui watch <sui> [template]     # Watch
 yao sui build agent                # Build Agent SUI
 yao sui trans <sui> <template>     # Extract translations
 ```
+
+## Common Pitfalls
+
+### 1. s:trans Not Updating After Locale Change
+
+`s:trans` is server-side rendered. Changing locale via JavaScript only affects `localStorage`/cookies but doesn't re-render the page. **Solution:** Reload the page after changing locale.
+
+### 2. Locale Cookie vs localStorage
+
+SUI server reads locale from the `locale` HTTP cookie, not `localStorage`. If you only set `localStorage`, server-side translations won't work. **Solution:** Always set the `locale` cookie when changing locale.
+
+### 3. TypeScript Files Not Working at Runtime
+
+Frontend `.ts` files are for development type checking only. They are not compiled at runtime. **Solution:** Use `.js` files with JSDoc comments for type hints, or ensure `.ts` files are compiled.
+
+### 4. Missing Global Data
+
+Global data from `__data.json` is accessed via `$global`, not directly. **Example:** `{{ $global.title }}` not `{{ title }}` (unless title is also in page data).
+
+### 5. Asset Paths
+
+Always use `@assets/` prefix for assets in `__assets/` directory. Relative paths won't work correctly across different routes.
 
 ## Quick Examples
 
