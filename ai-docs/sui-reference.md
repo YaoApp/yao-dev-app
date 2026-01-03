@@ -169,6 +169,11 @@ self.watch = {
 
 **`<page>.backend.ts`**:
 
+> **⚠️ Important Notes:**
+>
+> - Backend scripts do NOT support ES Module `export` syntax. Simply define functions directly.
+> - `$param`, `$query` etc. are NOT available as global variables. Access via `request` parameter.
+
 ```typescript
 // Constants available in frontend
 const __sui_constants = { API_URL: "/api" };
@@ -196,6 +201,43 @@ function ApiGetItems(page: number, request: Request): any {
   return Process("models.item.Paginate", { page, pageSize: 10 });
 }
 ```
+
+### Data Binding Methods (Called from `.json`)
+
+Use `@MethodName` in `.json` to call backend functions. **Request is appended as the last argument:**
+
+| Call Source                  | Function Name   | Example Call                    |
+| ---------------------------- | --------------- | ------------------------------- |
+| Frontend `$Backend().Call()` | `ApiMethodName` | `$Backend().Call("MethodName")` |
+| `.json` data binding         | `MethodName`    | `"$data": "@MethodName"`        |
+| Before render                | `BeforeRender`  | Automatic                       |
+
+**Example:**
+
+```json
+{
+  "$record": "@GetRecord",
+  "$items": { "process": "@GetItems", "args": ["active", 20] }
+}
+```
+
+```typescript
+// "$record": "@GetRecord" → receives (request)
+function GetRecord(request: Request): any {
+  const id = request.params.id; // Access route params via request!
+  return Process("models.record.Find", id);
+}
+
+// { "process": "@GetItems", "args": ["active", 20] } → receives ("active", 20, request)
+function GetItems(status: string, limit: number, request: Request): any[] {
+  return Process("models.item.Get", {
+    wheres: [{ column: "status", value: status }],
+    limit: limit,
+  });
+}
+```
+
+> **Common Mistake:** `$param.id` does NOT work in backend scripts. Use `request.params.id`.
 
 ## Data Sources
 
@@ -343,6 +385,51 @@ Theme can be switched client-side by changing the `data-theme` attribute:
 ```javascript
 document.documentElement.setAttribute("data-theme", "dark");
 ```
+
+## Routing
+
+### Dynamic Routes
+
+Use `[param]` folders for dynamic route segments:
+
+```
+/pages/users/[id]/           → /users/123      → $param.id = "123"
+/pages/posts/[slug]/         → /posts/hello    → $param.slug = "hello"
+/pages/[category]/[id]/      → /news/456       → $param.category = "news", $param.id = "456"
+```
+
+### URL Rewriting (app.yao)
+
+SUI requires URL rewriting to map URLs to `.sui` files. Configure in `app.yao`:
+
+```json
+{
+  "public": {
+    "rewrite": [
+      { "^\\/assets\\/(.*)$": "/assets/$1" },
+      { "^\\/users\\/([^\\/]+)$": "/users/[id].sui" },
+      { "^\\/posts\\/([^\\/]+)\\/edit$": "/posts/[id]/edit.sui" },
+      { "^\\/(.*)$": "/$1.sui" }
+    ]
+  }
+}
+```
+
+**Rules:**
+
+- Processed top-to-bottom, first match wins
+- Place specific routes before general ones
+- Catch-all `/$1.sui` must be last
+- Use `([^\\/]+)` to match a single segment
+
+### Route Parameters Access
+
+| Context        | Method              | Example                         |
+| -------------- | ------------------- | ------------------------------- |
+| HTML Template  | `{{ $param.id }}`   | `<h1>{{ $param.id }}</h1>`      |
+| `.json` Config | `"$param.id"`       | `"userId": "$param.id"`         |
+| Backend Script | `request.params.id` | `const id = request.params.id;` |
+| Frontend       | DOM data attribute  | `el.dataset.id`                 |
 
 ## Assets Reference
 
