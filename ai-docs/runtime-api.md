@@ -6,6 +6,56 @@ Yao uses a V8 JavaScript runtime (powered by [gou](https://github.com/yaoapp/gou
 
 ## Global Functions
 
+### Authorized
+
+Get the authenticated user information from the current context. This function is available when the page/script is protected by an OAuth guard.
+
+```typescript
+function Authorized(): AuthorizedInfo | null;
+
+interface AuthorizedInfo {
+  user_id?: string; // User ID
+  team_id?: string; // Team ID (for team users)
+  owner_id?: string; // Owner ID (may be pre-computed)
+  scope?: string; // Permission scope (e.g., "read write")
+  constraints?: Record<string, any>; // Additional constraints
+}
+```
+
+**Usage:**
+
+```javascript
+// Get authorized info
+const auth = Authorized();
+
+if (!auth) {
+  throw new Error("Not authenticated");
+}
+
+// Access user info
+const userId = auth.user_id;
+const teamId = auth.team_id;
+const scope = auth.scope;
+
+// Get owner ID (priority: owner_id > team_id > user_id)
+function getOwnerID() {
+  const auth = Authorized();
+  if (!auth) return null;
+  return auth.owner_id || auth.team_id || auth.user_id || null;
+}
+```
+
+**Note:** This function requires the page to be protected by an OAuth guard. Configure in `.config` file:
+
+```json
+{
+  "title": "Page Title",
+  "guard": "oauth"
+}
+```
+
+---
+
 ### Process
 
 The most important function for calling Yao backend processes.
