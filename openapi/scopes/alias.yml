@@ -313,6 +313,8 @@ trace:admin:
 system:root:
   - "*:*:*" # Matches 3-part scopes (resource:action:level)
   - "*:*:*:*" # Matches 4-part scopes (e.g., member:profile:update:own)
+  - "*:*:*:*:*" # Matches 5-part scopes
+  - "*:*:*:*:*:*" # Matches 6-part scopes
 
 # Public access permission - can only access public content
 user:public:
@@ -320,3 +322,25 @@ user:public:
   - kb:read
   - job:read
   - file:read
+
+# ============ __yao Built-in API Aliases ============
+
+__yao:all:
+  - __yao:yao:execute:all
+
+__yao:all:own:
+  - __yao:yao:execute:own
+
+__yao:all:team:
+  - __yao:yao:execute:team
+
+# ============ api Developer API Aliases ============
+
+api:all:
+  - api:api:execute:all
+
+api:all:own:
+  - api:api:execute:own
+
+api:all:team:
+  - api:api:execute:team
