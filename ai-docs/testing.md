@@ -164,6 +164,30 @@ Each line is a JSON object. Examples by scenario:
 }
 ```
 
+### Multimodal Input (Images, Audio, Files)
+
+For local files, use `type: "image"` (or `"audio"`, `"file"`) with `source: "file://path"`:
+
+```jsonl
+// ✅ CORRECT: Load local image file
+{"id": "T003", "input": {"role": "user", "content": [{"type": "text", "text": "Analyze this image"}, {"type": "image", "source": "file://test.png"}]}}
+
+// ✅ CORRECT: Load local audio file
+{"id": "T004", "input": {"role": "user", "content": [{"type": "text", "text": "Transcribe this"}, {"type": "audio", "source": "file://audio.mp3"}]}}
+
+// ❌ WRONG: image_url does NOT support file:// protocol
+{"id": "T005", "input": {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "file://test.png"}}]}}
+```
+
+**Important**: The `file://` path is relative to the `tests/` directory where `inputs.jsonl` is located.
+
+| Type        | Use Case                          | Format                                      |
+| ----------- | --------------------------------- | ------------------------------------------- |
+| `image`     | Load local image file             | `{"type": "image", "source": "file://..."}`  |
+| `audio`     | Load local audio file             | `{"type": "audio", "source": "file://..."}`  |
+| `file`      | Load local file (PDF, etc.)       | `{"type": "file", "source": "file://..."}`   |
+| `image_url` | Remote URL only (no file://)      | `{"type": "image_url", "image_url": {"url": "https://..."}}` |
+
 ### With Assertions
 
 ```jsonl
@@ -957,6 +981,52 @@ yao agent test -i tests/inputs.jsonl --runs 5 -o stability.json
 | ---- | --------------------------------------------------- |
 | 0    | All tests passed                                    |
 | 1    | Tests failed, configuration error, or runtime error |
+
+## Debugging Tips
+
+### Debugging Agent Call Chain
+
+When tests fail unexpectedly (e.g., wrong agent being called), add debug logging to trace the call chain:
+
+```typescript
+// In your agent's index.ts
+function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
+  console.log("[DEBUG Create] Agent:", ctx.assistant_id);
+  console.log("[DEBUG Create] Messages:", JSON.stringify(messages));
+  // ... rest of hook
+}
+
+function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
+  console.log("[DEBUG Next] Tools:", payload.tools?.length || 0);
+  console.log("[DEBUG Next] Tool results:", JSON.stringify(payload.tools));
+  // ... rest of hook
+}
+```
+
+### Common Issues
+
+| Symptom                              | Likely Cause                                     | Solution                                               |
+| ------------------------------------ | ------------------------------------------------ | ------------------------------------------------------ |
+| Wrong agent called                   | Next hook delegates to main agent                | Return `data` or `null` instead of `delegate`          |
+| "System not initialized" error       | Main agent's Create hook redirects to setup      | Check session state or ensure proper initialization    |
+| Tool not called by LLM               | MCP tools not registered or prompt unclear       | Check `package.yao` mcp.servers and prompts.yml        |
+| Image test fails with multi-modal    | Using `image_url` type with `file://`            | Use `type: "image"` with `source: "file://..."`        |
+| Infinite retry loop                  | No retry counter or max attempts check           | Implement retry counter pattern                        |
+| LLM ignores error and doesn't retry  | Returning `data` instead of `messages` for retry | Return `{ messages: [...] }` to add to conversation    |
+
+### Verbose Output
+
+Use `-v` flag to see detailed test execution:
+
+```bash
+yao agent test -n expense.submission -i tests/inputs.jsonl -v
+```
+
+This shows:
+- Agent resolution info
+- Tool calls and results
+- LLM responses
+- Hook execution
 
 ## See Also
 

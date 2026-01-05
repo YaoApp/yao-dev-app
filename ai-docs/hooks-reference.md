@@ -330,6 +330,204 @@ function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
 5. **Hooks can send messages** via `ctx.Send()`, `ctx.SendStream()`
 6. **Delegation** allows chaining agents together
 
+## Best Practices & Common Pitfalls
+
+### ⚠️ Micro-Agent Architecture: One Agent, One Job
+
+**Design Principle**: Adopt a "micro-agent" architecture where each agent focuses on a single responsibility. This makes agents easier to test, maintain, and compose.
+
+```
+Main Agent (Router)
+├── setup       → System initialization only
+├── submission  → Expense submission only
+├── query       → Data queries only
+└── analysis    → Analytics only
+```
+
+### ⚠️ Be Careful When Delegating Back to Main Agent
+
+Sub-agent delegating back to main agent can cause issues if not handled properly:
+
+**When it's problematic**:
+
+- Main agent has initialization checks that redirect to setup agent → causes loops
+- Main agent doesn't expect the handover message format
+
+```typescript
+// ⚠️ RISKY: May cause loops if main agent redirects
+function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
+  if (success) {
+    return {
+      delegate: {
+        agent_id: "expense", // Main agent - be careful!
+        messages: [{ role: "user", content: "Done" }],
+      },
+    };
+  }
+  return null;
+}
+```
+
+**When it's acceptable**:
+
+- Main agent explicitly supports handover (checks metadata or message format)
+- After completing a task, user needs intent re-recognition for next action
+- Main agent's Create hook handles the handover gracefully
+
+```typescript
+// ✅ RECOMMENDED: Stay self-contained, return data
+function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
+  if (success) {
+    ctx.Send("✅ Operation completed! What would you like to do next?");
+    return {
+      data: { status: "success", result: result },
+    };
+  }
+  return null;
+}
+
+// ✅ ACCEPTABLE: Delegate with proper metadata if main agent supports it
+function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
+  if (success) {
+    ctx.Send("✅ Expense submitted!");
+    return {
+      delegate: {
+        agent_id: "expense",
+        messages: [{ role: "user", content: "continue" }],
+        options: {
+          metadata: { from: "submission", completed: true }, // Signal to main agent
+        },
+      },
+    };
+  }
+  return null;
+}
+```
+
+**Best Practice**: Keep sub-agents self-contained. If delegation is needed, ensure the main agent's Create hook explicitly handles the handover scenario.
+
+### ⚠️ LLM Retry Mechanism
+
+**Problem**: Returning `data` with error info doesn't trigger LLM retry.
+
+```typescript
+// ❌ WRONG: LLM won't see this and retry
+function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
+  if (validationFailed) {
+    return {
+      data: {
+        status: "retry",
+        message: "Please fix: amount is invalid",
+      },
+    };
+  }
+}
+```
+
+**Solution**: Return `messages` to add error info to conversation, letting LLM see it and retry.
+
+```typescript
+// ✅ CORRECT: Add error message to conversation for LLM to see and retry
+function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
+  if (validationFailed && retryCount < MAX_RETRIES) {
+    incrementRetryCount(ctx);
+    return {
+      messages: [
+        {
+          role: "user",
+          content: `Validation failed: ${errorDetails}. Please re-analyze and call the tool again.`,
+        },
+      ],
+    };
+  }
+
+  // Max retries exceeded - notify user
+  ctx.Send("❌ Failed after multiple attempts. Please provide clearer input.");
+  return null;
+}
+```
+
+### ⚠️ Session State Management
+
+Use session state to track multi-turn flows:
+
+```typescript
+// In Create hook - mark flow as active
+function Create(ctx: agent.Context, messages: agent.Message[]): agent.Create {
+  SetSessionState(ctx, "submission"); // Mark we're in submission flow
+  return { messages };
+}
+
+// In Next hook - check and clear state
+function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
+  if (success) {
+    ClearSessionState(ctx); // Clear when flow completes
+    return { data: { status: "success" } };
+  }
+  // Keep state active for retry
+  return null;
+}
+
+// Helper functions
+function SetSessionState(ctx: agent.Context, state: string) {
+  ctx.memory.chat.Set("session_state", state);
+}
+
+function ClearSessionState(ctx: agent.Context) {
+  ctx.memory.chat.Del("session_state");
+}
+```
+
+### ⚠️ Retry Counter Pattern
+
+Track retry attempts to prevent infinite loops:
+
+```typescript
+const MAX_RETRY_ATTEMPTS = 3;
+const RETRY_COUNT_KEY = "retry_count";
+
+function getRetryCount(ctx: agent.Context): number {
+  return ctx.memory.context.Get(RETRY_COUNT_KEY) || 0;
+}
+
+function incrementRetryCount(ctx: agent.Context): void {
+  const count = getRetryCount(ctx);
+  ctx.memory.context.Set(RETRY_COUNT_KEY, count + 1);
+}
+
+function clearRetryCount(ctx: agent.Context): void {
+  ctx.memory.context.Del(RETRY_COUNT_KEY);
+}
+
+function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
+  const retryCount = getRetryCount(ctx);
+
+  if (needsRetry && retryCount < MAX_RETRY_ATTEMPTS) {
+    incrementRetryCount(ctx);
+    return {
+      messages: [
+        {
+          role: "user",
+          content: `Error: ${error}. Retry ${
+            retryCount + 1
+          }/${MAX_RETRY_ATTEMPTS}`,
+        },
+      ],
+    };
+  }
+
+  if (retryCount >= MAX_RETRY_ATTEMPTS) {
+    clearRetryCount(ctx);
+    ctx.Send("❌ Max retries exceeded.");
+    return null;
+  }
+
+  // Success
+  clearRetryCount(ctx);
+  return { data: { status: "success" } };
+}
+```
+
 ## See Also
 
 - [Agent Context API](./agent-context-api.md)
