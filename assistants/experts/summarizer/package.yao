@@ -1,0 +1,18 @@
+{
+  "name": "Summarizer Expert",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Expert agent for creating concise summaries from long content.",
+  "options": { "temperature": 0.3 },
+  "public": false,
+  "placeholder": {
+    "title": "Summarizer",
+    "description": "Create concise summaries",
+    "prompts": ["Summarize this", "Key points", "TL;DR"]
+  },
+  "tags": ["Expert", "Summary"],
+  "sort": 23,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}

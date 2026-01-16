@@ -1,0 +1,26 @@
+{
+  "name": "Web Reader Expert",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Expert agent for analyzing and extracting information from web content.",
+  "options": { "temperature": 0.3 },
+  "public": false,
+  "placeholder": {
+    "title": "Web Reader",
+    "description": "Extract and analyze web content",
+    "prompts": [
+      "Analyze this webpage",
+      "Extract key information",
+      "Summarize article"
+    ]
+  },
+  "tags": ["Expert", "Web", "Reader"],
+  "sort": 21,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false,
+  "hooks": {
+    "create": "src/index:Create",
+    "next": "src/index:Next"
+  }
+}

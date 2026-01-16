@@ -1,0 +1,18 @@
+{
+  "name": "Robot Validation Agent (P3)",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "P3 Phase Agent - Validates task results against expected output and validation rules using semantic analysis.",
+  "options": { "temperature": 0.2 },
+  "public": false,
+  "placeholder": {
+    "title": "Result Validator",
+    "description": "Validate task outputs against criteria",
+    "prompts": ["Validate this result", "Check if output meets criteria", "Verify completion"]
+  },
+  "tags": ["Robot", "P3", "Validation"],
+  "sort": 13,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Robot Delivery Agent (P4)",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "P4 Phase Agent - Formats and prepares results for delivery to specified targets.",
+  "options": { "temperature": 0.3 },
+  "public": false,
+  "placeholder": {
+    "title": "Result Formatter",
+    "description": "Format results for delivery",
+    "prompts": ["Prepare report for email", "Format results", "Generate delivery content"]
+  },
+  "tags": ["Robot", "P4", "Delivery"],
+  "sort": 14,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Robot Inspiration Agent (P0)",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "P0 Phase Agent - Analyzes clock context and robot identity to generate inspiration report for goal setting.",
+  "options": { "temperature": 0.7 },
+  "public": false,
+  "placeholder": {
+    "title": "Inspiration Generator",
+    "description": "Generate insights based on time context and robot duties",
+    "prompts": ["What should I focus on today?", "Morning briefing", "Analyze current situation"]
+  },
+  "tags": ["Robot", "P0", "Inspiration"],
+  "sort": 10,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}

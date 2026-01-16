@@ -1,0 +1,18 @@
+{
+  "name": "Text Writer Expert",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Expert agent for generating text content - reports, summaries, emails, documentation.",
+  "options": { "temperature": 0.7 },
+  "public": false,
+  "placeholder": {
+    "title": "Text Writer",
+    "description": "Generate professional text content",
+    "prompts": ["Write a report", "Draft an email", "Create a summary"]
+  },
+  "tags": ["Expert", "Text", "Writer"],
+  "sort": 20,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Robot Goals Agent (P1)",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "P1 Phase Agent - Generates prioritized goals from inspiration report or trigger input, including success criteria and delivery targets.",
+  "options": { "temperature": 0.5 },
+  "public": false,
+  "placeholder": {
+    "title": "Goal Generator",
+    "description": "Convert insights into actionable goals with validation criteria",
+    "prompts": ["Set today's goals", "What should I accomplish?", "Define objectives"]
+  },
+  "tags": ["Robot", "P1", "Goals"],
+  "sort": 11,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}

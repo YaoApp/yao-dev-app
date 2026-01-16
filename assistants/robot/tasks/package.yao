@@ -1,0 +1,18 @@
+{
+  "name": "Robot Tasks Agent (P2)",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "P2 Phase Agent - Splits goals into executable tasks with executor assignments and validation rules.",
+  "options": { "temperature": 0.3 },
+  "public": false,
+  "placeholder": {
+    "title": "Task Planner",
+    "description": "Break down goals into specific executable tasks",
+    "prompts": ["Plan tasks for goals", "Create action items", "Assign executors"]
+  },
+  "tags": ["Robot", "P2", "Tasks"],
+  "sort": 12,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}

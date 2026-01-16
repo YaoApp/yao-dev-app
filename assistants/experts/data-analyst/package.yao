@@ -1,0 +1,18 @@
+{
+  "name": "Data Analyst Expert",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Expert agent for analyzing data, identifying patterns, and generating insights.",
+  "options": { "temperature": 0.2 },
+  "public": false,
+  "placeholder": {
+    "title": "Data Analyst",
+    "description": "Analyze data and generate insights",
+    "prompts": ["Analyze this data", "Find patterns", "Generate insights"]
+  },
+  "tags": ["Expert", "Data", "Analyst"],
+  "sort": 22,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}
