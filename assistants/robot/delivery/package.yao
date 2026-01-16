@@ -1,7 +1,7 @@
 {
   "name": "Robot Delivery Agent (P4)",
   "avatar": "/api/__yao/app/icons/app.png",
-  "connector": "gpt-4o",
+  "connector": "deepseek.v3",
   "description": "P4 Phase Agent - Formats and prepares results for delivery to specified targets.",
   "options": { "temperature": 0.3 },
   "public": false,

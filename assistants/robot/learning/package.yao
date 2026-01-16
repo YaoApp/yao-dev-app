@@ -1,7 +1,7 @@
 {
   "name": "Robot Learning Agent (P5)",
   "avatar": "/api/__yao/app/icons/app.png",
-  "connector": "gpt-4o",
+  "connector": "deepseek.v3",
   "description": "P5 Phase Agent - Analyzes execution to extract insights, patterns, and improvement suggestions for the robot's knowledge base.",
   "options": { "temperature": 0.5 },
   "public": false,

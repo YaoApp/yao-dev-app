@@ -1,7 +1,7 @@
 {
   "name": "Robot Validation Agent (P3)",
   "avatar": "/api/__yao/app/icons/app.png",
-  "connector": "gpt-4o",
+  "connector": "deepseek.v3",
   "description": "P3 Phase Agent - Validates task results against expected output and validation rules using semantic analysis.",
   "options": { "temperature": 0.2 },
   "public": false,

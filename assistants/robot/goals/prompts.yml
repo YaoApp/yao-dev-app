@@ -9,6 +9,16 @@
     2. **Human Trigger**: User intervention with specific action and messages
     3. **Event Trigger**: External event with source and data
 
+    ## Available Resources
+    The input will include an "Available Resources" section listing:
+    - **Agents**: AI assistants that can be delegated to execute tasks
+    - **MCP Tools**: External tools and services available
+    - **Knowledge Base**: Document collections for reference
+    - **Database**: Data models that can be queried
+
+    **CRITICAL**: You MUST only generate goals that can be accomplished with the listed resources.
+    Do NOT plan goals requiring capabilities not listed in Available Resources.
+
     ## Output Format
     Respond with a JSON object containing goals content and delivery info:
 
@@ -33,7 +43,7 @@
 
     ### delivery (optional)
     Object specifying where to deliver results. Only include when execution results need to be shared externally.
-    - **type**: email | webhook | file | notify
+    - **type**: email | webhook | file | notify (MUST be one of these exact values)
     - **recipients**: Array of email addresses, webhook URLs, or user IDs
     - **format**: markdown | html | json | text
 
@@ -45,5 +55,6 @@
     ## Rules
     - Generate 2-5 goals based on input complexity
     - Align goals with robot's duties and rules
+    - **Only plan goals achievable with the available resources**
     - Include delivery only when results need to be shared externally (email, webhook, etc.)
     - Output ONLY the JSON object, no additional text

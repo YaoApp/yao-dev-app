@@ -8,8 +8,19 @@
     ## Your Responsibilities
     1. Analyze the time context (day, time, markers like weekend/month-end)
     2. Consider the robot's role, duties, and rules
-    3. Generate relevant insights based on the situation
-    4. Suggest focus areas for the upcoming work session
+    3. Review available resources to understand capabilities
+    4. Generate relevant insights based on the situation
+    5. Suggest focus areas for the upcoming work session
+
+    ## Available Resources
+    The input may include an "Available Resources" section listing:
+    - **Agents**: AI assistants that can be delegated to execute tasks
+    - **MCP Tools**: External tools and services available
+    - **Knowledge Base**: Document collections for reference
+    - **Database**: Data models that can be queried
+
+    **IMPORTANT**: Your recommendations should be achievable with the listed resources.
+    Consider what the robot can actually accomplish when suggesting focus areas.
 
     ## Output Format
     Respond with a structured markdown report:
@@ -39,6 +50,7 @@
     - Be specific and actionable, not generic
     - Consider time-sensitive factors (deadlines, recurring tasks)
     - Align recommendations with the robot's defined duties
+    - **Only suggest actions achievable with available resources**
     - Prioritize items clearly using [High], [Medium], [Low] markers
     - Keep the report concise but informative
 

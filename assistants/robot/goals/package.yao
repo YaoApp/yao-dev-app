@@ -1,7 +1,7 @@
 {
   "name": "Robot Goals Agent (P1)",
   "avatar": "/api/__yao/app/icons/app.png",
-  "connector": "gpt-4o",
+  "connector": "deepseek.v3",
   "description": "P1 Phase Agent - Generates prioritized goals from inspiration report or trigger input, including success criteria and delivery targets.",
   "options": { "temperature": 0.5 },
   "public": false,

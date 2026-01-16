@@ -1,7 +1,7 @@
 {
   "name": "Robot Tasks Agent (P2)",
   "avatar": "/api/__yao/app/icons/app.png",
-  "connector": "gpt-4o",
+  "connector": "deepseek.v3",
   "description": "P2 Phase Agent - Splits goals into executable tasks with executor assignments and validation rules.",
   "options": { "temperature": 0.3 },
   "public": false,

@@ -1,7 +1,7 @@
 {
   "name": "Robot Inspiration Agent (P0)",
   "avatar": "/api/__yao/app/icons/app.png",
-  "connector": "gpt-4o",
+  "connector": "deepseek.v3",
   "description": "P0 Phase Agent - Analyzes clock context and robot identity to generate inspiration report for goal setting.",
   "options": { "temperature": 0.7 },
   "public": false,
