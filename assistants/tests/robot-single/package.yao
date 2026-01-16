@@ -1,0 +1,18 @@
+{
+  "name": "Robot Single Call Test",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Test assistant for Robot Agent single-call scenarios. Returns structured JSON responses for P0-P5 phase testing.",
+  "options": { "temperature": 0 },
+  "public": false,
+  "placeholder": {
+    "title": "Robot Single Call",
+    "description": "Test single-call scenarios for Robot Agent executor",
+    "prompts": ["Generate inspiration", "Set goals", "Plan tasks"]
+  },
+  "tags": ["Test", "Robot", "Single"],
+  "sort": 99,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}

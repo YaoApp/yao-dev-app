@@ -1,0 +1,18 @@
+{
+  "name": "Robot Conversation Test",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Test assistant for Robot Agent multi-turn conversation scenarios. Supports iterative task planning and execution with state tracking.",
+  "options": { "temperature": 0 },
+  "public": false,
+  "placeholder": {
+    "title": "Robot Conversation",
+    "description": "Test multi-turn conversation for Robot Agent executor",
+    "prompts": ["Start planning", "Continue", "Refine tasks"]
+  },
+  "tags": ["Test", "Robot", "Conversation"],
+  "sort": 99,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}
