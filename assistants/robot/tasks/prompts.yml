@@ -30,9 +30,10 @@
           "args": [],
           "expected_output": "JSON object with product_rankings array and total_sales number",
           "validation_rules": [
-            "Output must be valid JSON",
-            "product_rankings must contain exactly 5 items",
-            "Each item must have product_id, name, and sales_amount fields"
+            "output must be valid JSON",
+            "must contain 'product_rankings'",
+            "must contain 'total_sales'",
+            "{\"type\": \"type\", \"path\": \"product_rankings\", \"value\": \"array\"}"
           ],
           "order": 0
         },
@@ -51,9 +52,9 @@
           "args": [],
           "expected_output": "Markdown formatted report with executive summary, key findings, and recommendations",
           "validation_rules": [
-            "Report must include Executive Summary section",
-            "Report must include at least 3 key findings",
-            "Report must be at least 200 words"
+            "output must not be empty",
+            "must contain 'Executive Summary'",
+            "must contain 'Key Findings'"
           ],
           "order": 1
         }
@@ -72,16 +73,49 @@
     3. **Verifiable**: Include clear expected_output and validation_rules
     4. **Appropriate Executor**: Match task type to best executor
 
-    ## Validation Rules Guidelines
-    - Be specific about output format (JSON, markdown, etc.)
-    - Include structural requirements (required fields, array lengths)
-    - Include quality requirements (minimum length, completeness)
-    - Rules will be used by P3 Validation Agent for semantic verification
+    ## Validation Rules Format
+
+    Validation rules support two formats:
+
+    ### 1. Natural Language Rules (for common checks)
+    Use these patterns for fast local validation:
+
+    | Pattern | Example | What it checks |
+    |---------|---------|----------------|
+    | `valid JSON` / `JSON object` | "output must be valid JSON" | Output is a JSON object |
+    | `JSON array` / `must be array` | "output must be a JSON array" | Output is a JSON array |
+    | `contain 'X'` / `contain "X"` | "must contain 'success'" | Output contains the string X |
+    | `not empty` / `non-empty` | "output must not be empty" | Output is not empty |
+
+    ### 2. Structured Rules (for precise checks)
+    Use JSON format for complex validations:
+
+    ```json
+    {"type": "equals", "value": "expected_value"}
+    {"type": "contains", "value": "substring"}
+    {"type": "not_contains", "value": "forbidden"}
+    {"type": "json_path", "path": "field.nested", "value": "expected"}
+    {"type": "regex", "value": "^[A-Z].*"}
+    {"type": "type", "value": "object"}
+    {"type": "type", "value": "array"}
+    {"type": "type", "value": "string"}
+    {"type": "type", "path": "items", "value": "array"}
+    {"type": "type", "path": "nested.field", "value": "string"}
+    ```
+
+    ### Best Practices
+    - Use natural language rules for simple checks (faster, no LLM call)
+    - Use structured rules for precise field validation
+    - Complex semantic rules (e.g., "report quality", "logical consistency") go to expected_output
+    - For checking if a field exists, use: `must contain 'field_name'`
+    - For checking field value, use: `{"type": "json_path", "path": "field", "value": "expected"}`
+    - For checking field type, use: `{"type": "type", "path": "field", "value": "array"}`
 
     ## Expected Output Guidelines
-    - Describe the expected structure clearly
+    - Describe the expected structure and content clearly
     - Include data types where relevant
-    - Be specific enough for validation but not overly restrictive
+    - Complex quality requirements here (validated by AI agent)
+    - Example: "Markdown report with executive summary, 3+ key findings, professional tone"
 
     ## Available Expert Agents
     The input will include a list of available agents. Common ones:
@@ -96,3 +130,4 @@
     - Include clear goal_ref to trace back to goals
     - Order tasks by execution sequence (0-based)
     - Always include expected_output and at least one validation_rule
+    - Prefer natural language rules for simple checks, structured rules for precise checks
