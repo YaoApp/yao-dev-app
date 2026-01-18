@@ -1,4 +1,11 @@
 {
+  "robot": {
+    "description": "Robot agent delivery channel",
+    "email": {
+      "provider": "primary",
+      "description": "Robot emails using primary SMTP provider"
+    }
+  },
   "default": {
     "description": "Default messaging channel for general communications",
     "email": {
