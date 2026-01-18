@@ -2,15 +2,15 @@
   "name": "Robot Delivery Agent (P4)",
   "avatar": "/api/__yao/app/icons/app.png",
   "connector": "deepseek.v3",
-  "description": "P4 Phase Agent - Formats and prepares results for delivery to specified targets.",
+  "description": "P4 Phase Agent - Generates delivery content (summary, body, attachments) from execution results. Focuses ONLY on content generation, NOT channel selection.",
   "options": { "temperature": 0.3 },
   "public": false,
   "placeholder": {
-    "title": "Result Formatter",
-    "description": "Format results for delivery",
-    "prompts": ["Prepare report for email", "Format results", "Generate delivery content"]
+    "title": "Delivery Content Generator",
+    "description": "Generate professional delivery content from execution results",
+    "prompts": ["Summarize execution results", "Generate report", "Prepare delivery content"]
   },
-  "tags": ["Robot", "P4", "Delivery"],
+  "tags": ["Robot", "P4", "Delivery", "Content"],
   "sort": 14,
   "readonly": true,
   "automated": true,
