@@ -1,0 +1,18 @@
+{
+  "name": "E2E Test Tasks Agent",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "deepseek.v3",
+  "description": "Simple task planning agent for E2E tests - generates minimal tasks without complex validation.",
+  "options": { "temperature": 0 },
+  "public": false,
+  "placeholder": {
+    "title": "E2E Task Planner",
+    "description": "Generate simple tasks for testing",
+    "prompts": ["Plan tasks"]
+  },
+  "tags": ["Test", "E2E", "Tasks"],
+  "sort": 100,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}

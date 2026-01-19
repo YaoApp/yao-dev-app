@@ -1,0 +1,18 @@
+{
+  "name": "E2E Test Validation Agent",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "deepseek.v3",
+  "description": "Simple validation agent for E2E tests - always passes if output exists.",
+  "options": { "temperature": 0 },
+  "public": false,
+  "placeholder": {
+    "title": "E2E Validator",
+    "description": "Simple test validator",
+    "prompts": ["Validate this result"]
+  },
+  "tags": ["Test", "E2E", "Validation"],
+  "sort": 100,
+  "readonly": true,
+  "automated": true,
+  "mentionable": false
+}
