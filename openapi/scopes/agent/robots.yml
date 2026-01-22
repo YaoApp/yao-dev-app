@@ -1,0 +1,62 @@
+# Robot Management Scopes
+# Base path: /agent/robots
+
+robots:read:all:
+  description: "Read all robots"
+  endpoints:
+    - GET /agent/robots
+    - GET /agent/robots/:id
+    - GET /agent/robots/:id/status
+
+robots:read:own:
+  owner: true
+  description: "Read own robots"
+  endpoints:
+    - GET /agent/robots/own
+    - GET /agent/robots/own/:id
+    - GET /agent/robots/own/:id/status
+
+robots:read:team:
+  team: true
+  description: "Read team robots"
+  endpoints:
+    - GET /agent/robots/team
+    - GET /agent/robots/team/:id
+    - GET /agent/robots/team/:id/status
+
+robots:write:all:
+  description: "Write all robots"
+  endpoints:
+    - POST /agent/robots
+    - PUT /agent/robots/:id
+
+robots:write:own:
+  owner: true
+  description: "Write own robots"
+  endpoints:
+    - POST /agent/robots/own
+    - PUT /agent/robots/own/:id
+
+robots:write:team:
+  team: true
+  description: "Write team robots"
+  endpoints:
+    - POST /agent/robots/team
+    - PUT /agent/robots/team/:id
+
+robots:delete:all:
+  description: "Delete all robots"
+  endpoints:
+    - DELETE /agent/robots/:id
+
+robots:delete:own:
+  owner: true
+  description: "Delete own robots"
+  endpoints:
+    - DELETE /agent/robots/own/:id
+
+robots:delete:team:
+  team: true
+  description: "Delete team robots"
+  endpoints:
+    - DELETE /agent/robots/team/:id
