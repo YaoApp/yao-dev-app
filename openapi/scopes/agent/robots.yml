@@ -60,3 +60,70 @@ robots:delete:team:
   description: "Delete team robots"
   endpoints:
     - DELETE /agent/robots/team/:id
+
+# ============ Robot Execution Scopes ============
+
+robots:executions:read:all:
+  description: "Read all robot executions"
+  endpoints:
+    - GET /agent/robots/:id/executions
+    - GET /agent/robots/:id/executions/:exec_id
+
+robots:executions:read:own:
+  owner: true
+  description: "Read own robot executions"
+  endpoints:
+    - GET /agent/robots/own/:id/executions
+    - GET /agent/robots/own/:id/executions/:exec_id
+
+robots:executions:read:team:
+  team: true
+  description: "Read team robot executions"
+  endpoints:
+    - GET /agent/robots/team/:id/executions
+    - GET /agent/robots/team/:id/executions/:exec_id
+
+robots:executions:control:all:
+  description: "Control all robot executions (pause/resume/cancel)"
+  endpoints:
+    - POST /agent/robots/:id/executions/:exec_id/pause
+    - POST /agent/robots/:id/executions/:exec_id/resume
+    - POST /agent/robots/:id/executions/:exec_id/cancel
+
+robots:executions:control:own:
+  owner: true
+  description: "Control own robot executions"
+  endpoints:
+    - POST /agent/robots/own/:id/executions/:exec_id/pause
+    - POST /agent/robots/own/:id/executions/:exec_id/resume
+    - POST /agent/robots/own/:id/executions/:exec_id/cancel
+
+robots:executions:control:team:
+  team: true
+  description: "Control team robot executions"
+  endpoints:
+    - POST /agent/robots/team/:id/executions/:exec_id/pause
+    - POST /agent/robots/team/:id/executions/:exec_id/resume
+    - POST /agent/robots/team/:id/executions/:exec_id/cancel
+
+# ============ Robot Trigger Scopes ============
+
+robots:trigger:all:
+  description: "Trigger all robots"
+  endpoints:
+    - POST /agent/robots/:id/trigger
+    - POST /agent/robots/:id/intervene
+
+robots:trigger:own:
+  owner: true
+  description: "Trigger own robots"
+  endpoints:
+    - POST /agent/robots/own/:id/trigger
+    - POST /agent/robots/own/:id/intervene
+
+robots:trigger:team:
+  team: true
+  description: "Trigger team robots"
+  endpoints:
+    - POST /agent/robots/team/:id/trigger
+    - POST /agent/robots/team/:id/intervene

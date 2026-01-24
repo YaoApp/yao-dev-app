@@ -134,6 +134,7 @@ agent:read:
   - assistants:read:all
   - models:read:all
   - robots:read:all
+  - robots:executions:read:all
 
 # Agent personal permission - users can manage their own agents
 agent:own:
@@ -148,6 +149,9 @@ agent:own:
   - robots:read:own
   - robots:write:own
   - robots:delete:own
+  - robots:executions:read:own
+  - robots:executions:control:own
+  - robots:trigger:own
 
 # Agent team permission - team members can manage team agents
 agent:team:
@@ -162,6 +166,9 @@ agent:team:
   - robots:read:team
   - robots:write:team
   - robots:delete:team
+  - robots:executions:read:team
+  - robots:executions:control:team
+  - robots:trigger:team
 
 # Agent full permission - admin permission to operate all agents
 agent:admin:
@@ -178,6 +185,9 @@ agent:admin:
   - robots:read:all
   - robots:write:all
   - robots:delete:all
+  - robots:executions:read:all
+  - robots:executions:control:all
+  - robots:trigger:all
 
 # ============ LLM Provider Management Aliases ============
 
