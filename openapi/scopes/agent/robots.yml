@@ -127,3 +127,44 @@ robots:trigger:team:
   endpoints:
     - POST /agent/robots/team/:id/trigger
     - POST /agent/robots/team/:id/intervene
+
+# ============ Robot Results Scopes ============
+
+robots:results:read:all:
+  description: "Read all robot results"
+  endpoints:
+    - GET /agent/robots/:id/results
+    - GET /agent/robots/:id/results/:result_id
+
+robots:results:read:own:
+  owner: true
+  description: "Read own robot results"
+  endpoints:
+    - GET /agent/robots/own/:id/results
+    - GET /agent/robots/own/:id/results/:result_id
+
+robots:results:read:team:
+  team: true
+  description: "Read team robot results"
+  endpoints:
+    - GET /agent/robots/team/:id/results
+    - GET /agent/robots/team/:id/results/:result_id
+
+# ============ Robot Activities Scopes ============
+
+robots:activities:read:all:
+  description: "Read all robot activities"
+  endpoints:
+    - GET /agent/robots/activities
+
+robots:activities:read:own:
+  owner: true
+  description: "Read own robot activities"
+  endpoints:
+    - GET /agent/robots/activities
+
+robots:activities:read:team:
+  team: true
+  description: "Read team robot activities"
+  endpoints:
+    - GET /agent/robots/activities
