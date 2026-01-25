@@ -1,0 +1,5 @@
+name: "Nested Demo"
+description: "A nested demo assistant for testing"
+chat:
+  title: "Nested Demo"
+  description: "Test nested assistant pages"

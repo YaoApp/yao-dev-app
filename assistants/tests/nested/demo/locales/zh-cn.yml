@@ -1,0 +1,5 @@
+name: "嵌套演示"
+description: "用于测试的嵌套演示助手"
+chat:
+  title: "嵌套演示"
+  description: "测试嵌套助手页面"

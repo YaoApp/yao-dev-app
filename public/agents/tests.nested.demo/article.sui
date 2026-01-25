@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="{{ $locale.name || &#39;en-us&#39; }}"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Nested Article Page</title>
+    <script s:ns="" s:cn="" s:hash="script_655465f51d1b7904" src="/agents/assets/libsui.min.js" type="text/javascript" name="libsui"></script>
+<style s:ns="page__tests.nested.demo_article_2" s:cn="__page" rel="stylesheet" type="text/css">
+.nested-article {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.nested-article h1 {
+  color: #333;
+  font-size: 24px;
+}
+
+.nested-article .content {
+  line-height: 1.6;
+  color: #666;
+}
+
+</style>
+</head><body s:ns="page__tests.nested.demo_article_2" s:public="/agents" s:assets="/agents/assets">{{ __styles }}
+  
+  
+    <div class="nested-article">
+  <h1>{{ $data.title || &#34;Nested Article&#34; }}</h1>
+  <div class="content">
+    {{ $data.content || &#34;This is a nested assistant page for testing.&#34; }}
+  </div>
+</div>
+
+    {{ __scripts }}
+  
+
+
+
+<script name="config" type="json">
+{"api":null,"root":"/agents","title":"Nested Article Page","guard":"","cacheStore":"","cache":0,"dataCache":0}
+</script>
+
+
+
+<script name="data" type="json">
+{
+  "title": "Test Article",
+  "content": "This is test content for the nested assistant page."
+}
+
+</script>
+
+
+
+<script name="imports" type="json">
+{}
+</script>
+
+</body></html>

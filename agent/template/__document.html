@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="{{ $locale.name || 'en-us' }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ $page.title || 'Agent' }}</title>
+    {{ __styles }}
+  </head>
+  <body>
+    {{ __page }}
+    {{ __scripts }}
+  </body>
+</html>

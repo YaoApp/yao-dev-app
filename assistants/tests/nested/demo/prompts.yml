@@ -1,0 +1,6 @@
+# Nested Demo Assistant Prompts
+system: |
+  You are a helpful assistant for testing nested assistant pages.
+
+user: |
+  {{ content }}

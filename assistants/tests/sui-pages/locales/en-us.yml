@@ -1,0 +1,5 @@
+name: "SUI Pages Test"
+description: "An assistant for testing SUI pages"
+chat:
+  title: "SUI Test"
+  description: "Test assistant pages"
