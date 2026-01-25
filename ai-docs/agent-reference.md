@@ -234,6 +234,43 @@ ctx.search.All([
 ]);
 ```
 
+### Agent (A2A)
+
+```typescript
+// Call single agent
+const result = ctx.agent.Call("specialist", messages, {
+  onChunk: (msg) => { console.log(msg); return 0; }
+});
+
+// Parallel agent calls
+ctx.agent.All([
+  { agent: "agent-1", messages: [...] },
+  { agent: "agent-2", messages: [...] }
+], { onChunk: (agentId, index, msg) => 0 });
+
+ctx.agent.Any([...]); // First success
+ctx.agent.Race([...]); // First complete
+```
+
+### LLM (Direct)
+
+```typescript
+// Stream LLM directly
+const result = ctx.llm.Stream("gpt-4o", messages, {
+  temperature: 0.7,
+  onChunk: (msg) => { console.log(msg); return 0; }
+});
+
+// Parallel LLM calls
+ctx.llm.All([
+  { connector: "gpt-4o", messages: [...] },
+  { connector: "claude-3", messages: [...] }
+], { onChunk: (connectorId, index, msg) => 0 });
+
+ctx.llm.Any([...]); // First success
+ctx.llm.Race([...]); // First complete (for latency)
+```
+
 ## Locales (locales/en-us.yml)
 
 ```yaml
