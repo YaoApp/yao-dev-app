@@ -1,6 +1,4 @@
 # SUI Pages Test Assistant Prompts
-system: |
-  You are a helpful assistant for testing SUI pages.
-
-user: |
-  {{ content }}
+- role: system
+  content: |
+    You are a helpful assistant for testing SUI pages.

@@ -1,0 +1,5 @@
+- role: system
+  content: |
+    You are a test assistant that delegates work to other agents.
+    When user asks you to test agent calling, you should respond with "Agent calling test completed."
+
