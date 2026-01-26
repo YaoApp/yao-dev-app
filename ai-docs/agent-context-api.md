@@ -375,21 +375,57 @@ The `ctx.mcp` object provides access to Model Context Protocol operations for in
 const tools = ctx.mcp.ListTools("echo", "");
 console.log(tools.tools);
 
-// Call a single tool
-const result = ctx.mcp.CallTool("echo", "ping", { count: 3 });
-console.log(result.content);
+// Call a single tool - returns parsed result directly
+const result = ctx.mcp.CallTool("echo", "echo", { message: "hello" });
+console.log(result.echo);  // Direct access: "hello"
 
-// Call multiple tools sequentially
+// Call multiple tools sequentially - returns array of parsed results
 const results = ctx.mcp.CallTools("echo", [
   { name: "ping", arguments: { count: 1 } },
-  { name: "status", arguments: { verbose: true } },
+  { name: "echo", arguments: { message: "hello" } },
+]);
+console.log(results[0].message);  // "pong"
+console.log(results[1].echo);     // "hello"
+
+// Call multiple tools in parallel - returns array of parsed results
+const results = ctx.mcp.CallToolsParallel("echo", [
+  { name: "ping", arguments: { count: 1 } },
+  { name: "echo", arguments: { message: "hello" } },
+]);
+console.log(results[0].message);  // "pong"
+console.log(results[1].echo);     // "hello"
+```
+
+### Cross-Server Tool Calls
+
+Call tools across multiple MCP servers concurrently:
+
+```javascript
+// Wait for all (like Promise.all)
+const results = ctx.mcp.All([
+  { mcp: "server1", tool: "search", arguments: { q: "query" } },
+  { mcp: "server2", tool: "analyze", arguments: { data: "input" } }
 ]);
 
-// Call multiple tools in parallel
-const parallelResults = ctx.mcp.CallToolsParallel("echo", [
-  { name: "ping", arguments: { count: 1 } },
-  { name: "status", arguments: { verbose: false } },
+// First success (like Promise.any) - good for fallback
+const results = ctx.mcp.Any([
+  { mcp: "primary", tool: "fetch", arguments: { id: 1 } },
+  { mcp: "backup", tool: "fetch", arguments: { id: 1 } }
 ]);
+
+// First complete (like Promise.race) - good for latency
+const results = ctx.mcp.Race([
+  { mcp: "region-us", tool: "ping", arguments: {} },
+  { mcp: "region-eu", tool: "ping", arguments: {} }
+]);
+
+// MCPToolResult structure
+interface MCPToolResult {
+  mcp: string;      // Server ID
+  tool: string;     // Tool name
+  result?: any;     // Parsed result content
+  error?: string;   // Error if failed
+}
 ```
 
 ### MCP Resource Operations

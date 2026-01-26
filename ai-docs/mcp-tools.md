@@ -230,20 +230,45 @@ Access MCP operations directly from context:
 // List tools
 const tools = ctx.mcp.ListTools("server_id");
 
-// Call single tool
+// Call single tool - returns parsed result directly
 const result = ctx.mcp.CallTool("server_id", "tool_name", { arg: "value" });
+console.log(result.field);  // Direct access to parsed data
 
-// Call multiple tools in parallel
+// Call multiple tools in parallel - returns array of parsed results
 const results = ctx.mcp.CallToolsParallel("server_id", [
   { name: "tool1", arguments: { a: 1 } },
   { name: "tool2", arguments: { b: 2 } },
 ]);
+results.forEach(r => console.log(r));
 
 // List resources
 const resources = ctx.mcp.ListResources("server_id");
 
 // Read resource
 const data = ctx.mcp.ReadResource("server_id", "resource://uri");
+
+// Cross-server tool calls (Promise-like patterns)
+const results = ctx.mcp.All([
+  { mcp: "server1", tool: "search", arguments: { q: "query" } },
+  { mcp: "server2", tool: "fetch", arguments: { id: 123 } }
+]);
+
+// First success wins (fallback pattern)
+const results = ctx.mcp.Any([
+  { mcp: "primary", tool: "api", arguments: {} },
+  { mcp: "backup", tool: "api", arguments: {} }
+]);
+
+// First complete wins (latency optimization)
+const results = ctx.mcp.Race([
+  { mcp: "region-us", tool: "ping", arguments: {} },
+  { mcp: "region-eu", tool: "ping", arguments: {} }
+]);
+
+// Access parsed results directly
+results.forEach(r => {
+  if (!r.error) console.log(r.result);  // Parsed content
+});
 ```
 
 ## Best Practices
