@@ -47,18 +47,13 @@ function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
     ctx.memory.context.Set("section_data", { content, index, title });
 
     // Delegate to self to continue the conversation
+    // Note: skip.output and skip.history are automatically set by the framework
     return {
       delegate: {
         agent_id: "yao.scribe.writer",  // Self-delegation
         messages: [
           { role: "user", content: "Please review..." }
-        ],
-        options: {
-          skip: {
-            history: true,  // Skip history, only process current message
-            output: true    // IMPORTANT: Disable SSE output for delegated calls
-          }
-        }
+        ]
       }
     };
   }
@@ -75,8 +70,8 @@ function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
 ### Key Points
 
 1. **State Persistence**: Use `ctx.memory.context.Set/Get` to pass state between phases
-2. **Skip History**: Add `options.skip.history = true` to avoid loading full conversation history
-3. **Skip Output (CRITICAL)**: Add `options.skip.output = true` when the Agent is called via `ctx.agent.All/Any/Race` or any parallel context. Without this, delegated calls will write to the SSE stream, causing client disconnection and `context canceled` errors.
+2. **Delegate Saves History**: Unlike `ctx.agent.Call` (forked), `delegate` calls save messages to chat history as they are part of the main conversation flow.
+3. **Normal SSE Output with ThreadID**: Delegate sub-agents output normally to SSE stream, using ThreadID to distinguish different agent outputs
 4. **Stack Depth Limit**: Framework has a default limit of 10 levels to prevent infinite recursion
 5. **Unique Keys for Parallel Calls**: When called in parallel, use unique keys (e.g., `writer_phase_${sectionIdx}`)
 
@@ -96,15 +91,41 @@ function Next(ctx: agent.Context, payload: agent.Payload): agent.Next {
 
 When using `ctx.agent.All()` to call multiple Agents in parallel, you may encounter:
 
-1. **Context Cancelled Error**: Multiple sub-agents writing to the same SSE stream
-2. **State Collision**: Sub-agents sharing `ctx.memory.context` and overwriting each other's state
+1. **Context Cancelled Error**: Multiple sub-agents writing to the same SSE stream concurrently
+2. **Short Write Error**: Data corruption from interleaved writes to `http.ResponseWriter`
+3. **State Collision**: Sub-agents sharing `ctx.memory.context` and overwriting each other's state
 
 ### Solution
 
-The framework automatically handles these issues:
+The framework automatically handles these issues for `ctx.agent.Call/All/Any/Race`:
 
-1. **SSE Output Disabled**: All sub-agent calls automatically have `skip.output = true` to prevent SSE conflicts
-2. **Forked Context**: Each sub-agent gets a forked context with independent `ctx.memory.context`
+1. **Thread-Safe SSE Writes**: The framework uses a channel-based `SafeWriter` to serialize concurrent writes to the SSE stream. This prevents "short write" errors and data corruption.
+2. **Normal SSE Output with ThreadID**: Sub-agents output normally to SSE stream, using ThreadID to distinguish different agent outputs. **Framework enforces `skip.output = false`** - any user-set `skip.output = true` will be overridden.
+3. **History Not Saved**: `skip.history = true` is automatically set, so A2A messages are not saved to chat history database
+4. **Forked Context**: Each sub-agent gets a forked context with independent `ctx.memory.context`
+
+**Important**: Do NOT manually set `skip.output = true` for A2A calls. The framework enforces output to be enabled to ensure ThreadID mechanism works correctly. If you need to suppress output, use the callback handler instead.
+
+### How SafeWriter Works
+
+When the first `ctx.Send()` is called, the framework automatically wraps the underlying `http.ResponseWriter` with a `SafeWriter`:
+
+- All concurrent writes go through a buffered channel (capacity: 10,000)
+- A background goroutine processes writes sequentially, preventing interleaving
+- The `SafeWriter` respects the HTTP request context - if the client disconnects, the goroutine exits cleanly
+- Resources are automatically cleaned up when `ctx.Release()` is called
+
+### Fork vs Delegate
+
+The framework distinguishes two types of Agent-to-Agent calls:
+
+| Type | Referer | History | Use Case |
+|------|---------|---------|----------|
+| **Fork** (`ctx.agent.Call/All/Any/Race`) | `agent_fork` | Not saved | Parallel execution, internal coordination |
+| **Delegate** (`NextHookResponse.delegate`) | `agent` | Saved | Multi-turn conversation, same context flow |
+
+- **Forked calls**: Create independent child contexts with their own `ctx.memory.context`. Messages are not saved to history.
+- **Delegate calls**: Continue the same conversation flow. Messages are saved to history as they are part of the main conversation.
 
 ### Best Practices
 
