@@ -42,6 +42,7 @@ These documents serve as a knowledge base for AI coding assistants to:
 | [Model Definition](./model-definition.md)       | Database model schema and permission       |
 | [Scopes & Permission](./scopes-permission.md)   | Scope-based permission and ACL enforcement |
 | [Testing](./testing.md)                         | Test framework, assertions, CI integration |
+| [Best Practices](./best-practices.md)           | Patterns and solutions for common scenarios |
 
 ### Frontend
 
