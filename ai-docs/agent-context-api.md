@@ -41,6 +41,7 @@ interface Context {
   search: Search; // Search object for KB/DB/Web search
   agent: Agent; // Agent-to-Agent calls (A2A)
   llm: LLM; // Direct LLM connector calls
+  sandbox?: Sandbox; // Sandbox operations (only when sandbox configured)
 }
 ```
 
@@ -616,6 +617,156 @@ interface Message {
   chunk_id?: string;           // C1, C2, ...
   message_id?: string;         // M1, M2, ...
   delta?: boolean;             // Incremental update flag
+}
+```
+
+---
+
+## Sandbox API
+
+The `ctx.sandbox` object provides access to sandbox operations when the assistant is configured with a sandbox executor (e.g., Claude CLI, Cursor CLI). The sandbox allows hooks to interact with an isolated Docker container environment for file operations and command execution.
+
+> **Note:** `ctx.sandbox` is only available when the assistant has `sandbox` configuration in `package.yao`. If no sandbox is configured, `ctx.sandbox` will be `null`.
+
+### Sandbox Properties
+
+```typescript
+ctx.sandbox.workdir  // Workspace directory path inside container (e.g., "/workspace")
+```
+
+### Sandbox Methods
+
+| Method                        | Description                              |
+| ----------------------------- | ---------------------------------------- |
+| `ReadFile(path)`              | Read a file from the container           |
+| `WriteFile(path, content)`    | Write content to a file in the container |
+| `ListDir(path)`               | List directory contents                  |
+| `Exec(command)`               | Execute a command in the container       |
+
+### File Operations
+
+```javascript
+// Read a file from workspace
+const content = ctx.sandbox.ReadFile("config.json");
+console.log(content);
+
+// Write a configuration file
+ctx.sandbox.WriteFile("config.json", JSON.stringify({ debug: true }, null, 2));
+
+// List workspace contents
+const files = ctx.sandbox.ListDir(".");
+files.forEach(f => {
+  console.log(`${f.is_dir ? "DIR" : "FILE"} ${f.name} (${f.size} bytes)`);
+});
+```
+
+### Command Execution
+
+```javascript
+// Run a simple command
+const output = ctx.sandbox.Exec(["echo", "Hello, World!"]);
+console.log(output); // "Hello, World!\n"
+
+// Run git commands
+const status = ctx.sandbox.Exec(["git", "status"]);
+
+// Handle command errors
+try {
+  ctx.sandbox.Exec(["npm", "test"]);
+} catch (e) {
+  console.error("Tests failed:", e.message);
+}
+```
+
+### FileInfo Structure
+
+```typescript
+interface FileInfo {
+  name: string;      // File or directory name
+  size: number;      // Size in bytes
+  is_dir: boolean;   // True if directory
+}
+```
+
+### Sandbox Use Cases
+
+```javascript
+// Use case 1: Prepare workspace before Claude CLI execution
+function Create(ctx, messages) {
+  if (ctx.sandbox) {
+    // Create project structure
+    ctx.sandbox.WriteFile("package.json", JSON.stringify({
+      name: "project",
+      version: "1.0.0"
+    }, null, 2));
+    
+    ctx.trace.Info("Workspace prepared");
+  }
+  return { messages };
+}
+
+// Use case 2: Post-process sandbox results
+function Next(ctx, payload) {
+  if (ctx.sandbox && !payload.error) {
+    try {
+      const files = ctx.sandbox.ListDir("output");
+      const results = files.map(f => ({
+        name: f.name,
+        content: ctx.sandbox.ReadFile(`output/${f.name}`)
+      }));
+      
+      return {
+        data: {
+          status: "success",
+          generated_files: results
+        }
+      };
+    } catch (e) {
+      ctx.trace.Warn("No output directory found");
+    }
+  }
+  return null;
+}
+
+// Use case 3: Run tests after code generation
+function Next(ctx, payload) {
+  if (ctx.sandbox && payload.completion) {
+    try {
+      const testOutput = ctx.sandbox.Exec(["npm", "test"]);
+      ctx.trace.Info("Tests passed");
+      
+      return {
+        data: { status: "success", test_output: testOutput }
+      };
+    } catch (e) {
+      return {
+        data: { status: "test_failed", error: e.message }
+      };
+    }
+  }
+  return null;
+}
+```
+
+### Sandbox Configuration
+
+Configure sandbox in assistant's `package.yao`:
+
+```jsonc
+{
+  "name": "Coder Assistant",
+  "connector": "deepseek.v3",
+  "sandbox": {
+    "command": "claude",           // claude | cursor (future)
+    "image": "yaoapp/sandbox-claude:latest",  // Optional, auto-selected by command
+    "max_memory": "4g",            // Memory limit (optional)
+    "max_cpu": 2.0,                // CPU limit (optional)
+    "timeout": "10m",              // Execution timeout
+    "arguments": {                 // Command-specific arguments
+      "max_turns": 20,
+      "permission_mode": "acceptEdits"
+    }
+  }
 }
 ```
 
