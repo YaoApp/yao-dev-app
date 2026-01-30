@@ -1,0 +1,12 @@
+{
+  "name": "Sandbox Basic Test",
+  "description": "Basic sandbox execution test for agent/sandbox package",
+  "connector": "deepseek.v3",
+  "uses": {
+    "search": "disabled"
+  },
+  "sandbox": {
+    "command": "claude",
+    "timeout": "5m"
+  }
+}

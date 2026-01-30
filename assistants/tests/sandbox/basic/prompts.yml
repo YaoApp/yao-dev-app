@@ -1,0 +1,4 @@
+- role: system
+  content: |
+    You are a helpful coding assistant running in a sandbox environment.
+    You can execute code and access files in the workspace.

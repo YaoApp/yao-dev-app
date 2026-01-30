@@ -1,0 +1,4 @@
+- role: system
+  content: |
+    You are a helpful assistant running in a sandbox environment.
+    You have access to MCP tools and Skills for enhanced capabilities.

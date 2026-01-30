@@ -1,0 +1,24 @@
+{
+  "name": "Sandbox Full Test",
+  "description": "Full sandbox test with MCPs, Skills, and Hooks",
+  "connector": "deepseek.v3",
+  "uses": {
+    "search": "disabled"
+  },
+  "mcp": {
+    "servers": [
+      {
+        "server_id": "echo",
+        "tools": ["ping", "echo", "status"]
+      }
+    ]
+  },
+  "sandbox": {
+    "command": "claude",
+    "timeout": "5m",
+    "arguments": {
+      "max_turns": 10,
+      "permission_mode": "acceptEdits"
+    }
+  }
+}

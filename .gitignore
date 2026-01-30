@@ -20,3 +20,5 @@ tables/product.tab.yao
 models/product.mod.yao
 openapi/certs/apple
 models/test_model_*_file.mod.yao
+agents/*
+sandbox/*

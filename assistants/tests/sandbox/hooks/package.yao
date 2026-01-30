@@ -1,0 +1,12 @@
+{
+  "name": "Sandbox Hooks Test",
+  "description": "Test hook integration with sandbox ctx.sandbox API",
+  "connector": "deepseek.v3",
+  "uses": {
+    "search": "disabled"
+  },
+  "sandbox": {
+    "command": "claude",
+    "timeout": "5m"
+  }
+}
