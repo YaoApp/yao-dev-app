@@ -1,0 +1,12 @@
+{
+  "name": "Sandbox Hook-Only Test",
+  "description": "Test sandbox without prompts/skills/mcp - hooks take full control",
+  "connector": "deepseek.v3",
+  "uses": {
+    "search": "disabled"
+  },
+  "sandbox": {
+    "command": "claude",
+    "timeout": "5m"
+  }
+}

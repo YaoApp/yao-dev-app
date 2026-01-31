@@ -1,0 +1,16 @@
+{
+  "name": "Sandbox Claude CLI Test",
+  "description": "Test full Claude CLI execution in sandbox with prompts",
+  "connector": "deepseek.v3",
+  "uses": {
+    "search": "disabled"
+  },
+  "sandbox": {
+    "command": "claude",
+    "timeout": "5m",
+    "arguments": {
+      "max_turns": 5,
+      "permission_mode": "bypassPermissions"
+    }
+  }
+}
