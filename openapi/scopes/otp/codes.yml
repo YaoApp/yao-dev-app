@@ -1,0 +1,5 @@
+codes:create:team:
+  team: true
+  description: "Create OTP codes for team members"
+  endpoints:
+    - POST /otp/create

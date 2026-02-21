@@ -209,6 +209,16 @@ llm:read:
 mcp:read:
   - servers:read:all
 
+# ============ OTP Management Aliases ============
+
+# OTP team permission - team admins/owners can create OTP codes for team members
+otp:team:
+  - codes:create:team
+
+# OTP admin permission - admin permission to create OTP codes for all teams
+otp:admin:
+  - codes:create:team
+
 # ============ File Management Aliases ============
 
 # File read-only permission - for downloading and viewing files
@@ -287,6 +297,7 @@ user:team_admin:
   - kb:admin
   - job:admin
   - file:admin
+  - otp:team
 
 # System admin permission - highest privilege, can access all resources
 user:admin:
@@ -304,6 +315,7 @@ user:admin:
   - chat:admin
   - llm:read
   - mcp:read
+  - otp:admin
 
 # ============ Trace Management Aliases ============
 

@@ -11,6 +11,7 @@ public:
   - GET /user/teams/invitations/:invitation_id
   - GET /helloworld/public
   - POST /helloworld/public
+  - POST /otp/login
 
 # Default endpoint rules (can be overridden by specific scopes)
 endpoints:
