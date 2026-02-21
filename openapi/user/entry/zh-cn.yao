@@ -25,7 +25,8 @@
   // Token 配置（来自 signin）
   "token": {
     "expires_in": "2h",
-    "remember_me_expires_in": "30d"
+    "refresh_token_expires_in": "7d",
+    "remember_me_refresh_token_expires_in": "90d"
   },
 
   // Messenger 配置（用于注册邮箱/短信验证）

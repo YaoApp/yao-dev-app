@@ -33,7 +33,8 @@
   // Token config (from signin)
   "token": {
     "expires_in": "2h",
-    "remember_me_expires_in": "30d"
+    "refresh_token_expires_in": "7d",
+    "remember_me_refresh_token_expires_in": "90d"
   },
 
   // Messenger config (for registration email/SMS verification)
