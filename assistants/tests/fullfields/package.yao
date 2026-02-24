@@ -9,6 +9,7 @@
     "filters": ["vision", "tool_calls"]
   },
   "description": "Test assistant with all available fields for unit testing",
+  "capabilities": "Can search the web, analyze data, generate reports, and write code. Supports vision and audio input processing.",
   "options": {
     "temperature": 0.7,
     "max_tokens": 2000,
@@ -45,6 +46,17 @@
     "workflows": ["test-workflow"],
     "options": {
       "max_steps": 10
+    }
+  },
+  "sandbox": {
+    "command": "claude",
+    "image": "yaoapp/sandbox-claude-desktop:latest",
+    "timeout": "10m",
+    "max_memory": "4g",
+    "max_cpu": 2.0,
+    "arguments": {
+      "max_turns": 100,
+      "permission_mode": "bypassPermissions"
     }
   },
   "uses": {
