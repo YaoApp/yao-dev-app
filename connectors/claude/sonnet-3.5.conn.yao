@@ -4,6 +4,11 @@
   "options": {
     "model": "$ENV.EVO4AI_MODELS_3_5_SONNET",
     "key": "$ENV.EVO4AI_API_KEY",
-    "proxy": "$ENV.EVO4AI_API_PROXY"
+    "proxy": "$ENV.EVO4AI_API_PROXY",
+    "capabilities": {
+      "vision": true,
+      "tool_calls": true,
+      "streaming": true
+    }
   }
 }

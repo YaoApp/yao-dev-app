@@ -3,6 +3,10 @@
   "type": "anthropic",
   "options": {
     "model": "claude-3-haiku-20240307",
-    "key": "$ENV.ANTHROPIC_API_KEY"
+    "key": "$ENV.ANTHROPIC_API_KEY",
+    "capabilities": {
+      "tool_calls": true,
+      "streaming": true
+    }
   }
 }

@@ -4,6 +4,14 @@
   "options": {
     "model": "gpt-5",
     "key": "$ENV.OPENAI_API_KEY",
-    "host": "$ENV.OPENAI_API_HOST"
+    "host": "$ENV.OPENAI_API_HOST",
+    "capabilities": {
+      "vision": true,
+      "tool_calls": true,
+      "reasoning": true,
+      "streaming": true,
+      "json": true,
+      "multimodal": true
+    }
   }
 }

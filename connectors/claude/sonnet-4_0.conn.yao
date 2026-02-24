@@ -4,6 +4,13 @@
   "options": {
     "model": "$ENV.CLAUDE_SONNET_4",
     "key": "$ENV.CLAUDE_API_KEY",
-    "host": "$ENV.CLAUDE_API_HOST"
+    "host": "$ENV.CLAUDE_API_HOST",
+    "capabilities": {
+      "vision": "claude",
+      "tool_calls": true,
+      "streaming": true,
+      "json": true,
+      "multimodal": true
+    }
   }
 }

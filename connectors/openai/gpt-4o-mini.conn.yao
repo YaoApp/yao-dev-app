@@ -4,6 +4,13 @@
   "options": {
     "model": "gpt-4o-mini",
     "key": "$ENV.OPENAI_API_KEY",
-    "proxy": "$ENV.OPENAI_API_PROXY"
+    "proxy": "$ENV.OPENAI_API_PROXY",
+    "capabilities": {
+      "vision": true,
+      "tool_calls": true,
+      "streaming": true,
+      "json": true,
+      "multimodal": true
+    }
   }
 }
