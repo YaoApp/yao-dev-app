@@ -1,0 +1,7 @@
+{
+  "name": "E2E Suspend Tasks Agent",
+  "connector": "moonshot.kimi-k2_5-code",
+  "description": "Task planner that generates tasks targeting robot-need-input assistant for suspend testing.",
+  "options": { "temperature": 0 },
+  "automated": true
+}
