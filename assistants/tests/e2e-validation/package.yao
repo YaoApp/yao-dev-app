@@ -1,7 +1,7 @@
 {
   "name": "E2E Test Validation Agent",
   "avatar": "/api/__yao/app/icons/app.png",
-  "connector": "deepseek.v3",
+  "connector": "moonshot.kimi-k2_5-code",
   "description": "Simple validation agent for E2E tests - always passes if output exists.",
   "options": { "temperature": 0 },
   "public": false,

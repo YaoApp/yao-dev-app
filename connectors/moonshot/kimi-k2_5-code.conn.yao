@@ -1,0 +1,15 @@
+{
+  "label": "Moonshot Kimi K2.5 Code",
+  "type": "anthropic",
+  "options": {
+    "model": "kimi-k2.5",
+    "key": "$ENV.KIMI_CODE_API_KEY",
+    "host": "$ENV.KIMI_CODE_PROXY",
+    "capabilities": {
+      "vision": true,
+      "tool_calls": true,
+      "streaming": true,
+      "json": true
+    }
+  }
+}

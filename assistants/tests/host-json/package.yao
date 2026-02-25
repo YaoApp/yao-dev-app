@@ -1,0 +1,7 @@
+{
+  "name": "Test Host Agent (JSON)",
+  "connector": "moonshot.kimi-k2_5-code",
+  "description": "Test Host Agent that always returns valid JSON HostOutput",
+  "options": { "temperature": 0 },
+  "automated": true
+}

@@ -1,7 +1,7 @@
 {
   "name": "E2E Test Tasks Agent",
   "avatar": "/api/__yao/app/icons/app.png",
-  "connector": "deepseek.v3",
+  "connector": "moonshot.kimi-k2_5-code",
   "description": "Simple task planning agent for E2E tests - generates minimal tasks without complex validation.",
   "options": { "temperature": 0 },
   "public": false,

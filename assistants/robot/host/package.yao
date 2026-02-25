@@ -1,0 +1,7 @@
+{
+  "name": "Robot Host Agent",
+  "connector": "moonshot.kimi-k2_5-code",
+  "description": "Host Agent for all human-robot interactions. Routes assign/guide/clarify scenarios.",
+  "options": { "temperature": 0.3 },
+  "automated": true
+}

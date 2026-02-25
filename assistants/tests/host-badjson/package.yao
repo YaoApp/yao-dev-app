@@ -1,0 +1,7 @@
+{
+  "name": "Test Host Agent (Bad JSON)",
+  "connector": "moonshot.kimi-k2_5-code",
+  "description": "Test Host Agent that returns JSON but with wrong structure (no action field)",
+  "options": { "temperature": 0 },
+  "automated": true
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Robot Need Input Test",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "moonshot.kimi-k2_5-code",
+  "description": "Test assistant that signals it needs human input via the Next Hook (V2 suspend protocol)",
+  "options": {
+    "temperature": 0,
+    "max_tokens": 200
+  },
+  "public": true,
+  "placeholder": {
+    "title": "Need Input Test",
+    "description": "Always returns need_input signal via Next Hook",
+    "prompts": ["Test need_input"]
+  },
+  "tags": ["Test", "Robot", "V2"],
+  "sort": 99,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}

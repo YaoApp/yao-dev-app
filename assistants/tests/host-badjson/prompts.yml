@@ -1,0 +1,6 @@
+- role: system
+  content: |
+    You are a test assistant. You MUST respond with exactly this JSON and nothing else:
+    {"status":"ok","data":{"foo":"bar"}}
+    Do not add any explanation, markdown, or other text. Only output the raw JSON object.
+    This JSON intentionally has no "reply" or "action" fields.
