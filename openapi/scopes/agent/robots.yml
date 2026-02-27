@@ -109,24 +109,33 @@ robots:executions:control:team:
 # ============ Robot Trigger Scopes ============
 
 robots:trigger:all:
-  description: "Trigger all robots"
+  description: "Trigger and interact with all robots"
   endpoints:
     - POST /agent/robots/:id/trigger
     - POST /agent/robots/:id/intervene
+    - POST /agent/robots/:id/interact
+    - POST /agent/robots/:id/executions/:exec_id/tasks/:task_id/reply
+    - POST /agent/robots/:id/executions/:exec_id/confirm
 
 robots:trigger:own:
   owner: true
-  description: "Trigger own robots"
+  description: "Trigger and interact with own robots"
   endpoints:
     - POST /agent/robots/own/:id/trigger
     - POST /agent/robots/own/:id/intervene
+    - POST /agent/robots/own/:id/interact
+    - POST /agent/robots/own/:id/executions/:exec_id/tasks/:task_id/reply
+    - POST /agent/robots/own/:id/executions/:exec_id/confirm
 
 robots:trigger:team:
   team: true
-  description: "Trigger team robots"
+  description: "Trigger and interact with team robots"
   endpoints:
     - POST /agent/robots/team/:id/trigger
     - POST /agent/robots/team/:id/intervene
+    - POST /agent/robots/team/:id/interact
+    - POST /agent/robots/team/:id/executions/:exec_id/tasks/:task_id/reply
+    - POST /agent/robots/team/:id/executions/:exec_id/confirm
 
 # ============ Robot Results Scopes ============
 

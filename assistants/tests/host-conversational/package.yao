@@ -1,0 +1,7 @@
+{
+  "name": "Test Host Agent (Conversational)",
+  "connector": "moonshot.kimi-k2_5-code",
+  "description": "Test Host Agent that behaves conversationally: first turn returns natural language, second turn (after user confirms) returns JSON with action",
+  "options": { "temperature": 0 },
+  "automated": true
+}
