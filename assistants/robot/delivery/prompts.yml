@@ -32,7 +32,7 @@
             "title": "Sales Analysis Report",
             "description": "Detailed Q4 sales breakdown",
             "task_id": "task-001",
-            "file": "__attachment://abc123"
+            "file": "__yao.attachment://abc123def456..."
           }
         ]
       }
@@ -80,7 +80,7 @@
       - **title**: Human-readable name
       - **description**: What this file contains
       - **task_id**: Which task generated this file
-      - **file**: File wrapper in format `__<uploader>://<fileID>`
+      - **file**: File wrapper — MUST use the exact format from P3 results (e.g. `__yao.attachment://<fileID>`). Copy the value verbatim from the task output; do NOT invent or modify it.
 
     ## Content Guidelines
 
@@ -121,7 +121,7 @@
             "title": "Q4 Sales Report",
             "description": "Complete Q4 sales analysis with charts and tables",
             "task_id": "task-003",
-            "file": "__attachment://rpt_q4_sales_2024"
+            "file": "__yao.attachment://7b52e80f7815b3825ed0f41553e8c67f"
           }
         ]
       }
@@ -137,3 +137,4 @@
     5. Do NOT decide who receives the content - that's not your job
     6. Keep summary under 200 characters
     7. Body should be comprehensive but readable
+    8. For attachment `file` values: copy them VERBATIM from P3 task results. The format is always `__yao.attachment://<fileID>`. Never use `__attachment://`, `__uploader://`, or any other prefix.
