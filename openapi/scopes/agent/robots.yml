@@ -7,6 +7,7 @@ robots:read:all:
     - GET /agent/robots
     - GET /agent/robots/:id
     - GET /agent/robots/:id/status
+    - GET /agent/robots/:id/host
 
 robots:read:own:
   owner: true
@@ -15,6 +16,7 @@ robots:read:own:
     - GET /agent/robots/own
     - GET /agent/robots/own/:id
     - GET /agent/robots/own/:id/status
+    - GET /agent/robots/own/:id/host
 
 robots:read:team:
   team: true
@@ -23,6 +25,7 @@ robots:read:team:
     - GET /agent/robots/team
     - GET /agent/robots/team/:id
     - GET /agent/robots/team/:id/status
+    - GET /agent/robots/team/:id/host
 
 robots:write:all:
   description: "Write all robots"
@@ -116,6 +119,9 @@ robots:trigger:all:
     - POST /agent/robots/:id/interact
     - POST /agent/robots/:id/executions/:exec_id/tasks/:task_id/reply
     - POST /agent/robots/:id/executions/:exec_id/confirm
+    - POST /agent/robots/:id/completions
+    - POST /agent/robots/:id/completions/:context_id/append
+    - POST /agent/robots/:id/execute
 
 robots:trigger:own:
   owner: true
@@ -126,6 +132,9 @@ robots:trigger:own:
     - POST /agent/robots/own/:id/interact
     - POST /agent/robots/own/:id/executions/:exec_id/tasks/:task_id/reply
     - POST /agent/robots/own/:id/executions/:exec_id/confirm
+    - POST /agent/robots/own/:id/completions
+    - POST /agent/robots/own/:id/completions/:context_id/append
+    - POST /agent/robots/own/:id/execute
 
 robots:trigger:team:
   team: true
@@ -136,6 +145,9 @@ robots:trigger:team:
     - POST /agent/robots/team/:id/interact
     - POST /agent/robots/team/:id/executions/:exec_id/tasks/:task_id/reply
     - POST /agent/robots/team/:id/executions/:exec_id/confirm
+    - POST /agent/robots/team/:id/completions
+    - POST /agent/robots/team/:id/completions/:context_id/append
+    - POST /agent/robots/team/:id/execute
 
 # ============ Robot Results Scopes ============
 

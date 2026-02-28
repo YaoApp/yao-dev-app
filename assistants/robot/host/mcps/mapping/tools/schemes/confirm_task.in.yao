@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "description": "Confirm the user's task goals after thorough discussion. Call this tool ONLY when the user has clearly stated their objectives and confirmed they are ready to proceed.",
+  "properties": {
+    "goals": {
+      "type": "string",
+      "description": "A clear, concise summary of the confirmed task goals. This will be passed directly to the Robot executor for task decomposition."
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional additional context relevant to the task execution (e.g., constraints, preferences, reference materials)."
+    }
+  },
+  "required": ["goals"]
+}

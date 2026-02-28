@@ -1,0 +1,9 @@
+{
+  "label": "Robot Host Tools",
+  "description": "Tools for Robot Host Agent task confirmation",
+  "transport": "process",
+  "capabilities": { "tools": { "listChanged": false } },
+  "tools": {
+    "confirm_task": "agents.robot.host.tools.ConfirmTask"
+  }
+}

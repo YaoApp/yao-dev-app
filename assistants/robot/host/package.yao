@@ -1,7 +1,17 @@
 {
   "name": "Robot Host Agent",
   "connector": "moonshot.kimi-k2_5-code",
+  "connector_options": {
+    "optional": true,
+    "connectors": ["moonshot.kimi-k2_5-code", "deepseek.v3", "openai.gpt-4o"],
+    "filters": ["tool_calls"]
+  },
+  "mcp": {
+    "servers": [
+      { "server_id": "agents.robot.host.tools", "tools": ["confirm_task"] }
+    ]
+  },
   "description": "Host Agent for all human-robot interactions. Routes assign/guide/clarify scenarios.",
   "options": { "temperature": 0.3 },
-  "automated": true
+  "automated": false
 }
