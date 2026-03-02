@@ -32,6 +32,7 @@ robots:write:all:
   endpoints:
     - POST /agent/robots
     - PUT /agent/robots/:id
+    - POST /agent/robots/integrations/verify
 
 robots:write:own:
   owner: true
@@ -39,6 +40,7 @@ robots:write:own:
   endpoints:
     - POST /agent/robots/own
     - PUT /agent/robots/own/:id
+    - POST /agent/robots/integrations/verify
 
 robots:write:team:
   team: true
@@ -46,6 +48,7 @@ robots:write:team:
   endpoints:
     - POST /agent/robots/team
     - PUT /agent/robots/team/:id
+    - POST /agent/robots/integrations/verify
 
 robots:delete:all:
   description: "Delete all robots"
