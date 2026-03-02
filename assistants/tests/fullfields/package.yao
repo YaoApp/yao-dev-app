@@ -110,5 +110,9 @@
   "mentionable": true,
   "automated": false,
   "disable_global_prompts": true,
-  "share": "team"
+  "share": "team",
+  "dependencies": {
+    "echo": "^1.0.0",
+    "customer": ">=2.0.0"
+  }
 }
