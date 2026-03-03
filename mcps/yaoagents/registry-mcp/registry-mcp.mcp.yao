@@ -1,0 +1,15 @@
+// Registry Test MCP Server
+// Used by registry manager E2E tests for push/add/update/fork verification
+{
+  "label": "Registry Test MCP",
+  "description": "MCP server for registry E2E testing with process-type tools",
+  "transport": "process",
+  "capabilities": {
+    "tools": { "listChanged": false },
+    "resources": { "subscribe": false, "listChanged": false }
+  },
+  "tools": {
+    "ping": "scripts.yaoagents.registry_mcp.Ping",
+    "echo": "scripts.yaoagents.registry_mcp.Echo"
+  }
+}

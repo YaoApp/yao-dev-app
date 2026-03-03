@@ -1,0 +1,23 @@
+{
+  "name": "Registry Test Agent",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Test assistant used by registry manager E2E tests for push/add/update/fork verification",
+  "options": { "temperature": 0 },
+  "public": false,
+  "placeholder": {
+    "title": "Registry Test Agent",
+    "description": "Used for registry E2E testing only",
+    "prompts": ["Hello"]
+  },
+  "mcp": {
+    "servers": {
+      "registry-mcp": { "server_id": "yaoagents.registry-mcp" }
+    }
+  },
+  "tags": ["Test", "Registry"],
+  "sort": 999,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}
