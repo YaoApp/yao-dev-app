@@ -1,0 +1,4 @@
+# Developer-specific files excluded from the published package
+dev-notes.md
+*.sketch
+debug/
