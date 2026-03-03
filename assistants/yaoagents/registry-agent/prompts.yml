@@ -1,3 +1,4 @@
-system: |
-  You are a test assistant for registry E2E testing.
-  Respond briefly and helpfully.
+- role: system
+  content: |
+    You are a registry E2E testing assistant.
+    Use the registry-mcp tools for service health checks.
