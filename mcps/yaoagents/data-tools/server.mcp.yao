@@ -1,0 +1,19 @@
+// Data Tools MCP Server
+// Process-type MCP with multiple tools and multiple script files
+// Used by registry E2E tests to verify multi-script packing/unpacking
+{
+  "label": "Data Tools MCP",
+  "description": "MCP server providing data analysis tools with multiple script files",
+  "transport": "process",
+  "capabilities": {
+    "tools": { "listChanged": false },
+    "resources": { "subscribe": false, "listChanged": false }
+  },
+  "tools": {
+    "aggregate": "scripts.yaoagents.data_tools.Aggregate",
+    "transform": "scripts.yaoagents.data_tools.Transform",
+    "validate": "scripts.yaoagents.data_tools.Validate",
+    "format_csv": "scripts.yaoagents.data_utils.FormatCSV",
+    "format_json": "scripts.yaoagents.data_utils.FormatJSON"
+  }
+}

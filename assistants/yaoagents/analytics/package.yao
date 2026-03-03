@@ -1,0 +1,22 @@
+// Analytics Agent
+// Depends on TWO MCPs: registry-mcp and data-tools
+// Used by registry E2E tests to verify multi-dependency installation
+{
+  "name": "Analytics Agent",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "Analytics assistant that uses registry-mcp and data-tools for comprehensive data analysis",
+  "options": { "temperature": 0.3 },
+  "public": false,
+  "mcp": {
+    "servers": {
+      "registry-mcp": { "server_id": "yaoagents.registry-mcp" },
+      "data-tools": { "server_id": "yaoagents.data-tools" }
+    }
+  },
+  "tags": ["Test", "Registry", "Analytics"],
+  "sort": 998,
+  "readonly": true,
+  "automated": false,
+  "mentionable": false
+}

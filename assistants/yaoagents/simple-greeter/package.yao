@@ -1,0 +1,16 @@
+// Simple Greeter Agent
+// Zero dependencies - no MCP servers
+// Used by registry E2E tests to verify standalone agent push/add/fork
+{
+  "name": "Simple Greeter",
+  "avatar": "/api/__yao/app/icons/app.png",
+  "connector": "gpt-4o",
+  "description": "A standalone greeting assistant with no external dependencies",
+  "options": { "temperature": 0.7 },
+  "public": true,
+  "tags": ["Test", "Registry", "Standalone"],
+  "sort": 997,
+  "readonly": false,
+  "automated": false,
+  "mentionable": true
+}

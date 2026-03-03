@@ -1,0 +1,8 @@
+{
+  "label": "SSE Proxy MCP",
+  "description": "SSE client MCP for proxying requests to a remote MCP server. No local scripts.",
+  "transport": "sse",
+  "name": "sse-proxy",
+  "url": "https://mcp.example.com/sse",
+  "timeout": "60s"
+}
