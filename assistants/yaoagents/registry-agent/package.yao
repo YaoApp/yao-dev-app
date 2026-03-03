@@ -11,9 +11,9 @@
     "prompts": ["Hello"]
   },
   "mcp": {
-    "servers": {
-      "registry-mcp": { "server_id": "yaoagents.registry-mcp" }
-    }
+    "servers": [
+      { "server_id": "yaoagents.registry-mcp" }
+    ]
   },
   "tags": ["Test", "Registry"],
   "sort": 999,

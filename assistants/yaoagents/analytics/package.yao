@@ -9,10 +9,10 @@
   "options": { "temperature": 0.3 },
   "public": false,
   "mcp": {
-    "servers": {
-      "registry-mcp": { "server_id": "yaoagents.registry-mcp" },
-      "data-tools": { "server_id": "yaoagents.data-tools" }
-    }
+    "servers": [
+      { "server_id": "yaoagents.registry-mcp" },
+      { "server_id": "yaoagents.data-tools" }
+    ]
   },
   "tags": ["Test", "Registry", "Analytics"],
   "sort": 998,
