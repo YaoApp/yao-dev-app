@@ -1,0 +1,12 @@
+{
+  "name": "Sandbox V2 Full Prepare",
+  "description": "V2 sandbox: full prepare steps (copy, exec, once, ignore_error) + skills + MCP.",
+  "connector": "moonshot.kimi-k2_5-code",
+  "uses": { "search": "disabled" },
+  "mcp": {
+    "servers": [
+      { "server_id": "echo", "tools": ["ping", "echo", "status"] }
+    ]
+  },
+  "tags": ["Test", "SandboxV2"]
+}

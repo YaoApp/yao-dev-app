@@ -1,0 +1,35 @@
+{
+  "version": "2.0",
+  "computer": {
+    "image": "yaoapp/tai-sandbox-claude:latest",
+    "memory": "4GB",
+    "cpus": 2,
+    "work_dir": "/workspace",
+    "mount_path": "/workspace",
+    "mount_mode": "rw"
+  },
+  "runner": {
+    "name": "claude",
+    "mode": "cli",
+    "options": {
+      "max_turns": 20,
+      "permission_mode": "bypassPermissions"
+    }
+  },
+  "lifecycle": "longrunning",
+  "idle_timeout": "15m",
+  "max_lifetime": "2h",
+  "stop_timeout": "5s",
+  "prepare": [
+    { "action": "exec", "cmd": "mkdir -p /workspace/data", "once": true },
+    { "action": "exec", "cmd": "echo 'longrunning-ready' > /workspace/.v2-status", "once": true },
+    { "action": "exec", "cmd": "pip install requests 2>/dev/null || true", "once": true, "ignore_error": true }
+  ],
+  "environment": {
+    "NODE_ENV": "test",
+    "V2_TEST_MODE": "longrunning"
+  },
+  "secrets": {
+    "TEST_SECRET": "sandbox-v2-longrunning-secret"
+  }
+}

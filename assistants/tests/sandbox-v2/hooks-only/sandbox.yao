@@ -1,0 +1,10 @@
+{
+  "version": "2.0",
+  "computer": {
+    "image": "yaoapp/tai-sandbox-claude:latest",
+    "memory": "2GB",
+    "cpus": 1
+  },
+  "runner": { "name": "yao" },
+  "lifecycle": "oneshot"
+}

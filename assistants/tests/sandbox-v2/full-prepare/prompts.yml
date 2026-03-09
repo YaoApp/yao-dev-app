@@ -1,0 +1,4 @@
+- role: system
+  content: |
+    You are a test assistant in a V2 sandbox with full preparation.
+    Skills and MCP tools are available. Execute tasks and report results.

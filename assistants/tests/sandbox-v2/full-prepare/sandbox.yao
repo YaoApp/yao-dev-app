@@ -1,0 +1,35 @@
+{
+  "version": "2.0",
+  "computer": {
+    "image": "yaoapp/tai-sandbox-claude:latest",
+    "memory": "4GB",
+    "cpus": 2,
+    "work_dir": "/workspace",
+    "mount_path": "/workspace",
+    "mount_mode": "rw"
+  },
+  "runner": {
+    "name": "claude",
+    "mode": "cli",
+    "options": {
+      "max_turns": 10,
+      "permission_mode": "acceptEdits"
+    }
+  },
+  "lifecycle": "session",
+  "idle_timeout": "15m",
+  "prepare": [
+    { "action": "copy", "src": "skills", "dst": "~/.claude/skills" },
+    { "action": "exec", "cmd": "echo 'prepare-step-1' > /workspace/.prepare-log", "once": true },
+    { "action": "exec", "cmd": "echo 'prepare-step-2' >> /workspace/.prepare-log" },
+    { "action": "exec", "cmd": "this-command-will-fail-on-purpose", "ignore_error": true },
+    { "action": "exec", "cmd": "echo 'prepare-done' >> /workspace/.prepare-log" }
+  ],
+  "environment": {
+    "V2_PREPARE_TEST": "full",
+    "NODE_ENV": "test"
+  },
+  "secrets": {
+    "TEST_API_KEY": "v2-full-prepare-key"
+  }
+}

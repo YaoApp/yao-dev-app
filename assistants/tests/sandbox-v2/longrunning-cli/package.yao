@@ -1,0 +1,12 @@
+{
+  "name": "Sandbox V2 Longrunning CLI",
+  "description": "V2 sandbox: longrunning lifecycle + Claude CLI. Container reused across chats, idle-stops.",
+  "connector": "moonshot.kimi-k2_5-code",
+  "uses": { "search": "disabled" },
+  "mcp": {
+    "servers": [
+      { "server_id": "echo", "tools": ["ping", "echo"] }
+    ]
+  },
+  "tags": ["Test", "SandboxV2"]
+}

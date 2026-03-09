@@ -1,0 +1,7 @@
+{
+  "name": "Sandbox V2 Hooks Only",
+  "description": "V2 sandbox: hooks take full control, no prompts. Claude CLI skipped.",
+  "connector": "moonshot.kimi-k2_5-code",
+  "uses": { "search": "disabled" },
+  "tags": ["Test", "SandboxV2"]
+}

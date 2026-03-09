@@ -1,0 +1,22 @@
+{
+  "version": "2.0",
+  "computer": {
+    "image": "yaoapp/tai-sandbox-claude:latest",
+    "memory": "2GB",
+    "cpus": 2,
+    "work_dir": "/workspace"
+  },
+  "runner": {
+    "name": "claude",
+    "mode": "cli",
+    "options": {
+      "max_turns": 10,
+      "permission_mode": "bypassPermissions"
+    }
+  },
+  "lifecycle": "session",
+  "idle_timeout": "10m",
+  "prepare": [
+    { "action": "exec", "cmd": "echo 'session-ready' > /tmp/session-marker", "once": true }
+  ]
+}
