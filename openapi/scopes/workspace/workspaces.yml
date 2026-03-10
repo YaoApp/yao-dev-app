@@ -1,0 +1,34 @@
+workspaces:read:all:
+  description: "List and get workspaces"
+  endpoints:
+    - GET /workspace
+    - GET /workspace/:id
+
+workspaces:write:all:
+  description: "Create and update workspaces"
+  endpoints:
+    - POST /workspace
+    - PUT /workspace/:id
+
+workspaces:delete:all:
+  description: "Delete workspaces"
+  endpoints:
+    - DELETE /workspace/:id
+
+workspaces:files:read:all:
+  description: "List and read workspace files"
+  endpoints:
+    - GET /workspace/:id/files
+    - GET /workspace/:id/files/*path
+
+workspaces:files:write:all:
+  description: "Write workspace files and create directories"
+  endpoints:
+    - PUT /workspace/:id/files/*path
+    - POST /workspace/:id/mkdir
+    - POST /workspace/:id/rename
+
+workspaces:files:delete:all:
+  description: "Delete workspace files"
+  endpoints:
+    - DELETE /workspace/:id/files/*path

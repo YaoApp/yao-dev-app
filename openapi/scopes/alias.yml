@@ -384,3 +384,35 @@ api:all:own:
 
 api:all:team:
   - api:api:execute:team
+
+# ============ Sandbox Management Aliases ============
+
+sandbox:read:
+  - sandboxes:read:all
+  - sandboxes:vnc:all
+
+sandbox:admin:
+  - sandboxes:read:all
+  - sandboxes:write:all
+  - sandboxes:exec:all
+  - sandboxes:delete:all
+  - sandboxes:vnc:all
+
+# ============ Workspace Management Aliases ============
+
+workspace:read:
+  - workspaces:read:all
+  - workspaces:files:read:all
+
+workspace:admin:
+  - workspaces:read:all
+  - workspaces:write:all
+  - workspaces:delete:all
+  - workspaces:files:read:all
+  - workspaces:files:write:all
+  - workspaces:files:delete:all
+
+# ============ Nodes Management Aliases ============
+
+nodes:read:
+  - nodes:read:all

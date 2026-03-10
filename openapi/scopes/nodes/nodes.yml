@@ -1,0 +1,5 @@
+nodes:read:all:
+  description: "List and get Tai nodes"
+  endpoints:
+    - GET /nodes
+    - GET /nodes/:id

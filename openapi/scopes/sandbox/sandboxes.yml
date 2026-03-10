@@ -1,0 +1,28 @@
+sandboxes:read:all:
+  description: "List and get sandboxes"
+  endpoints:
+    - GET /sandbox
+    - GET /sandbox/:id
+
+sandboxes:write:all:
+  description: "Create sandboxes"
+  endpoints:
+    - POST /sandbox
+
+sandboxes:exec:all:
+  description: "Execute commands in sandboxes"
+  endpoints:
+    - POST /sandbox/:id/exec
+    - POST /sandbox/:id/heartbeat
+
+sandboxes:delete:all:
+  description: "Remove sandboxes"
+  endpoints:
+    - DELETE /sandbox/:id
+
+sandboxes:vnc:all:
+  description: "Access sandbox VNC"
+  endpoints:
+    - GET /sandbox/:id/vnc
+    - GET /sandbox/:id/vnc/client
+    - GET /sandbox/:id/vnc/ws

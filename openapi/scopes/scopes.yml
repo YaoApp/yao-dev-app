@@ -68,3 +68,17 @@ endpoints:
 
   # MCP Server Management - Read operations allowed
   - GET /mcp/* allow
+
+  # Sandbox Management - All operations allowed for authenticated users
+  - GET /sandbox/* allow
+  - POST /sandbox/* allow
+  - DELETE /sandbox/* allow
+
+  # Workspace Management - All operations allowed for authenticated users
+  - GET /workspace/* allow
+  - POST /workspace/* allow
+  - PUT /workspace/* allow
+  - DELETE /workspace/* allow
+
+  # Nodes Management - Read operations allowed for authenticated users
+  - GET /nodes/* allow
