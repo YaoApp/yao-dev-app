@@ -11,6 +11,15 @@ uses:
   search: "workers.system.search" # optional, The assistant for searching the knowledge, global web search. If not set, and the assistant enable the knowledge, it will search the result from the knowledge automatically.
   fetch: "workers.system.fetch" # optional, The assistant for fetching the http/https/ftp/sftp/etc. file, and return the file's content. if not set, use the http process to fetch the file.
 
+  # Robot pipeline phase agents (application-level)
+  inspiration: "robot.inspiration" # P0: Inspiration phase agent
+  goals: "robot.goals" # P1: Goals planning agent
+  tasks: "robot.tasks" # P2: Task breakdown agent
+  delivery: "robot.delivery" # P4: Delivery composition agent
+  learning: "robot.learning" # P5: Learning extraction agent
+  host: "robot.host" # Host: Human interaction agent
+  validation: "robot.validation" # Validation: Task output validation agent
+
 system:
   default: "deepseek.v3"
 
