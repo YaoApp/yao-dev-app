@@ -1,5 +1,7 @@
 logs/
 .DS_Store
+license.pem
+certs/license.pem
 data/*
 !data/excel
 !data/roles
