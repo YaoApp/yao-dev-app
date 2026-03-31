@@ -5,6 +5,9 @@
     "model": "kimi-k2.5",
     "key": "$ENV.MOONSHOT_API_KEY",
     "host": "https://api.moonshot.cn",
+    "thinking": {
+      "type": "disabled",
+    },
     "capabilities": {
       "vision": true,
       "tool_calls": true,
