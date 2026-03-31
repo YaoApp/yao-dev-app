@@ -3,7 +3,7 @@
   "avatar": "/api/__yao/app/icons/app.png",
   "connector": "moonshot.kimi-k2_5-code",
   "description": "P4 Phase Agent - Generates delivery content (summary, body, attachments) from execution results. Focuses ONLY on content generation, NOT channel selection.",
-  "options": { "temperature": 0.3 },
+  "options": {},
   "public": false,
   "placeholder": {
     "title": "Delivery Content Generator",

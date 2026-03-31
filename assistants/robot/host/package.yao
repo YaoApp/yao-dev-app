@@ -12,6 +12,6 @@
     ]
   },
   "description": "Host Agent for all human-robot interactions. Routes assign/guide/clarify scenarios.",
-  "options": { "temperature": 0.3 },
+  "options": {},
   "automated": false
 }

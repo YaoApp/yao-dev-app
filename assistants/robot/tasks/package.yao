@@ -3,7 +3,7 @@
   "avatar": "/api/__yao/app/icons/app.png",
   "connector": "moonshot.kimi-k2_5-code",
   "description": "P2 Phase Agent - Splits goals into executable tasks with executor assignments and validation rules.",
-  "options": { "temperature": 0.3 },
+  "options": {},
   "public": false,
   "placeholder": {
     "title": "Task Planner",

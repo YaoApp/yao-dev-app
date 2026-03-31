@@ -3,7 +3,7 @@
   "avatar": "/api/__yao/app/icons/app.png",
   "connector": "moonshot.kimi-k2_5-code",
   "description": "P0 Phase Agent - Analyzes clock context and robot identity to generate inspiration report for goal setting.",
-  "options": { "temperature": 0.7 },
+  "options": {},
   "public": false,
   "placeholder": {
     "title": "Inspiration Generator",

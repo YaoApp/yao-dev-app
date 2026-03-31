@@ -3,7 +3,7 @@
   "avatar": "/api/__yao/app/icons/app.png",
   "connector": "moonshot.kimi-k2_5-code",
   "description": "P1 Phase Agent - Generates prioritized goals from inspiration report or trigger input, including success criteria and delivery targets.",
-  "options": { "temperature": 0.5 },
+  "options": {},
   "public": false,
   "placeholder": {
     "title": "Goal Generator",

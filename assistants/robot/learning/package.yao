@@ -3,7 +3,7 @@
   "avatar": "/api/__yao/app/icons/app.png",
   "connector": "moonshot.kimi-k2_5-code",
   "description": "P5 Phase Agent - Analyzes execution to extract insights, patterns, and improvement suggestions for the robot's knowledge base.",
-  "options": { "temperature": 0.5 },
+  "options": {},
   "public": false,
   "placeholder": {
     "title": "Learning Extractor",

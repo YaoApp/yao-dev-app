@@ -3,7 +3,7 @@
   "avatar": "/api/__yao/app/icons/app.png",
   "connector": "moonshot.kimi-k2_5-code",
   "description": "P3 Phase Agent - Validates task results against expected output and validation rules using semantic analysis.",
-  "options": { "temperature": 0.2 },
+  "options": {},
   "public": false,
   "placeholder": {
     "title": "Result Validator",
