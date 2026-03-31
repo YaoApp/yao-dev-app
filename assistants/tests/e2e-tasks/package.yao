@@ -3,7 +3,7 @@
   "avatar": "/api/__yao/app/icons/app.png",
   "connector": "moonshot.kimi-k2_5-code",
   "description": "Simple task planning agent for E2E tests - generates minimal tasks without complex validation.",
-  "options": { "temperature": 0 },
+  "options": {},
   "public": false,
   "placeholder": {
     "title": "E2E Task Planner",
