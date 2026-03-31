@@ -1,15 +1,15 @@
 {
-  "label": "Moonshot Kimi K2.5 Code",
-  "type": "anthropic",
+  "label": "Moonshot Kimi K2.5 Code (Deprecated)",
+  "type": "openai",
   "options": {
     "model": "kimi-k2.5",
-    "key": "$ENV.KIMI_CODE_API_KEY",
-    "host": "$ENV.KIMI_CODE_PROXY",
+    "key": "$ENV.MOONSHOT_API_KEY",
+    "host": "https://api.moonshot.cn",
     "capabilities": {
       "vision": true,
       "tool_calls": true,
       "streaming": true,
-      "json": true
-    }
-  }
+      "json": true,
+    },
+  },
 }
