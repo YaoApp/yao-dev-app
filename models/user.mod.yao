@@ -50,7 +50,7 @@
       "label": "Mobile",
       "name": "mobile",
       "type": "string",
-      "length": 50,
+      "length": 256,
       "comment": "Mobile",
       "unique": true,
       "nullable": true,
