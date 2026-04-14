@@ -12,6 +12,9 @@ public:
   - GET /helloworld/public
   - POST /helloworld/public
   - POST /otp/login
+  # OAuth - Device Flow (RFC 8628, for desktop clients)
+  - POST /user/oauth/:provider/device/authorize
+  - POST /user/oauth/:provider/device/token
 
 # Default endpoint rules (can be overridden by specific scopes)
 endpoints:
