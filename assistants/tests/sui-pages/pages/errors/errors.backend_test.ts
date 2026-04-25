@@ -29,5 +29,5 @@ export function TestCallNonExistentMethod(t: TestingT, ctx: SUIContext) {
 }
 
 export function TestRuntimeError(t: TestingT, ctx: SUIContext) {
-  throw new Error("deliberate runtime error for coverage");
+  throw new Error("deliberate execution error for coverage");
 }
