@@ -1,0 +1,7 @@
+{
+  "name": "Sandbox V2 OpenCode Vision CLI",
+  "description": "V2 sandbox: oneshot + OpenCode CLI with vision connector. Verifies read.ts is copied.",
+  "connector": "openai.gpt-4o-mini",
+  "uses": { "search": "disabled" },
+  "tags": ["Test", "SandboxV2", "OpenCode", "Vision"]
+}
