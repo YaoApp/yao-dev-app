@@ -85,3 +85,9 @@ endpoints:
 
   # Nodes Management - Read operations allowed for authenticated users
   - GET /nodes/* allow
+
+  # Setting Management - All operations allowed for authenticated users
+  - GET /setting/* allow
+  - POST /setting/* allow
+  - PUT /setting/* allow
+  - DELETE /setting/* allow
