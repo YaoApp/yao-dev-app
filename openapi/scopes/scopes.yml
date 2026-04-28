@@ -86,8 +86,8 @@ endpoints:
   # Nodes Management - Read operations allowed for authenticated users
   - GET /nodes/* allow
 
-  # Setting Management - All operations allowed for authenticated users
-  - GET /setting/* allow
-  - POST /setting/* allow
-  - PUT /setting/* allow
-  - DELETE /setting/* allow
+  # Setting Management - Scope-based control (see setting/*.yml)
+  # /setting/cloud has dedicated scope files; other /setting/* endpoints
+  # fall through to blanket allow until they get their own scope files.
+  - GET /setting/system allow
+  - POST /setting/system/* allow

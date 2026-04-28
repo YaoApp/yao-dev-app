@@ -24,3 +24,4 @@ openapi/certs/apple
 models/test_model_*_file.mod.yao
 agents/*
 sandbox/*
+bin/
