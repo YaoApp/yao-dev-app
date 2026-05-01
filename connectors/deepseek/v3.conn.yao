@@ -5,11 +5,12 @@
     "model": "$ENV.DEEPSEEK_MODELS_V3",
     "key": "$ENV.DEEPSEEK_API_KEY",
     "proxy": "$ENV.DEEPSEEK_API_PROXY",
-    "azure": "$ENV.DEEPSEEK_AZURE",
     "capabilities": {
       "tool_calls": true,
       "streaming": true,
-      "json": true
+      "json": true,
+      "max_input_tokens": 65536,
+      "max_output_tokens": 16384
     }
   }
 }
