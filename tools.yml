@@ -1,0 +1,20 @@
+# tools.yml — Application-level tool configuration
+# When present, completely replaces the default allowed list
+
+process_call:
+  allowed:
+    # Prefix matching
+    - "models.*"
+    - "scripts.*"
+    - "flows.*"
+    - "stores.*"
+    - "schemas.*"
+    - "http.*"
+    - "utils.*"
+    - "encoding.*"
+    - "json.*"
+    - "text.*"
+
+    # Exact matching examples
+    # - "model.list"
+    # - "model.dsl"
